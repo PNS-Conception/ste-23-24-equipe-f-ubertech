@@ -35,7 +35,7 @@ Nous les laissons cependant pour votre permettre de vérifier que vous n'avez pa
 <!-- ## Ce que fait votre projet
 
 
-### Principales User stories
+### Principales sophiatech.User stories
 Vous mettez en évidence les principales user stories de votre projet.
 Chaque user story doit être décrite par 
    - son identifiant en tant que issue github (#), 
