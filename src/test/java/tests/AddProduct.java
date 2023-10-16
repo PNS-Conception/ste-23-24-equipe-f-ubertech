@@ -19,10 +19,10 @@ public class AddProduct {
     }
     @When("I add a product to my pendingOrder")
     public void add_product_to_my_order() {
-        // XXXX
+        product = new Product("Fraises");
     }
     @Then("the product is stored in my pendingOrder")
     public void product_is_correctly_stored() {
-        assertTrue(deliveryPerson.getIsAvailable());
+        assertTrue(customer.getSizePendingOrder()==1);
     }
 }
