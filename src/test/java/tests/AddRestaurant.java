@@ -3,6 +3,9 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import sophiatech.CampusAdministrator;
+import sophiatech.Restaurant;
+import sophiatech.System;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +25,7 @@ public class AddRestaurant {
     @When("I add a new restaurant to the System")
     public void add_product_to_my_order() {
         restaurant = new Restaurant("Le petit repas", "8 rue de la République");
-        campusAdministrator.add(restaurant);
+        campusAdministrator.addRestaurant(restaurant);
     }
     @Then("There is a new restaurant in the System's restaurant list")
     public void product_is_correctly_stored() {

@@ -26,10 +26,6 @@ public class System {
         this.listDeliveryPerson.add(dp);
     }
 
-    public void addRestaurant(Restaurant r){
-        this.listRestaurant.add(r);
-    }
-
     public ArrayList<Customer> getListCustomer() {
         return listCustomer;
     }

@@ -10,11 +10,11 @@ public class Order {
     private ArrayList<Product> productList;
     private Status status;
 
-    public Order(location, date, productList){
+    public Order(String location, Date date, ArrayList<Product> productList){
         this.location = location;
         this.date = date;
         this.productList = productList;
-        this.status = Status.IN_PREPATION;
+        this.status = Status.IN_PREPARATION;
     }
 
     public void changeStatus(Status st){

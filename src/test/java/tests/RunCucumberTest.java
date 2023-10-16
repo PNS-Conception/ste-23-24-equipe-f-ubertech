@@ -1,4 +1,4 @@
-package browse;
+package tests;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.Suite;
@@ -22,12 +22,15 @@ public class RunCucumberTest { // will run all features found on the classpath
 @IncludeEngines("cucumber")
 
 //Specifies the location of the feature files. The feature files are stored in the "features/biblio" directory within the classpath.
-@SelectClasspathResource("features/browse")
+@SelectClasspathResource("feature/tests")
 
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "browse")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "tests")
 
 public class RunCucumberTest {
     // will run all features found on the classpath
     // in the same package as this class
 }
+
+
+

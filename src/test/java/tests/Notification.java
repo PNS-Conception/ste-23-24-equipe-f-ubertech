@@ -3,10 +3,15 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import sophiatech.DeliveryPerson;
+import sophiatech.Order;
+import sophiatech.Product;
+import sophiatech.Status;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Notification {
@@ -24,7 +29,7 @@ public class Notification {
         ArrayList<Product> productList = new ArrayList<Product>();
         order = new Order(location, date, productList);
 
-        deliveryPerson.addOrder(Order);
+        deliveryPerson.addOrder(order);
 
         //simulates that restaurant staff completes the order
         order.changeStatus(Status.PREPARED);
