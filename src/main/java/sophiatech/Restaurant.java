@@ -19,4 +19,17 @@ public class Restaurant {
     public String getName() {
         return this.name;
     }
+
+    public String getLocation(){
+        return this.location;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Restaurant){
+            Restaurant r = (Restaurant) obj;
+            return r.getLocation().equals(getLocation()) && r.getName().equals(getName());
+        }
+        return false;
+    }
 }
