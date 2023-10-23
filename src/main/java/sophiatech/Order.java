@@ -20,4 +20,20 @@ public class Order {
     public void changeStatus(Status st){
         this.status = st;
     }
+
+    public Status getStatus(){
+        return this.status;
+    }
+
+    public String getLocation(){
+        return this.location;
+    }
+
+    public Date getDate(){
+        return this.date;
+    }
+
+    public ArrayList<Product> getProductList(){
+        return this.productList;
+    }
 }

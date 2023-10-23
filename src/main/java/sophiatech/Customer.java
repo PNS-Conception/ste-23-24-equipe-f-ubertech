@@ -7,6 +7,7 @@ public class Customer {
     private String lastName;
 
     private ArrayList<Product> pendingOrder;
+    private ArrayList<Order> orderHistory;
     private System system;
 
 
@@ -34,5 +35,17 @@ public class Customer {
             }
         }
         return null;
+    }
+
+    public void setHistory(ArrayList<Order> orderHistory){
+        this.orderHistory = orderHistory;
+    }
+
+    public ArrayList<Order> getHistory(){
+        return this.orderHistory;
+    }
+
+    public Order getOrderAtIndexHistory(int i){
+        return this.orderHistory.get(i);
     }
 }
