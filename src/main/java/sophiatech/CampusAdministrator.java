@@ -11,5 +11,6 @@ public class CampusAdministrator {
     public void addRestaurant(Restaurant r){
         this.system.addRestaurant(r);
     }
+    public void addDeliveryPerson(DeliveryPerson dp){ this.system.addDeliveryPerson(dp);}
 
 }

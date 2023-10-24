@@ -37,4 +37,5 @@ public class System {
     public ArrayList<DeliveryPerson> getListDeliveryPerson() {
         return listDeliveryPerson;
     }
+
 }
