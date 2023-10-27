@@ -18,14 +18,6 @@ public class Restaurant {
         this.name = name;
         this.location = location;
         this.hours = hours;
-    }
-
-    public Hours getHours() {
-        return this.hours;
-    }
-
-    public String getName() {
-        return this.name;
 
         this.system = System.getInstance();
         system.addRestaurant(this);
@@ -34,6 +26,14 @@ public class Restaurant {
 
         this.activeOrders = new ArrayList<>();
         this.orderHistory = new ArrayList<>();
+    }
+
+    public Hours getHours() {
+        return this.hours;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void addProduct(Product product) {

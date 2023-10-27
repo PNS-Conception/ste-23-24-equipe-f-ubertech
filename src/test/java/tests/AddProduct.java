@@ -17,11 +17,10 @@ import static org.junit.Assert.assertTrue;
 public class AddProduct {
     private Product product;
     private Customer customer;
-    private System system = new System();
 
     @Given("a customer")
     public void a_customer() {
-        customer = new Customer("Beurel","Simon", system);
+        customer = new Customer("Beurel","Simon");
     }
     @When("I add a product to my pendingOrder")
     public void add_product_to_my_order() {

@@ -24,7 +24,8 @@ public class PayForAnOrder {
     public void a_customer_with_a_completed_product_list() {
         system = System.getInstance();
 
-        restaurant = new Restaurant("test restaurant", "restaurant location");  //adds restaurant to the system in de constructor
+        Hours h = new Hours(new Date(2021, 1, 1, 8, 0), new Date(2021, 1, 1, 20, 0));
+        restaurant = new Restaurant("test restaurant", "restaurant location", h);  //adds restaurant to the system in de constructor
 
         product = new Product(restaurant, "test burger", 7);    //adds product to the corresponding restaurant in the constructor
 

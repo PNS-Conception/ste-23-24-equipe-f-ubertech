@@ -15,10 +15,9 @@ public class Customer {
     private ArrayList<Order> orderHistory;
     private ArrayList<Order> activeOrders;
     private ArrayList<Product> pendingOrder;
-    private System system;
 
 
-    public Customer(String fn, String ln, System sys){
+    public Customer(String fn, String ln){
         this.firstName = fn;
         this.lastName = ln;
 
