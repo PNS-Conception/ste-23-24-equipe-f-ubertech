@@ -20,7 +20,6 @@ public class Restaurant {
         this.hours = hours;
 
         this.system = System.getInstance();
-        system.addRestaurant(this);
 
         this.products = new ArrayList<>();
 
