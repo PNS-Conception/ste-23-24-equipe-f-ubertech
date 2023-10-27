@@ -5,7 +5,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import sophiatech.Customer;
 import sophiatech.Product;
+import sophiatech.Restaurant;
 
+import java.nio.file.ReadOnlyFileSystemException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +23,6 @@ public class AddProduct {
     }
     @When("I add a product to my pendingOrder")
     public void add_product_to_my_order() {
-        product = new Product("Fraises");
         customer.addProductToPendingOrder(product);
     }
     @Then("the product is stored in my pendingOrder")

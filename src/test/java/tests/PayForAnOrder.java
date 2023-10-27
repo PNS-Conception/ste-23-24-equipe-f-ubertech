@@ -22,26 +22,23 @@ public class PayForAnOrder {
 
     @Given("a customer with a completed product list")
     public void a_customer_with_a_completed_product_list() {
-        system = new System();
+        system = System.getInstance();
 
-        product = new Product("test burger");
+        restaurant = new Restaurant("test restaurant", "restaurant location");  //adds restaurant to the system in de constructor
 
-        customer = new Customer("test", "customer");
+        product = new Product(restaurant, "test burger", 7);    //adds product to the corresponding restaurant in the constructor
+
+        customer = new Customer("test", "customer");    //adds customer to the system in the constructor
         customer.addProductToPendingOrder(product);
-        system.addCustomer(customer);
 
-        restaurant = new Restaurant("test restaurant", "restaurant location");
-        system.addRestaurant(restaurant);
-
-        deliveryPerson = new DeliveryPerson("test", "delivery person");
-        system.addDeliveryPerson(deliveryPerson);
+        deliveryPerson = new DeliveryPerson("test", "delivery person"); //adds delivery person to the system in the constructor
 
         paymentService = system.getPaymentService();
     }
 
     @When("they want to pay")
     public void they_want_to_pay() {
-        customer.payForOrder();
+        assertTrue(customer.payForOrder() != null);
     }
 
     @Then("the corresponding order is successfully created")
@@ -70,6 +67,9 @@ public class PayForAnOrder {
         ArrayList<Order> validationOrders = deliveryPerson.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
+        java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
+        java.lang.System.out.println(validationOrders);
         assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertFalse(deliveryPerson.getIsAvailable());
     }
 }
