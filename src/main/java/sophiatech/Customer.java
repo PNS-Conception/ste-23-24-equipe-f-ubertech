@@ -15,9 +15,10 @@ public class Customer {
     private ArrayList<Order> orderHistory;
     private ArrayList<Order> activeOrders;
     private ArrayList<Product> pendingOrder;
+    private System system;
 
 
-    public Customer(String fn, String ln){
+    public Customer(String fn, String ln, System sys){
         this.firstName = fn;
         this.lastName = ln;
 
@@ -83,5 +84,15 @@ public class Customer {
 
     public ArrayList<Order> getActiveOrders() {
         return this.activeOrders;
+    }
+
+    public Hours getHours(Restaurant restaurant) {
+        ArrayList<Restaurant> listRestaurant = this.system.getListRestaurant();
+        for (Restaurant r : listRestaurant) {
+            if (r.getName().equals(restaurant.getName())) {
+                return r.getHours();
+            }
+        }
+        return null;
     }
 }

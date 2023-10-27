@@ -1,17 +1,19 @@
 # SopiaTech Eats-Team-23-24 #template
 _Template for classroom SI4-COO_
 
->. CETTE PAGE DOIT ETRE MISE A JOUR POUR CORRESPONDRE A VOTRE PROJET.  
->. C'est seulement un modèle !!
->. Vous l'organisez comme bon vous semble, mais comme un vrai projet.
+## EQUIPE F : UberTech
 
+Nous sommes l'équipe F composée de 4 élèves de 4ème année de la formation SI de l'école Polytech Nice-Sophia. Les membres de cette équipe et leur rôle sont :
+- AZIKI Tarik (Software Architect)
+- MAUROIS Quentin (Product Owner)
+- FROMENT Lorenzo (Quality Assurance Engineer)
+- BEUREL Simon (OPS)
 
-## TEAM
+## Documents
 
-Présentez vous! 
+Rapport conception logiciel : Ce rapport est le premier rendu du cours de Conception logiciel dans lequel nous avons du réaliser différents diagrammes pour modéliser notre projet UberTech
 
-## doc
-Contient vos rapports et les documents qui présentent votre projet.
+https://docs.google.com/document/d/1D0iN9_z_zfN1CFQoi0CdzapFW7r7f5JIiacwII47E-M/edit?usp=sharing
 
 
 ## .github

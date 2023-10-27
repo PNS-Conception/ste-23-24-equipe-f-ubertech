@@ -24,7 +24,7 @@ public class AddRestaurant {
     }
     @When("I add a new restaurant to the System")
     public void add_product_to_my_order() {
-        restaurant = new Restaurant("Le petit repas", "8 rue de la République");
+        restaurant = new Restaurant("Le petit repas", "8 rue de la République", null);
         campusAdministrator.addRestaurant(restaurant);
     }
     @Then("There is a new restaurant in the System's restaurant list")

@@ -12,10 +12,20 @@ public class Restaurant {
     private String location;
     private ArrayList<Order> activeOrders;
     private ArrayList<Order> orderHistory;
+    private Hours hours;
 
-    public Restaurant(String name, String location){
+    public Restaurant(String name, String location, Hours hours) {
         this.name = name;
         this.location = location;
+        this.hours = hours;
+    }
+
+    public Hours getHours() {
+        return this.hours;
+    }
+
+    public String getName() {
+        return this.name;
 
         this.system = System.getInstance();
         system.addRestaurant(this);
