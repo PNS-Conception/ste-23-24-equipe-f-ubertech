@@ -18,13 +18,14 @@ public class deliveryConfirmation {
     @Given("a delivery person with an order")
     public void a_delivery_person() {
         deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
-    }
-    @When("they deliver the order")
-    public void they_deliver_the_order() {
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
         order = new Order(location, date, productList);
+    }
+    @When("they deliver the order")
+    public void they_deliver_the_order() {
+
         deliveryPerson.addOrder(order);
         deliveryPerson.validDelivery(order);
     }

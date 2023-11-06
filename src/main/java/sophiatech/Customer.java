@@ -94,4 +94,9 @@ public class Customer {
         }
         return null;
     }
+
+    public void validDelivery(Order order){
+        order.validateOrder();
+        order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+    }
 }

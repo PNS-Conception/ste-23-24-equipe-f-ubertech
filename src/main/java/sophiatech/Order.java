@@ -11,6 +11,11 @@ public class Order {
     private ArrayList<Product> productList;
     private Status status;
     private boolean validationByDeliveryPerson;
+
+    public boolean isValidationByCustomer() {
+        return validationByCustomer;
+    }
+
     private boolean validationByCustomer;
 
     public Order(String location, Date date, ArrayList<Product> productList){
