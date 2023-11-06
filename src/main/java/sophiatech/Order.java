@@ -10,16 +10,26 @@ public class Order {
     private Date date;
     private ArrayList<Product> productList;
     private Status status;
+    private boolean validationByDeliveryPerson;
+    private boolean validationByCustomer;
 
     public Order(String location, Date date, ArrayList<Product> productList){
         this.location = location;
         this.date = date;
         this.productList = productList;
         this.status = Status.IN_PREPARATION;
+        this.validationByDeliveryPerson = false;
+        this.validationByCustomer = false;
     }
 
     public void changeStatus(Status st){
         this.status = st;
+    }
+    public void changeStatusValidation(Status st){
+        if(this.validationByCustomer && this.validationByDeliveryPerson){
+            this.status = st;
+        }
+
     }
 
     //TODO Ne pas oublier de faire une machine a états traitant les cas légaux de changement d'état d'une order.
@@ -51,5 +61,17 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(location, date, productList, status);
+    }
+
+    public void validateDelivery(Status status) {
+        this.status = status;
+        this.validationByDeliveryPerson = true;
+    }
+    public void validateOrder() {
+        this.validationByCustomer = true;
+    }
+
+    public Status getStatus() {
+        return this.status;
     }
 }

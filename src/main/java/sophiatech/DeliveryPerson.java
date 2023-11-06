@@ -34,4 +34,11 @@ public class DeliveryPerson {
     public ArrayList<Order> getActiveOrders() {
         return this.activeOrders;
     }
+
+
+    public void validDelivery(Order order) {
+        order.validateDelivery(Status.DELIVERED);
+        order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        this.isAvailable = true;
+    }
 }
