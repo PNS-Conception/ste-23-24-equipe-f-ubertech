@@ -73,5 +73,16 @@ public class Order {
 
     public Status getStatus() {
         return this.status;
+
+    public String getLocation(){
+        return this.location;
+    }
+
+    public Date getDate(){
+        return this.date;
+    }
+
+    public ArrayList<Product> getProductList(){
+        return this.productList;
     }
 }

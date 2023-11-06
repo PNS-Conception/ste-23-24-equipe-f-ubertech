@@ -52,15 +52,19 @@ public class Restaurant {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Restaurant restaurant = (Restaurant) o;
-        return Objects.equals(name, restaurant.name) && Objects.equals(location, restaurant.location);
+    public int hashCode() {
+        return Objects.hash(name, location);
+
+    public String getLocation(){
+        return this.location;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name, location);
+    public boolean equals(Object obj) {
+        if(obj instanceof Restaurant){
+            Restaurant r = (Restaurant) obj;
+            return r.getLocation().equals(getLocation()) && r.getName().equals(getName());
+        }
+        return false;
     }
 }
