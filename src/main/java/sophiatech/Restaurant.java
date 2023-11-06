@@ -10,8 +10,8 @@ public class Restaurant {
 
     private String name;
     private String location;
-    private ArrayList<Order> activeOrders;
-    private ArrayList<Order> orderHistory;
+    private ArrayList<GroupOrder> activeOrders;
+    private ArrayList<GroupOrder> orderHistory;
     private Hours hours;
 
     public Restaurant(String name, String location, Hours hours) {
@@ -42,12 +42,12 @@ public class Restaurant {
         this.products.add(product);
     }
 
-    public void addOrder(Order order) {
-        this.activeOrders.add(order);
-        this.orderHistory.add(order);
+    public void addOrder(GroupOrder groupOrder) {
+        this.activeOrders.add(groupOrder);
+        this.orderHistory.add(groupOrder);
     }
 
-    public ArrayList<Order> getActiveOrders() {
+    public ArrayList<GroupOrder> getActiveOrders() {
         return this.activeOrders;
     }
 

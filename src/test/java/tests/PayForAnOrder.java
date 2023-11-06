@@ -53,28 +53,28 @@ public class PayForAnOrder {
 
     @Then("the created order is assigned to the customer")
     public void the_created_order_is_assigned_to_the_customer() {
-        ArrayList<Order> validationOrders = customer.getActiveOrders();
+        ArrayList<GroupOrder> validationOrders = customer.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.get(0).orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
     }
 
     @Then("the created order is assigned to the restaurant")
     public void the_created_order_is_assigned_to_the_restaurant() {
-        ArrayList<Order> validationOrders = restaurant.getActiveOrders();
+        ArrayList<GroupOrder> validationOrders = restaurant.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.get(0).orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
     }
 
     @Then("the created order is assigned to the delivery person")
     public void the_created_order_is_assigned_to_the_delivery_person() {
-        ArrayList<Order> validationOrders = deliveryPerson.getActiveOrders();
+        ArrayList<GroupOrder> validationOrders = deliveryPerson.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
         java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
         java.lang.System.out.println(validationOrders);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.get(0).orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
         assertFalse(deliveryPerson.getIsAvailable());
     }
 }

@@ -6,8 +6,8 @@ public class DeliveryPerson {
     private System system;
     private String firstName;
     private String lastName;
-    private ArrayList<Order> activeOrders;
-    private ArrayList<Order> orderHistory;
+    private ArrayList<GroupOrder> activeOrders;
+    private ArrayList<GroupOrder> orderHistory;
     private boolean isAvailable;
 
     public DeliveryPerson(String firstName, String lastName){
@@ -21,7 +21,7 @@ public class DeliveryPerson {
         this.system.addDeliveryPerson(this);
     }
 
-    public void addOrder(Order o){
+    public void addOrder(GroupOrder o){
         this.orderHistory.add(o);
         this.activeOrders.add(o);
         this.isAvailable = false;
@@ -31,7 +31,7 @@ public class DeliveryPerson {
         return isAvailable;
     }
 
-    public ArrayList<Order> getActiveOrders() {
+    public ArrayList<GroupOrder> getActiveOrders() {
         return this.activeOrders;
     }
 }

@@ -1,9 +1,7 @@
 package sophiatech;
-import org.mockito.internal.matchers.Or;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Customer {
     private System system;
@@ -12,8 +10,8 @@ public class Customer {
     private String lastName;
     private String favouriteLocation;
 
-    private ArrayList<Order> orderHistory;
-    private ArrayList<Order> activeOrders;
+    private ArrayList<GroupOrder> orderHistory;
+    private ArrayList<GroupOrder> activeOrders;
     private ArrayList<Product> pendingOrder;
 
 
@@ -56,16 +54,20 @@ public class Customer {
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
 
             Order order = new Order(this.favouriteLocation, new Date(), pendingOrder);
+            GroupOrder groupOrder = new GroupOrder();
+            groupOrder.orders.add(order);
 
-            this.addOrder(order);
+            this.addOrder(groupOrder);
 
-            this.pendingOrder.get(0).getRestaurant().addOrder(order);
+            this.pendingOrder.get(0).getRestaurant().addOrder(groupOrder);
+
+            system.addGroupOrder(groupOrder);
 
             ArrayList<DeliveryPerson> availableDeliveryPersons = this.system.getAvailableDeliveryPerson();
             if (availableDeliveryPersons.size() > 0)
-                availableDeliveryPersons.get(0).addOrder(order);    //gives the order to the first available delivery person.
+                availableDeliveryPersons.get(0).addOrder(groupOrder);    //gives the order to the first available delivery person.
             else {
-                system.addOrderWithoutDeliveryPerson(order);
+                system.addOrderWithoutDeliveryPerson(groupOrder);
             }
 
 
@@ -76,12 +78,12 @@ public class Customer {
         return null;
     }
 
-    public void addOrder(Order order) {
+    public void addOrder(GroupOrder order) {
         this.activeOrders.add(order);
         this.orderHistory.add(order);
     }
 
-    public ArrayList<Order> getActiveOrders() {
+    public ArrayList<GroupOrder> getActiveOrders() {
         return this.activeOrders;
     }
 
@@ -93,5 +95,12 @@ public class Customer {
             }
         }
         return null;
+    }
+
+    public GroupOrder allowGroupOrder() {
+        for (GroupOrder groupOrder : activeOrders) {
+            groupOrder.setIsOpen(true);
+        }
+        return activeOrders.get(0);
     }
 }
