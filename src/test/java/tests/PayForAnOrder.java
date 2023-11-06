@@ -23,20 +23,21 @@ public class PayForAnOrder {
 
     @Given("a customer with a completed product list")
     public void a_customer_with_a_completed_product_list() {
-        system = System.getInstance();
+        system = new System();
 
         Hours h = new Hours(new Date(2021, 1, 1, 8, 0), new Date(2021, 1, 1, 20, 0));
         restaurant = new Restaurant("test restaurant", "restaurant location", h);
 
-        campusAdministrator = new CampusAdministrator();
+        campusAdministrator = new CampusAdministrator(system);
         campusAdministrator.addRestaurant(restaurant);
 
         product = new Product(restaurant, "test burger", 7);    //adds product to the corresponding restaurant in the constructor
 
-        customer = new Customer("test", "customer");    //adds customer to the system in the constructor
+        customer = new Customer("test", "customer",system);    //adds customer to the system in the constructor
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("test", "delivery person"); //adds delivery person to the system in the constructor
+        system.addDeliveryPerson(deliveryPerson);
 
         paymentService = system.getPaymentService();
     }

@@ -73,6 +73,7 @@ public class Order {
 
     public Status getStatus() {
         return this.status;
+    }
 
     public String getLocation(){
         return this.location;

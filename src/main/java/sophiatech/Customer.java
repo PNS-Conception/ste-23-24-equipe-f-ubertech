@@ -17,6 +17,16 @@ public class Customer {
     private ArrayList<Product> pendingOrder;
 
 
+    public Customer(String fn, String ln, System sys){
+        this.firstName = fn;
+        this.lastName = ln;
+
+        this.system = sys;
+        this.pendingOrder = new ArrayList<>();
+        this.activeOrders = new ArrayList<>();
+        this.orderHistory = new ArrayList<>();
+    }
+
     public Customer(String fn, String ln){
         this.firstName = fn;
         this.lastName = ln;
@@ -62,7 +72,7 @@ public class Customer {
             this.pendingOrder.get(0).getRestaurant().addOrder(order);
 
             ArrayList<DeliveryPerson> availableDeliveryPersons = this.system.getAvailableDeliveryPerson();
-            if (availableDeliveryPersons.size() > 0)
+            if (!availableDeliveryPersons.isEmpty())
                 availableDeliveryPersons.get(0).addOrder(order);    //gives the order to the first available delivery person.
             else {
                 system.addOrderWithoutDeliveryPerson(order);
