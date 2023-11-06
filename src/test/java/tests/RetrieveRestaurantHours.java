@@ -18,11 +18,11 @@ import static org.junit.Assert.assertTrue;
 public class RetrieveRestaurantHours {
     private Restaurant restaurant;
     private Customer customer;
-    private System system = new System();
+    private System system = System.getInstance();
 
     @Given("a Customer") //TO CHANGE WITH CONTAINER
     public void a_customer() {
-        customer = new Customer("Beurel","Simon", system);
+        customer = new Customer("Beurel","Simon");
     }
     @When("I want to check the operating hours of a restaurant")
     public void check_hours_restaurant() {

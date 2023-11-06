@@ -3,23 +3,42 @@ import java.util.ArrayList;
 
 public class DeliveryPerson {
 
+    private System system;
     private String firstName;
     private String lastName;
-    private ArrayList<Order> order;
+    private ArrayList<Order> activeOrders;
+    private ArrayList<Order> orderHistory;
     private boolean isAvailable;
 
     public DeliveryPerson(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.order = new ArrayList<>();
+        this.activeOrders = new ArrayList<>();
+        this.orderHistory = new ArrayList<>();
+        this.isAvailable = true;
+
+        this.system = System.getInstance();
+        this.system.addDeliveryPerson(this);
     }
 
     public void addOrder(Order o){
-        this.order.add(o);
+        this.orderHistory.add(o);
+        this.activeOrders.add(o);
         this.isAvailable = false;
     }
 
     public boolean getIsAvailable(){
         return isAvailable;
+    }
+
+    public ArrayList<Order> getActiveOrders() {
+        return this.activeOrders;
+    }
+
+
+    public void validDelivery(Order order) {
+        order.validateDelivery(Status.DELIVERED);
+        order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        this.isAvailable = true;
     }
 }

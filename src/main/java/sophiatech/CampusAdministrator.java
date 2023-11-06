@@ -4,8 +4,8 @@ public class CampusAdministrator {
 
     private System system;
 
-    public CampusAdministrator(System sys){
-        this.system = sys;
+    public CampusAdministrator(){
+        this.system = System.getInstance();
     }
 
     public void addRestaurant(Restaurant r){
