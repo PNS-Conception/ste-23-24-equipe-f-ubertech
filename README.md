@@ -18,10 +18,8 @@ https://docs.google.com/document/d/1D0iN9_z_zfN1CFQoi0CdzapFW7r7f5JIiacwII47E-M/
 
 ## .github
    1. Contient sous workflows/maven.yml, une version d'un fichier d'actions qui est déclenché dès que vous poussez du code. 
-Sur cette version initiale seule un test Junit5 est déclenché pour vérifier que tout fonctionne.
-       - Github Actions (See in .github/workflows) to simply make a maven+test compilation
-  2. Contient sous ISSUE_TEMPLATE, les modèles pour les issues user_story et bug. Vous pouvez le compléter à votre guise.
-
+Sur cette version, une première commande est lancée pour pouvoir build le projet et s'assurer que celui-ci se build correctement, puis, une seconde commande s'occupe de lancer les tests cucumber réalisés et cette commande s'assure également qu'ils sont tous corrects.
+  2. Contient sous ISSUE_TEMPLATE, les modèles pour les issues user_story et bug.
 ## src
  - pom.xml :  
        - Cucumber 7 et JUnit 5  
