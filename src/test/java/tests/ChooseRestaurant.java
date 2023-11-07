@@ -20,7 +20,7 @@ public class ChooseRestaurant {
 
     @Given("I am a simple customer")
     public void a_simple_customer(){
-        customer = new Customer("Simon","Beurel",system);
+        customer = new Customer("Simon","Beurel", system);
     }
 
     @When("I search for a specific restaurant named McDonalds")
