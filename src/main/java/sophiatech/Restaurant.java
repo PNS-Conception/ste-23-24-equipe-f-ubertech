@@ -43,8 +43,14 @@ public class Restaurant {
     }
 
     public void addOrder(Order order) {
+        //acceptOrder(order);
+        acceptOrder(order);
         this.activeOrders.add(order);
         this.orderHistory.add(order);
+    }
+
+    private void acceptOrder(Order order) {
+        order.changeStatus(Status.IN_PREPARATION);
     }
 
     public ArrayList<Order> getActiveOrders() {
@@ -68,4 +74,5 @@ public class Restaurant {
         }
         return false;
     }
+
 }
