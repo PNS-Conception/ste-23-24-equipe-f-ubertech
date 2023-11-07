@@ -135,5 +135,6 @@ public class Customer {
     public void validDelivery(Order order){
         order.validateOrder();
         order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        activeOrders.remove(order);
     }
 }
