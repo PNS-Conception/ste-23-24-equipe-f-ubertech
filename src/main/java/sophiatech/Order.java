@@ -22,6 +22,10 @@ public class Order {
         this.validationByCustomer = false;
     }
 
+    public boolean isValidationByCustomer() {
+        return validationByCustomer;
+    }
+
     public void changeStatus(Status st){
         this.status = st;
     }

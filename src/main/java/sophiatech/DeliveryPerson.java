@@ -40,5 +40,7 @@ public class DeliveryPerson {
         order.validateDelivery(Status.DELIVERED);
         order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
         this.isAvailable = true;
+        activeOrders.remove(order);
+
     }
 }
