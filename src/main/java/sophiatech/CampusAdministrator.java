@@ -14,6 +14,4 @@ public class CampusAdministrator {
     }
     public void addDeliveryPerson(DeliveryPerson dp){ this.system.addDeliveryPerson(dp);}
 
-    public void addDeliveryPerson(DeliveryPerson dp){ this.system.addDeliveryPerson(dp);}
-
 }
