@@ -21,7 +21,7 @@ public class customerConfirmation {
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
-        order = new Order(location, date, productList);
+        order = new Order(location, date, productList,"1");
         customer.addOrder(order);
         deliveryPerson.addOrder(order);
     }

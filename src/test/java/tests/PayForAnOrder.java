@@ -57,7 +57,7 @@ public class PayForAnOrder {
         ArrayList<Order> validationOrders = customer.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1")));    //needs Order.equals() to be modified
     }
 
     @Then("the created order is assigned to the restaurant")
@@ -65,7 +65,7 @@ public class PayForAnOrder {
         ArrayList<Order> validationOrders = restaurant.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1")));    //needs Order.equals() to be modified
     }
 
     @Then("the created order is assigned to the delivery person")
@@ -75,7 +75,7 @@ public class PayForAnOrder {
         products.add(product);
         //java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
         //java.lang.System.out.println(validationOrders);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1")));    //needs Order.equals() to be modified
         assertFalse(deliveryPerson.getIsAvailable());
     }
 }

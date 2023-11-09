@@ -2,6 +2,7 @@ package sophiatech;
 import org.mockito.internal.matchers.Or;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class System {
     private static System instance; //stocks the only instance of the system
@@ -76,5 +77,9 @@ public class System {
 
     public void addOrderWithoutDeliveryPerson (Order o) {
         ordersPendingDeliveryPersons.add(o);
+    }
+
+    public String generateOrderId() {
+        return UUID.randomUUID().toString();
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class Customer {
     private System system;
 
@@ -64,8 +65,9 @@ public class Customer {
         }
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
+            String orderId = this.system.generateOrderId();
 
-            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder);
+            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, orderId);
 
             this.addOrder(order);
 
