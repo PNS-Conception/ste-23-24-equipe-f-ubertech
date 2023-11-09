@@ -12,6 +12,7 @@ public class System {
     private ArrayList<DeliveryPerson> listDeliveryPerson;
 
     private ArrayList<Order> ordersPendingDeliveryPersons;
+    private ArrayList<EmployeeRestaurant> listEmployeeRestaurants;
 
 
     public System(){
@@ -20,6 +21,7 @@ public class System {
         this.listDeliveryPerson = new ArrayList<>();
         this.paymentService = new PaymentService();
         this.ordersPendingDeliveryPersons = new ArrayList<>();
+        this.listEmployeeRestaurants = new ArrayList<>();
     }
 
     public static System getInstance() {
@@ -39,6 +41,9 @@ public class System {
 
     public void addDeliveryPerson(DeliveryPerson dp){
         this.listDeliveryPerson.add(dp);
+    }
+    public void addrestauEmployee(EmployeeRestaurant re){
+        this.listEmployeeRestaurants.add(re);
     }
 
     public ArrayList<Customer> getListCustomer() {

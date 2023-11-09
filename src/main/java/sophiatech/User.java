@@ -5,7 +5,6 @@ public class User {
     private String name;
     private String first_name;
 
-
     public User(int nb, String name, String first_name) {
         this.index = nb;
         this.name = name;
