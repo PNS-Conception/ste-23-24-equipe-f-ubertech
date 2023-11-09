@@ -73,8 +73,8 @@ public class PayForAnOrder {
         ArrayList<Order> validationOrders = deliveryPerson.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
-        java.lang.System.out.println(validationOrders);
+        //java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
+        //java.lang.System.out.println(validationOrders);
         assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
         assertFalse(deliveryPerson.getIsAvailable());
     }

@@ -73,9 +73,11 @@ public class Customer {
 
             ArrayList<DeliveryPerson> availableDeliveryPersons = this.system.getAvailableDeliveryPerson();
 
-            if (!availableDeliveryPersons.isEmpty())
+            if (!availableDeliveryPersons.isEmpty()) {
+                for(DeliveryPerson d: availableDeliveryPersons){
+                }
                 availableDeliveryPersons.get(0).addOrder(order);    //gives the order to the first available delivery person.
-            else {
+            }else {
                 system.addOrderWithoutDeliveryPerson(order);
             }
 

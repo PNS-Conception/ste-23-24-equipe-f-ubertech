@@ -3,39 +3,62 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.DeliveryPerson;
-import sophiatech.Order;
-import sophiatech.Product;
-import sophiatech.Status;
+import sophiatech.*;
+import sophiatech.System;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Notification {
     private DeliveryPerson deliveryPerson;
-    private Order order;
+    private Customer customer;
+    private Product product;
+    private RestaurantEmployee restaurantEmployee;
+    private sophiatech.System system = sophiatech.System.getInstance();
+
 
     @Given("a delivery person")
     public void a_delivery_person() {
-        deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
+        deliveryPerson = system.getAvailableDeliveryPerson().get(0);
     }
     @When("the order is marked as ready")
     public void the_order_is_marked_as_ready() {
-        String location = "polytech Nice Sophia, ... Biot";
-        Date date = new Date();
-        ArrayList<Product> productList = new ArrayList<Product>();
-        order = new Order(location, date, productList);
+        Restaurant restaurant = new Restaurant("test restaurant", "restaurant location", null);
+        product = new Product(restaurant, "test burger", 7);
 
-        deliveryPerson.addOrder(order);
+        customer = new Customer("test", "customer");
+        customer.addProductToPendingOrder(product);
+        restaurantEmployee = new RestaurantEmployee("Beurel", "Simon", false, null);
+        customer.payForOrder();
 
-        //simulates that restaurant staff completes the order
-        order.changeStatus(Status.PREPARED);
     }
-    @Then("they recieve a notification")
+    @Then("they are no longer available")
     public void they_recieve_a_notification() {
         assertFalse(deliveryPerson.getIsAvailable());
+    }
+    @Then("they are able to read informations like : the venue, the customer's name, the order's id....")
+    public void they_are_able_to_read_informations_like_the_venue_the_customer_s_name_the_order_s_id() {
+        assertEquals(deliveryPerson.getActiveOrders().get(0).getLocation(), customer.getActiveOrders().get(0).getLocation());
+    }
+
+    @Given("a restaurantEmployee finishing an order")
+    public void a_restaurant_employee_finishing_an_order() {
+        Restaurant restaurant = new Restaurant("test restaurant", "restaurant location", null);
+        product = new Product(restaurant, "test burger", 7);
+
+        customer = new Customer("test", "customer");
+        customer.addProductToPendingOrder(product);
+        restaurantEmployee = new RestaurantEmployee("Beurel", "Simon", false, null);
+        customer.payForOrder();
+    }
+    @When("they validate the end of the preparation of an order")
+    public void they_validate_the_end_of_the_preparation_of_an_order() {
+        restaurantEmployee.finishOrder(customer.getActiveOrders().get(0));
+    }
+    @Then("the deliveryPerson receive a notification")
+    public void the_delivery_person_receive_a_notification() {
+        assertTrue(customer.getActiveOrders().get(0).getStatus() == Status.PREPARED);
     }
 }
