@@ -11,12 +11,13 @@ public class Customer {
 
     private String firstName;
     private String lastName;
+
     private String favouriteLocation;
 
     private ArrayList<Order> orderHistory;
+
     private ArrayList<Order> activeOrders;
     private ArrayList<Product> pendingOrder;
-
 
     public Customer(String fn, String ln, System sys){
         this.firstName = fn;
@@ -40,6 +41,10 @@ public class Customer {
 
     public String getFavouriteLocation() {
         return this.favouriteLocation;
+    }
+
+    public void setFavouriteLocation(String favouriteLocation) {
+        this.favouriteLocation = favouriteLocation;
     }
 
 

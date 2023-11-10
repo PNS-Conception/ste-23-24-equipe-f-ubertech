@@ -29,6 +29,7 @@ public class Notification {
         product = new Product(restaurant, "test burger", 7);
 
         customer = new Customer("test", "customer");
+        customer.setFavouriteLocation("test location");
         customer.addProductToPendingOrder(product);
         restaurantEmployee = new RestaurantEmployee("Beurel", "Simon", false, null);
         customer.payForOrder();
@@ -40,9 +41,8 @@ public class Notification {
     }
     @Then("they are able to read informations like : the venue, the customer's name, the order's id....")
     public void they_are_able_to_read_informations_like_the_venue_the_customer_s_name_the_order_s_id() {
-        java.lang.System.out.println("the id is:" + customer.getActiveOrders().get(0).getId());
-        java.lang.System.out.println("the id is:" + deliveryPerson.getActiveOrders().get(0).getId());
         assertEquals(deliveryPerson.getActiveOrders().get(0).getId(), customer.getActiveOrders().get(0).getId());
+        assertEquals(deliveryPerson.getActiveOrders().get(0).getLocation(), customer.getActiveOrders().get(0).getLocation());
     }
 
     @Given("a restaurantEmployee finishing an order")
