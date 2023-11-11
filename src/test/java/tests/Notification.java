@@ -34,8 +34,10 @@ public class Notification {
         //simulates that restaurant staff completes the order
         order.changeStatus(Status.PREPARED);
     }
-    @Then("they recieve a notification")
+    @Then("they receive a notification")
     public void they_recieve_a_notification() {
         assertFalse(deliveryPerson.getIsAvailable());
     }
+
+
 }
