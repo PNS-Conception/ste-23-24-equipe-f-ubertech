@@ -1,5 +1,6 @@
 package sophiatech;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DeliveryPerson {
 
@@ -9,6 +10,15 @@ public class DeliveryPerson {
     private ArrayList<Order> activeOrders;
     private ArrayList<Order> orderHistory;
     private boolean isAvailable;
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof DeliveryPerson){
+            DeliveryPerson dp = (DeliveryPerson) obj;
+            return dp.firstName.equals(firstName) && dp.lastName.equals(lastName);
+        }
+        return false;
+    }
 
     public DeliveryPerson(String firstName, String lastName){
         this.firstName = firstName;

@@ -77,4 +77,6 @@ public class System {
     public void addOrderWithoutDeliveryPerson (Order o) {
         ordersPendingDeliveryPersons.add(o);
     }
+
+    public void removeDeliveryPerson(DeliveryPerson dp){ listDeliveryPerson.remove(dp);}
 }
