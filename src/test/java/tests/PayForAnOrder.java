@@ -5,6 +5,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import sophiatech.*;
 import sophiatech.System;
 
@@ -44,11 +45,12 @@ public class PayForAnOrder {
 
     @When("they want to pay")
     public void they_want_to_pay() {
-        assertTrue(customer.payForOrder() != null);
+        customer.payForOrder();
     }
 
     @Then("the corresponding order is successfully created")
     public void the_corresponding_order_is_successfully_created() {
+        assertEquals(customer.getActiveOrders().get(0).getProductList().get(0),product );
 
     }
 
@@ -73,8 +75,6 @@ public class PayForAnOrder {
         ArrayList<Order> validationOrders = deliveryPerson.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        //java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
-        //java.lang.System.out.println(validationOrders);
         assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1")));    //needs Order.equals() to be modified
         assertFalse(deliveryPerson.getIsAvailable());
     }
