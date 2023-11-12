@@ -75,4 +75,19 @@ public class Restaurant {
         return false;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setHours(Hours hours) {
+        this.hours = hours;
+    }
 }

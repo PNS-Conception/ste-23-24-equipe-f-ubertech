@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import sophiatech.*;
 import sophiatech.System;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,8 +26,8 @@ public class PayForAnOrder {
     public void a_customer_with_a_completed_product_list() {
         system = new System();
 
-        Hours h = new Hours(new Date(2021, 1, 1, 8, 0), new Date(2021, 1, 1, 20, 0));
-        restaurant = new Restaurant("test restaurant", "restaurant location", h);
+        Hours hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
+        restaurant = new Restaurant("test restaurant", "restaurant location", hours);
 
         campusAdministrator = new CampusAdministrator(system);
         campusAdministrator.addRestaurant(restaurant);
