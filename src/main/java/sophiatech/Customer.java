@@ -64,7 +64,7 @@ public class Customer {
             system.addGroupOrder(groupOrder);
 
             ArrayList<DeliveryPerson> availableDeliveryPersons = this.system.getAvailableDeliveryPerson();
-            if (availableDeliveryPersons.size() > 0)
+            if (! availableDeliveryPersons.isEmpty())
                 availableDeliveryPersons.get(0).addOrder(groupOrder);    //gives the order to the first available delivery person.
             else {
                 system.addOrderWithoutDeliveryPerson(groupOrder);

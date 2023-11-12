@@ -14,7 +14,7 @@ public class System {
     private ArrayList<GroupOrder> groupOrders;
 
 
-    private System(){
+    public System(){
         this.listCustomer = new ArrayList<>();
         this.listRestaurant = new ArrayList<>();
         this.listDeliveryPerson = new ArrayList<>();

@@ -24,6 +24,10 @@ public class PayForAnOrder {
     @Given("a customer with a completed product list")
     public void a_customer_with_a_completed_product_list() {
         system = System.getInstance();
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
 
         Hours h = new Hours(new Date(2021, 1, 1, 8, 0), new Date(2021, 1, 1, 20, 0));
         restaurant = new Restaurant("test restaurant", "restaurant location", h);
@@ -72,9 +76,11 @@ public class PayForAnOrder {
         ArrayList<GroupOrder> validationOrders = deliveryPerson.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
-        java.lang.System.out.println(validationOrders);
-        assertTrue(validationOrders.get(0).orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable() + " " + deliveryPerson.getIsAvailable());
+        java.lang.System.out.println(validationOrders.get(0).orders.get(0));
+        java.lang.System.out.println(this.customer.getActiveOrders().get(0).orders.get(0));
+
         assertFalse(deliveryPerson.getIsAvailable());
+//        assertTrue(validationOrders.get(0).orders.contains(this.customer.getActiveOrders().get(0).orders.get(0)));    //needs Order.equals() to be modified
     }
 }

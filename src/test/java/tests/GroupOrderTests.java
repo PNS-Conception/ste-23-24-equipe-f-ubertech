@@ -26,6 +26,12 @@ public class GroupOrderTests {
     @Given("a customer who payed for their order")
     public void a_customer_who_payed_for_their_order() {
         this.system = System.getInstance();
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
+
+
         this.campusAdministrator = new CampusAdministrator();
         this.hours = new Hours(new Date(), new Date());
         this.restaurant = new Restaurant("test restaurant", "test location", hours);
@@ -34,6 +40,8 @@ public class GroupOrderTests {
         this.product1 = new Product(restaurant, "test product", 10);
         this.product2 = new Product(restaurant, "burger", 12);
 
+        this.deliveryPerson = new DeliveryPerson("delivery name", "delivery person");
+
         this.customer1 = new Customer("test first name", "test last name");
         this.customer1.addProductToPendingOrder(product1);
         this.customer1.payForOrder();
@@ -41,8 +49,6 @@ public class GroupOrderTests {
         this.customer2 = new Customer("customer 2", "customer 2 name");
         this.customer2.addProductToPendingOrder(this.product2);
         this.customer2.payForOrder();
-
-        this.deliveryPerson = new DeliveryPerson("delivery name", "delivery person");
     }
     @When("they want to create a group order")
     public void they_want_to_create_a_group_order() {
