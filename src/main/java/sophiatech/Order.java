@@ -18,7 +18,7 @@ public class Order {
 
     private String id;
 
-    public Order(String location, Date date, ArrayList<Product> productList, String id,Customer customer){
+    public Order(String location, Date date, ArrayList<Product> productList, Customer customer){
         this.location = location;
         this.date = date;
         this.productList = productList;

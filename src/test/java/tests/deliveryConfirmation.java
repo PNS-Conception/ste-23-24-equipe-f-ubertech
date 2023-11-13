@@ -23,9 +23,8 @@ public class deliveryConfirmation {
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
-        String orderId = this.system.generateOrderId();
 
-        order = new Order(location, date, productList, orderId, customer);
+        order = new Order(location, date, productList, customer);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
         deliveryPerson.addOrder(groupOrder);

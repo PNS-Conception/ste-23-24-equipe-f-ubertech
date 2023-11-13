@@ -19,6 +19,7 @@ public class Notification {
     private Product product;
     private RestaurantEmployee restaurantEmployee;
     private sophiatech.System system = sophiatech.System.getInstance();
+    private Restaurant restaurant;
 
 
     private Order order;
@@ -26,21 +27,35 @@ public class Notification {
 
     @Given("a delivery person")
     public void a_delivery_person() {
-        deliveryPerson = system.getAvailableDeliveryPerson().get(0);
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
+        system.getOrdersPendingDeliveryPersons().clear();
+
+        deliveryPerson = new DeliveryPerson("Lorenzo", "Froment");
+        customer = new Customer("patate", "brocoli");
+        restaurant = new Restaurant("au bon sushi", "3 rue du temple", null);
+        product = new Product(restaurant, "carottes rappées", 5);
     }
     @When("the order is marked as ready")
     public void the_order_is_marked_as_ready() {
 
         String location = "polytech Nice Sophia, ... Biot";
-        Date date = new Date();
-        ArrayList<Product> productList = new ArrayList<Product>();
-        String orderId = this.system.generateOrderId();
+//        Date date = new Date();
+//        ArrayList<Product> productList = new ArrayList<Product>();
+//        productList.add(product);
+//
+//        order = new Order(location, date, productList, customer);
+//        groupOrder = new GroupOrder();
+//        groupOrder.orders.add(order);
 
-        order = new Order(location, date, productList, orderId, customer);
-        groupOrder = new GroupOrder();
-        groupOrder.orders.add(order);
 
-        deliveryPerson.addOrder(groupOrder);
+        customer.setFavouriteLocation(location);
+        customer.addProductToPendingOrder(product);
+
+        this.customer.payForOrder();
+//        deliveryPerson.addOrder(groupOrder);
 
 
     }
@@ -50,6 +65,8 @@ public class Notification {
     }
     @Then("they are able to read informations like : the venue, the customer's name, the order's id....")
     public void they_are_able_to_read_informations_like_the_venue_the_customer_s_name_the_order_s_id() {
+        java.lang.System.out.println(deliveryPerson.getActiveOrder().orders.get(0));
+        assertEquals(deliveryPerson.getActiveOrder().getId(), customer.getActiveOrder().getId());
         assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getId(), customer.getActiveOrder().orders.get(0).getId());
         assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getLocation(), customer.getActiveOrder().orders.get(0).getLocation());
         assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getCustomer().getCustomerName(), customer.getActiveOrder().orders.get(0).getCustomer().getCustomerName());

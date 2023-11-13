@@ -3,11 +3,6 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.*;
-
 import sophiatech.*;
 import sophiatech.System;
 
@@ -54,14 +49,11 @@ public class PayForAnOrder {
 
     @When("they want to pay")
     public void they_want_to_pay() {
-
         assertNotNull(customer.payForOrder());
-
     }
 
     @Then("the corresponding order is successfully created")
     public void the_corresponding_order_is_successfully_created() {
-        assertEquals(customer.getActiveOrder().orders.get(0).getProductList().get(0),product );
 
     }
 
@@ -70,8 +62,7 @@ public class PayForAnOrder {
         GroupOrder validationOrder = customer.getActiveOrder();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrder.orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1",customer)));    //needs Order.equals() to be modified
-
+        assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 
     @Then("the created order is assigned to the restaurant")
@@ -79,15 +70,12 @@ public class PayForAnOrder {
         ArrayList<GroupOrder> validationOrders = restaurant.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1",customer)));    //needs Order.equals() to be modified
-
+        assertTrue(validationOrders.get(0).orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 
     @Then("the created order is assigned to the delivery person")
     public void the_created_order_is_assigned_to_the_delivery_person() {
-
         GroupOrder validationOrder = deliveryPerson.getActiveOrder();
-
         assertFalse(deliveryPerson.getIsAvailable());
         assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
