@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import sophiatech.*;
+import sophiatech.System;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +16,8 @@ public class customerConfirmation {
     private GroupOrder groupOrder;
     private Customer customer;
     private DeliveryPerson deliveryPerson;
+    private System system= System.getInstance();
+
     @Given("a customer waiting his order")
     public void a_customer_waiting_his_order() {
         customer = new Customer("Froment", "Lorenzo");
@@ -22,11 +25,13 @@ public class customerConfirmation {
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
-        order = new Order(location, date, productList);
+
+        order = new Order(location, date, productList, customer);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
         customer.addOrder(groupOrder);
         deliveryPerson.addOrder(groupOrder);
+
     }
     @When("they receive the order")
     public void they_receive_the_order() {

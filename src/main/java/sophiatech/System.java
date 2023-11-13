@@ -1,6 +1,7 @@
 package sophiatech;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class System {
     private static System instance; //stocks the only instance of the system
@@ -102,5 +103,9 @@ public class System {
                 openGroupOrders.add(groupOrder);
         }
         return openGroupOrders;
+    }
+
+    public String generateOrderId() {
+        return UUID.randomUUID().toString();
     }
 }

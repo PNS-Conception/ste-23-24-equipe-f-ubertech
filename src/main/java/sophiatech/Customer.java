@@ -4,17 +4,19 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 public class Customer {
     private System system;
 
     private String firstName;
     private String lastName;
+
     private String favouriteLocation;
 
     private ArrayList<GroupOrder> orderHistory;
+
     private ArrayList<Product> pendingOrder;
     private GroupOrder activeOrder;
-
 
     public Customer(String fn, String ln, System sys){
         this.firstName = fn;
@@ -40,6 +42,10 @@ public class Customer {
         return this.favouriteLocation;
     }
 
+    public void setFavouriteLocation(String favouriteLocation) {
+        this.favouriteLocation = favouriteLocation;
+    }
+
 
     public void addProductToPendingOrder(Product p) {
         if (pendingOrder.size() == 0) {
@@ -51,7 +57,9 @@ public class Customer {
             this.pendingOrder.add(p);
         }
     }
-
+    public String getCustomerName(){
+        return this.firstName + " " + this.lastName;
+    }
     public int getSizePendingOrder(){
         return this.pendingOrder.size();
     }
@@ -63,10 +71,10 @@ public class Customer {
         }
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
-
-            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder);
+            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, this);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
+
 
             this.addOrder(groupOrder);
 
@@ -74,11 +82,13 @@ public class Customer {
 
             system.addGroupOrder(groupOrder);
 
+
             ArrayList<DeliveryPerson> availableDeliveryPersons = this.system.getAvailableDeliveryPerson();
             if (! availableDeliveryPersons.isEmpty())
                 availableDeliveryPersons.get(0).addOrder(groupOrder);    //gives the order to the first available delivery person.
             else {
                 system.addOrderWithoutDeliveryPerson(groupOrder);
+
             }
 
 

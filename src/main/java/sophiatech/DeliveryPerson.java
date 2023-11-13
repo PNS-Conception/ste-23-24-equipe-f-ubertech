@@ -4,6 +4,11 @@ import java.util.ArrayList;
 public class DeliveryPerson {
 
     private System system;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
     private String firstName;
     private String lastName;
     private GroupOrder activeOrder;
