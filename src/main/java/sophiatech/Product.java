@@ -3,9 +3,9 @@ package sophiatech;
 public class Product {
     private Restaurant restaurant;
     private String name;
-    private int price;
+    private double price;
 
-    public Product(Restaurant restaurant, String name, int price) {
+    public Product(Restaurant restaurant, String name, double price) {
         this.restaurant = restaurant;
         this.name = name;
         this.price = price;
@@ -17,7 +17,7 @@ public class Product {
         this(null, name, price);
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
