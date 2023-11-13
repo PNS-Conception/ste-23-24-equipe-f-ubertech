@@ -1,8 +1,6 @@
 package sophiatech;
 
 
-import org.mockito.internal.matchers.Or;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -45,6 +43,7 @@ public class Restaurant {
     }
 
     public void addOrder(GroupOrder groupOrder) {
+        acceptOrder(groupOrder);
         this.activeOrders.add(groupOrder);
         this.orderHistory.add(groupOrder);
     }
@@ -53,12 +52,10 @@ public class Restaurant {
         return this.activeOrders;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Restaurant restaurant = (Restaurant) o;
-        return Objects.equals(name, restaurant.name) && Objects.equals(location, restaurant.location);
+    public void acceptOrder(GroupOrder groupOrder) {
+        for (Order order : groupOrder.orders) {
+            order.changeStatus(Status.IN_PREPARATION);
+        }
     }
 
     @Override
@@ -72,15 +69,22 @@ public class Restaurant {
         }
     }
 
-    public void prepareOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
-            order.changeStatus(Status.IN_PREPARATION);
-        }
-    }
-
     public void finishOrder(GroupOrder groupOrder) {
         for (Order order : groupOrder.orders) {
             order.changeStatus(Status.PREPARED);
         }
     }
+    public String getLocation(){
+        return this.location;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Restaurant){
+            Restaurant r = (Restaurant) obj;
+            return r.getLocation().equals(getLocation()) && r.getName().equals(getName());
+        }
+        return false;
+    }
+
 }

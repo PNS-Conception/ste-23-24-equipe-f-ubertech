@@ -34,4 +34,15 @@ public class DeliveryPerson {
     public GroupOrder getActiveOrder() {
         return this.activeOrder;
     }
+
+
+    public void validDelivery(GroupOrder groupOrderorder) {
+        for (Order order : groupOrderorder.orders) {
+            order.validateDelivery(Status.DELIVERED);
+            order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        }
+        this.isAvailable = true;
+        activeOrder = new GroupOrder();
+
+    }
 }

@@ -16,6 +16,16 @@ public class Customer {
     private GroupOrder activeOrder;
 
 
+    public Customer(String fn, String ln, System sys){
+        this.firstName = fn;
+        this.lastName = ln;
+
+        this.system = sys;
+        this.pendingOrder = new ArrayList<>();
+        this.activeOrder = new GroupOrder();
+        this.orderHistory = new ArrayList<>();
+    }
+
     public Customer(String fn, String ln){
         this.firstName = fn;
         this.lastName = ln;
@@ -98,12 +108,45 @@ public class Customer {
         return null;
     }
 
+
     public GroupOrder allowGroupOrder() {
         this.activeOrder.setIsOpen(true);
         return activeOrder;
     }
 
-    public ArrayList<GroupOrder> getOrderHistory() {
+
+    public void setHistory(ArrayList<GroupOrder> orderHistory){
+        this.orderHistory = orderHistory;
+    }
+
+    public ArrayList<GroupOrder> getHistory(){
         return this.orderHistory;
+    }
+
+    public GroupOrder getOrderAtIndexHistory(int i){
+        return this.orderHistory.get(i);
+    }
+
+    public Restaurant searchRestaurant(String name, String location){
+        ArrayList<Restaurant> listRestaurant = this.system.getListRestaurant();
+        ArrayList<Restaurant> potentialTarget = new ArrayList<>();
+        for(Restaurant r: listRestaurant){
+            if(r.getName().equals(name)) potentialTarget.add(r);
+        }
+        if(potentialTarget.size()==1){
+            return potentialTarget.get(0);
+        }else{
+            for(Restaurant r: potentialTarget){
+                if(r.getLocation().equals(location)) return r;
+            }
+            return null;
+        }
+    }
+    public void validDelivery(GroupOrder groupOrder){
+        for (Order order : groupOrder.orders) {
+            order.validateOrder();
+            order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        }
+        activeOrder = new GroupOrder();
     }
 }

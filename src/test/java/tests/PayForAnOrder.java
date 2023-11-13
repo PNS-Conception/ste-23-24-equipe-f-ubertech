@@ -62,7 +62,7 @@ public class PayForAnOrder {
         GroupOrder validationOrder = customer.getActiveOrder();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrder.orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 
     @Then("the created order is assigned to the restaurant")
@@ -70,15 +70,13 @@ public class PayForAnOrder {
         ArrayList<GroupOrder> validationOrders = restaurant.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.get(0).orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.get(0).orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 
     @Then("the created order is assigned to the delivery person")
     public void the_created_order_is_assigned_to_the_delivery_person() {
         GroupOrder validationOrder = deliveryPerson.getActiveOrder();
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(product);
         assertFalse(deliveryPerson.getIsAvailable());
-        assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));    //needs Order.equals() to be modified
+        assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 }

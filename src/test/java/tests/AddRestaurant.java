@@ -34,6 +34,6 @@ public class AddRestaurant {
     }
     @Then("There is a new restaurant in the System's restaurant list")
     public void There_is_a_new_restaurant_in_the_System_s_restaurant_list() {
-        assertTrue(system.getListRestaurant().size()==1);
+        assertTrue(system.getListRestaurant().contains(restaurant));
     }
 }

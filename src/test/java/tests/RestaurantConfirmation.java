@@ -49,7 +49,7 @@ public class RestaurantConfirmation {
     }
     @Then("it will accept it")
     public void it_will_accept_it() {
-        restaurant.prepareOrder(restaurant.getActiveOrders().get(0));
+        restaurant.acceptOrder(restaurant.getActiveOrders().get(0));
     }
     @Then("the order will have status IN_PREPARATION")
     public void the_order_will_have_status_in_preparation() {
