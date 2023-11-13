@@ -20,6 +20,11 @@ public class AddRestaurant {
     @Given("a CampusAdministrator")
     public void a_CampusAdministrator() {
         system = System.getInstance();
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
+        system.getOrdersPendingDeliveryPersons().clear();
         campusAdministrator = new CampusAdministrator();
     }
     @When("I add a new restaurant to the System")
