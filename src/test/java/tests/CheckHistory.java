@@ -28,10 +28,10 @@ public class CheckHistory {
     @When("I view my order history for food orders")
     public void view_history_food_orders() {
 
-        order = new Order("Lausanne", new Date(), new ArrayList<Product>());
+        order = new Order("Lausanne", new Date(), new ArrayList<Product>(), "1", customer);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
-        order2= new Order("Le petit manger", new Date(), new ArrayList<Product>());
+        order2= new Order("Le petit manger", new Date(), new ArrayList<Product>(), "2", customer);
         groupOrder2 = new GroupOrder();
         groupOrder2.orders.add(order2);
         ArrayList<GroupOrder> orderHistory = new ArrayList<>();

@@ -72,7 +72,7 @@ public class Customer {
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
             String orderId = this.system.generateOrderId();
-            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder);
+            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, orderId, this);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
 

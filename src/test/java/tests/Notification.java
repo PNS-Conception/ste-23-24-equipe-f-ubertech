@@ -34,7 +34,9 @@ public class Notification {
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
-        order = new Order(location, date, productList);
+        String orderId = this.system.generateOrderId();
+
+        order = new Order(location, date, productList, orderId, customer);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
 
@@ -48,9 +50,9 @@ public class Notification {
     }
     @Then("they are able to read informations like : the venue, the customer's name, the order's id....")
     public void they_are_able_to_read_informations_like_the_venue_the_customer_s_name_the_order_s_id() {
-        assertEquals(deliveryPerson.getActiveOrders().get(0).getId(), customer.getActiveOrders().get(0).getId());
-        assertEquals(deliveryPerson.getActiveOrders().get(0).getLocation(), customer.getActiveOrders().get(0).getLocation());
-        assertEquals(deliveryPerson.getActiveOrders().get(0).getCustomer().getCustomerName(), customer.getActiveOrders().get(0).getCustomer().getCustomerName());
+        assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getId(), customer.getActiveOrder().orders.get(0).getId());
+        assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getLocation(), customer.getActiveOrder().orders.get(0).getLocation());
+        assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getCustomer().getCustomerName(), customer.getActiveOrder().orders.get(0).getCustomer().getCustomerName());
     }
 
     @Given("a restaurantEmployee finishing an order")
@@ -65,10 +67,10 @@ public class Notification {
     }
     @When("they validate the end of the preparation of an order")
     public void they_validate_the_end_of_the_preparation_of_an_order() {
-        restaurantEmployee.finishOrder(customer.getActiveOrders().get(0));
+        restaurantEmployee.finishOrder(customer.getActiveOrder().orders.get(0));
     }
     @Then("the deliveryPerson receive a notification")
     public void the_delivery_person_receive_a_notification() {
-        assertTrue(customer.getActiveOrders().get(0).getStatus() == Status.PREPARED);
+        assertTrue(customer.getActiveOrder().orders.get(0).getStatus() == Status.PREPARED);
     }
 }

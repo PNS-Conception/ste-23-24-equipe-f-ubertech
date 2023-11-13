@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import sophiatech.*;
+import sophiatech.System;
 
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
@@ -14,14 +15,17 @@ public class deliveryConfirmation {
     private Customer customer;
     private Order order;
     private GroupOrder groupOrder;
+    private System system= System.getInstance();
+
     @Given("a delivery person with an order")
     public void a_delivery_person() {
         deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
+        String orderId = this.system.generateOrderId();
 
-        order = new Order(location, date, productList);
+        order = new Order(location, date, productList, orderId, customer);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
         deliveryPerson.addOrder(groupOrder);

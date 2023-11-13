@@ -61,7 +61,7 @@ public class PayForAnOrder {
 
     @Then("the corresponding order is successfully created")
     public void the_corresponding_order_is_successfully_created() {
-        assertEquals(customer.getActiveOrders().get(0).getProductList().get(0),product );
+        assertEquals(customer.getActiveOrder().orders.get(0).getProductList().get(0),product );
 
     }
 
@@ -70,7 +70,7 @@ public class PayForAnOrder {
         GroupOrder validationOrder = customer.getActiveOrder();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1",customer)));    //needs Order.equals() to be modified
+        assertTrue(validationOrder.orders.contains(new Order(customer.getFavouriteLocation(), new Date(), products,"1",customer)));    //needs Order.equals() to be modified
 
     }
 
