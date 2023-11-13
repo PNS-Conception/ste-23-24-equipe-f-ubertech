@@ -58,7 +58,9 @@ public class Customer {
             this.pendingOrder.add(p);
         }
     }
-
+    public String getCustomerName(){
+        return this.firstName + " " + this.lastName;
+    }
     public int getSizePendingOrder(){
         return this.pendingOrder.size();
     }
@@ -72,7 +74,7 @@ public class Customer {
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
             String orderId = this.system.generateOrderId();
 
-            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, orderId);
+            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, orderId, this);
 
             this.addOrder(order);
 

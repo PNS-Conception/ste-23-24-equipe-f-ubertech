@@ -43,6 +43,7 @@ public class Notification {
     public void they_are_able_to_read_informations_like_the_venue_the_customer_s_name_the_order_s_id() {
         assertEquals(deliveryPerson.getActiveOrders().get(0).getId(), customer.getActiveOrders().get(0).getId());
         assertEquals(deliveryPerson.getActiveOrders().get(0).getLocation(), customer.getActiveOrders().get(0).getLocation());
+        assertEquals(deliveryPerson.getActiveOrders().get(0).getCustomer().getCustomerName(), customer.getActiveOrders().get(0).getCustomer().getCustomerName());
     }
 
     @Given("a restaurantEmployee finishing an order")

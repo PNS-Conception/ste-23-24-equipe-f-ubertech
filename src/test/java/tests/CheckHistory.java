@@ -27,8 +27,8 @@ public class CheckHistory {
     }
     @When("I view my order history for food orders")
     public void view_history_food_orders() {
-        order = new Order("Lausanne", new Date(), new ArrayList<Product>(),"1");
-        order2= new Order("Le petit manger", new Date(), new ArrayList<Product>(), "2");
+        order = new Order("Lausanne", new Date(), new ArrayList<Product>(),"1",customer);
+        order2= new Order("Le petit manger", new Date(), new ArrayList<Product>(), "2",customer);
         ArrayList<Order> orderHistory = new ArrayList<>();
         orderHistory.add(order);
         orderHistory.add(order2);

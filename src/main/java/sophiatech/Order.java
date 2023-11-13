@@ -14,9 +14,11 @@ public class Order {
     private boolean validationByDeliveryPerson;
     private boolean validationByCustomer;
 
+    private Customer customer;
+
     private String id;
 
-    public Order(String location, Date date, ArrayList<Product> productList, String id){
+    public Order(String location, Date date, ArrayList<Product> productList, String id,Customer customer){
         this.location = location;
         this.date = date;
         this.productList = productList;
@@ -24,6 +26,7 @@ public class Order {
         this.validationByDeliveryPerson = false;
         this.validationByCustomer = false;
         this.id = generateUniqueId();
+        this.customer = customer;
     }
 
     private String generateUniqueId() {
@@ -43,6 +46,10 @@ public class Order {
             this.status = st;
         }
 
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     //TODO Ne pas oublier de faire une machine a états traitant les cas légaux de changement d'état d'une order.
