@@ -13,5 +13,5 @@ public class CampusAdministrator {
         this.system.addRestaurant(r);
     }
     public void addDeliveryPerson(DeliveryPerson dp){ this.system.addDeliveryPerson(dp);}
-
+    public void deleteRestaurant(Restaurant r){this.system.deleteRestaurant(r);}
 }
