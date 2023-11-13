@@ -1,9 +1,8 @@
 package sophiatech;
-import org.mockito.internal.matchers.Or;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class Customer {
@@ -14,10 +13,10 @@ public class Customer {
 
     private String favouriteLocation;
 
-    private ArrayList<Order> orderHistory;
+    private ArrayList<GroupOrder> orderHistory;
 
-    private ArrayList<Order> activeOrders;
     private ArrayList<Product> pendingOrder;
+    private GroupOrder activeOrder;
 
     public Customer(String fn, String ln, System sys){
         this.firstName = fn;
@@ -25,7 +24,7 @@ public class Customer {
 
         this.system = sys;
         this.pendingOrder = new ArrayList<>();
-        this.activeOrders = new ArrayList<>();
+        this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
     }
 
@@ -35,7 +34,7 @@ public class Customer {
 
         this.system = System.getInstance();
         this.pendingOrder = new ArrayList<>();
-        this.activeOrders = new ArrayList<>();
+        this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
     }
 
@@ -73,21 +72,24 @@ public class Customer {
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
             String orderId = this.system.generateOrderId();
+            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder);
+            GroupOrder groupOrder = new GroupOrder();
+            groupOrder.orders.add(order);
 
-            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, orderId, this);
 
-            this.addOrder(order);
+            this.addOrder(groupOrder);
 
-            this.pendingOrder.get(0).getRestaurant().addOrder(order);
+            this.pendingOrder.get(0).getRestaurant().addOrder(groupOrder);
+
+            system.addGroupOrder(groupOrder);
+
 
             ArrayList<DeliveryPerson> availableDeliveryPersons = this.system.getAvailableDeliveryPerson();
+            if (! availableDeliveryPersons.isEmpty())
+                availableDeliveryPersons.get(0).addOrder(groupOrder);    //gives the order to the first available delivery person.
+            else {
+                system.addOrderWithoutDeliveryPerson(groupOrder);
 
-            if (!availableDeliveryPersons.isEmpty()) {
-                for(DeliveryPerson d: availableDeliveryPersons){
-                }
-                availableDeliveryPersons.get(0).addOrder(order);    //gives the order to the first available delivery person.
-            }else {
-                system.addOrderWithoutDeliveryPerson(order);
             }
 
 
@@ -98,13 +100,13 @@ public class Customer {
         return null;
     }
 
-    public void addOrder(Order order) {
-        this.activeOrders.add(order);
+    public void addOrder(GroupOrder order) {
+        this.activeOrder = order;
         this.orderHistory.add(order);
     }
 
-    public ArrayList<Order> getActiveOrders() {
-        return this.activeOrders;
+    public GroupOrder getActiveOrder() {
+        return this.activeOrder;
     }
 
     public Hours getHours(Restaurant restaurant) {
@@ -117,15 +119,22 @@ public class Customer {
         return null;
     }
 
-    public void setHistory(ArrayList<Order> orderHistory){
+
+    public GroupOrder allowGroupOrder() {
+        this.activeOrder.setIsOpen(true);
+        return activeOrder;
+    }
+
+
+    public void setHistory(ArrayList<GroupOrder> orderHistory){
         this.orderHistory = orderHistory;
     }
 
-    public ArrayList<Order> getHistory(){
+    public ArrayList<GroupOrder> getHistory(){
         return this.orderHistory;
     }
 
-    public Order getOrderAtIndexHistory(int i){
+    public GroupOrder getOrderAtIndexHistory(int i){
         return this.orderHistory.get(i);
     }
 
@@ -144,9 +153,11 @@ public class Customer {
             return null;
         }
     }
-    public void validDelivery(Order order){
-        order.validateOrder();
-        order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
-        activeOrders.remove(order);
+    public void validDelivery(GroupOrder groupOrder){
+        for (Order order : groupOrder.orders) {
+            order.validateOrder();
+            order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        }
+        activeOrder = new GroupOrder();
     }
 }

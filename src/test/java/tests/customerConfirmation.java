@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 public class customerConfirmation {
     private Order order;
+    private GroupOrder groupOrder;
     private Customer customer;
     private DeliveryPerson deliveryPerson;
     @Given("a customer waiting his order")
@@ -21,18 +22,22 @@ public class customerConfirmation {
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
-        order = new Order(location, date, productList,"1",customer);
-        customer.addOrder(order);
-        deliveryPerson.addOrder(order);
+
+        order = new Order(location, date, productList);
+        groupOrder = new GroupOrder();
+        groupOrder.orders.add(order);
+        customer.addOrder(groupOrder);
+        deliveryPerson.addOrder(groupOrder);
+
     }
     @When("they receive the order")
     public void they_receive_the_order() {
-        customer.validDelivery(order);
+        customer.validDelivery(groupOrder);
 
     }
     @When("the driver has confirmed delivery")
     public void the_driver_has_confirmed_delivery() {
-        deliveryPerson.validDelivery(order);
+        deliveryPerson.validDelivery(groupOrder);
     }
     @Then("the customer can confirm the delivery via the application")
     public void the_customer_can_confirm_the_delivery_via_the_application() {

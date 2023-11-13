@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import sophiatech.*;
 import sophiatech.System;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,11 +14,15 @@ import static org.junit.Assert.*;
 
 public class Notification {
     private DeliveryPerson deliveryPerson;
+
     private Customer customer;
     private Product product;
     private RestaurantEmployee restaurantEmployee;
     private sophiatech.System system = sophiatech.System.getInstance();
 
+
+    private Order order;
+    private GroupOrder groupOrder;
 
     @Given("a delivery person")
     public void a_delivery_person() {
@@ -25,14 +30,16 @@ public class Notification {
     }
     @When("the order is marked as ready")
     public void the_order_is_marked_as_ready() {
-        Restaurant restaurant = new Restaurant("test restaurant", "restaurant location", null);
-        product = new Product(restaurant, "test burger", 7);
 
-        customer = new Customer("test", "customer");
-        customer.setFavouriteLocation("test location");
-        customer.addProductToPendingOrder(product);
-        restaurantEmployee = new RestaurantEmployee("Beurel", "Simon", false, null);
-        customer.payForOrder();
+        String location = "polytech Nice Sophia, ... Biot";
+        Date date = new Date();
+        ArrayList<Product> productList = new ArrayList<Product>();
+        order = new Order(location, date, productList);
+        groupOrder = new GroupOrder();
+        groupOrder.orders.add(order);
+
+        deliveryPerson.addOrder(groupOrder);
+
 
     }
     @Then("they are no longer available")

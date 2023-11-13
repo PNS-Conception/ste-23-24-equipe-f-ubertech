@@ -10,8 +10,8 @@ public class Restaurant {
 
     private String name;
     private String location;
-    private ArrayList<Order> activeOrders;
-    private ArrayList<Order> orderHistory;
+    private ArrayList<GroupOrder> activeOrders;
+    private ArrayList<GroupOrder> orderHistory;
     private Hours hours;
 
     public Restaurant(String name, String location, Hours hours) {
@@ -42,19 +42,20 @@ public class Restaurant {
         this.products.add(product);
     }
 
-    public void addOrder(Order order) {
-        //acceptOrder(order);
-        acceptOrder(order);
-        this.activeOrders.add(order);
-        this.orderHistory.add(order);
+    public void addOrder(GroupOrder groupOrder) {
+        acceptOrder(groupOrder);
+        this.activeOrders.add(groupOrder);
+        this.orderHistory.add(groupOrder);
     }
 
-    private void acceptOrder(Order order) {
-        order.changeStatus(Status.IN_PREPARATION);
-    }
-
-    public ArrayList<Order> getActiveOrders() {
+    public ArrayList<GroupOrder> getActiveOrders() {
         return this.activeOrders;
+    }
+
+    public void acceptOrder(GroupOrder groupOrder) {
+        for (Order order : groupOrder.orders) {
+            order.changeStatus(Status.IN_PREPARATION);
+        }
     }
 
     @Override
@@ -62,6 +63,17 @@ public class Restaurant {
         return Objects.hash(name, location);
     }
 
+    public void denyOrder(GroupOrder groupOrder) {
+        for (Order order : groupOrder.orders) {
+            order.changeStatus(Status.CANCELED);
+        }
+    }
+
+    public void finishOrder(GroupOrder groupOrder) {
+        for (Order order : groupOrder.orders) {
+            order.changeStatus(Status.PREPARED);
+        }
+    }
     public String getLocation(){
         return this.location;
     }
