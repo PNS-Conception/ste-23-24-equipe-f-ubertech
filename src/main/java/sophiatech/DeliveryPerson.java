@@ -6,14 +6,14 @@ public class DeliveryPerson {
     private System system;
     private String firstName;
     private String lastName;
-    private ArrayList<GroupOrder> activeOrders;
+    private GroupOrder activeOrder;
     private ArrayList<GroupOrder> orderHistory;
     private boolean isAvailable;
 
     public DeliveryPerson(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.activeOrders = new ArrayList<>();
+        this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
         this.isAvailable = true;
 
@@ -23,7 +23,7 @@ public class DeliveryPerson {
 
     public void addOrder(GroupOrder o){
         this.orderHistory.add(o);
-        this.activeOrders.add(o);
+        this.activeOrder = o;
         this.isAvailable = false;
     }
 
@@ -31,7 +31,7 @@ public class DeliveryPerson {
         return isAvailable;
     }
 
-    public ArrayList<GroupOrder> getActiveOrders() {
-        return this.activeOrders;
+    public GroupOrder getActiveOrder() {
+        return this.activeOrder;
     }
 }

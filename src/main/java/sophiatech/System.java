@@ -13,6 +13,9 @@ public class System {
     private ArrayList<GroupOrder> ordersPendingDeliveryPersons;
     private ArrayList<GroupOrder> groupOrders;
 
+    public ArrayList<GroupOrder> getOrdersPendingDeliveryPersons() {
+        return ordersPendingDeliveryPersons;
+    }
 
     public System(){
         this.listCustomer = new ArrayList<>();

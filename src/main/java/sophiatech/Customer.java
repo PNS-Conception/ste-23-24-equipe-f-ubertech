@@ -1,5 +1,6 @@
 package sophiatech;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,8 +12,8 @@ public class Customer {
     private String favouriteLocation;
 
     private ArrayList<GroupOrder> orderHistory;
-    private ArrayList<GroupOrder> activeOrders;
     private ArrayList<Product> pendingOrder;
+    private GroupOrder activeOrder;
 
 
     public Customer(String fn, String ln){
@@ -21,7 +22,7 @@ public class Customer {
 
         this.system = System.getInstance();
         this.pendingOrder = new ArrayList<>();
-        this.activeOrders = new ArrayList<>();
+        this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
     }
 
@@ -79,12 +80,12 @@ public class Customer {
     }
 
     public void addOrder(GroupOrder order) {
-        this.activeOrders.add(order);
+        this.activeOrder = order;
         this.orderHistory.add(order);
     }
 
-    public ArrayList<GroupOrder> getActiveOrders() {
-        return this.activeOrders;
+    public GroupOrder getActiveOrder() {
+        return this.activeOrder;
     }
 
     public Hours getHours(Restaurant restaurant) {
@@ -98,9 +99,7 @@ public class Customer {
     }
 
     public GroupOrder allowGroupOrder() {
-        for (GroupOrder groupOrder : activeOrders) {
-            groupOrder.setIsOpen(true);
-        }
-        return activeOrders.get(0);
+        this.activeOrder.setIsOpen(true);
+        return activeOrder;
     }
 }

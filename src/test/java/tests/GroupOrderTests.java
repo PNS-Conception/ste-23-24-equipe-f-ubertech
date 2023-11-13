@@ -30,6 +30,7 @@ public class GroupOrderTests {
         system.getListGroupOrders().clear();
         system.getListCustomer().clear();
         system.getListRestaurant().clear();
+        system.getOrdersPendingDeliveryPersons().clear();
 
 
         this.campusAdministrator = new CampusAdministrator();
@@ -61,12 +62,12 @@ public class GroupOrderTests {
     @When("The second customer want to join the group order")
     public void The_second_customer_want_to_join_the_group_order() {
         GroupOrder groupOrder = this.system.getGroupOrder(this.id);
-        groupOrder.orders.add(this.customer2.getActiveOrders().get(0).orders.get(0));
+        groupOrder.orders.add(this.customer2.getActiveOrder().orders.get(0));
     }
     @Then("their order is added to the group order")
     public void their_order_is_added_to_the_group_order() {
         GroupOrder groupOrder = system.getGroupOrder(this.id);
-        assertTrue(groupOrder.orders.contains(this.customer2.getActiveOrders().get(0).orders.get(0)));
+        assertTrue(groupOrder.orders.contains(this.customer2.getActiveOrder().orders.get(0)));
     }
     @When("A delivery person gets the notification to pick an order up")
     public void A_delivery_person_gets_the_notification_to_pick_an_order_up() {
@@ -74,9 +75,9 @@ public class GroupOrderTests {
     }
     @Then("They need to know all the individial orders")
     public void they_need_to_know_all_the_individual_orders() {
-        ArrayList<GroupOrder> activeOrders = this.deliveryPerson.getActiveOrders();
+        GroupOrder activeOrder = this.deliveryPerson.getActiveOrder();
 
-        assertTrue(activeOrders.get(0).orders.contains(customer1.getActiveOrders().get(0).orders.get(0)));
-        assertTrue(activeOrders.get(0).orders.contains(customer2.getActiveOrders().get(0).orders.get(0)));
+        assertTrue(activeOrder.orders.contains(customer1.getActiveOrder().orders.get(0)));
+        assertTrue(activeOrder.orders.contains(customer2.getActiveOrder().orders.get(0)));
     }
 }
