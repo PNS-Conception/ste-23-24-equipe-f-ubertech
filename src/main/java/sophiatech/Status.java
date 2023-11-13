@@ -2,5 +2,7 @@ package sophiatech;
 
 public enum Status {
     PREPARED,
-    IN_PREPARATION
+    PENDING_PREPARATION,
+    IN_PREPARATION,
+    CANCELED
 }

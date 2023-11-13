@@ -15,13 +15,15 @@ public class Order {
         this.location = location;
         this.date = date;
         this.productList = productList;
-        this.status = Status.IN_PREPARATION;
-
-        java.lang.System.out.println("order created !\n" + this.toString());
+        this.status = Status.PENDING_PREPARATION;
     }
 
     public void changeStatus(Status st){
         this.status = st;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     //TODO Ne pas oublier de faire une machine a états traitant les cas légaux de changement d'état d'une order.

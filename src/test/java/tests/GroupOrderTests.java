@@ -3,6 +3,7 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.mockito.internal.matchers.Or;
 import sophiatech.*;
 import sophiatech.System;
 
@@ -77,6 +78,10 @@ public class GroupOrderTests {
     public void they_need_to_know_all_the_individual_orders() {
         GroupOrder activeOrder = this.deliveryPerson.getActiveOrder();
 
+        java.lang.System.out.println(activeOrder.orders.size());
+        for (Order order : activeOrder.orders) {
+            java.lang.System.out.println(order);
+        }
         assertTrue(activeOrder.orders.contains(customer1.getActiveOrder().orders.get(0)));
         assertTrue(activeOrder.orders.contains(customer2.getActiveOrder().orders.get(0)));
     }

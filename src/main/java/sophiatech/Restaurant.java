@@ -1,6 +1,8 @@
 package sophiatech;
 
 
+import org.mockito.internal.matchers.Or;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -62,5 +64,17 @@ public class Restaurant {
     @Override
     public int hashCode() {
         return Objects.hash(name, location);
+    }
+
+    public void denyOrder(GroupOrder groupOrder) {
+        for (Order order : groupOrder.orders) {
+            order.changeStatus(Status.CANCELED);
+        }
+    }
+
+    public void prepareOrder(GroupOrder groupOrder) {
+        for (Order order : groupOrder.orders) {
+            order.changeStatus(Status.IN_PREPARATION);
+        }
     }
 }

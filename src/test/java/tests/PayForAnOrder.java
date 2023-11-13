@@ -78,10 +78,6 @@ public class PayForAnOrder {
         GroupOrder validationOrder = deliveryPerson.getActiveOrder();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable() + " " + deliveryPerson.getIsAvailable());
-        java.lang.System.out.println(validationOrder.orders.get(0));
-        java.lang.System.out.println(this.customer.getActiveOrder().orders.get(0));
-
         assertFalse(deliveryPerson.getIsAvailable());
         assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));    //needs Order.equals() to be modified
     }
