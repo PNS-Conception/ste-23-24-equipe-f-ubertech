@@ -12,7 +12,9 @@ public class Product {
         this.name = name;
         this.price = price;
 
-        restaurant.addProduct(this);
+        if (restaurant != null) {
+            restaurant.addProduct(this);
+        }
     }
 
     public Product(String name, int price) {

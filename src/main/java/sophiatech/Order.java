@@ -8,10 +8,14 @@ public class Order {
 
     private String location;
     private Date date;
+    private Customer customer;
     private ArrayList<Product> productList;
     private Status status;
     private boolean validationByDeliveryPerson;
     private boolean validationByCustomer;
+    private boolean delayRecorded;
+    private long expectedDeliveryTime;
+
 
     public Order(String location, Date date, ArrayList<Product> productList){
         this.location = location;
@@ -20,6 +24,12 @@ public class Order {
         this.status = Status.PENDING_PREPARATION;
         this.validationByDeliveryPerson = false;
         this.validationByCustomer = false;
+        this.delayRecorded=false;
+    }
+
+    public Order(Customer customer, String location, Date date, ArrayList<Product> productList){
+        this(location, date, productList);
+        this.customer = customer;
     }
 
     public boolean isValidationByCustomer() {
@@ -97,8 +107,23 @@ public class Order {
     public Date getDate(){
         return this.date;
     }
+    public Customer getUser(){ return this.customer;}
+    public boolean isDelayRecorded(){return delayRecorded;}
+    public void setDelayRecorded(boolean delayRecorded) {
+        this.delayRecorded = delayRecorded;
+    }
 
     public ArrayList<Product> getProductList(){
         return this.productList;
     }
+
+    public long getExpectedDeliveryTime() {
+        return expectedDeliveryTime;
+    }
+    public void setExpectedDeliveryTime(long expectedDeliveryTime) {
+        this.expectedDeliveryTime = expectedDeliveryTime;
+    }
+
+
+
 }
