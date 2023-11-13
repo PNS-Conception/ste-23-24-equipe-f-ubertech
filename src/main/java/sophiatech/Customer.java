@@ -102,4 +102,8 @@ public class Customer {
         this.activeOrder.setIsOpen(true);
         return activeOrder;
     }
+
+    public ArrayList<GroupOrder> getOrderHistory() {
+        return this.orderHistory;
+    }
 }

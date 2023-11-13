@@ -77,4 +77,10 @@ public class Restaurant {
             order.changeStatus(Status.IN_PREPARATION);
         }
     }
+
+    public void finishOrder(GroupOrder groupOrder) {
+        for (Order order : groupOrder.orders) {
+            order.changeStatus(Status.PREPARED);
+        }
+    }
 }
