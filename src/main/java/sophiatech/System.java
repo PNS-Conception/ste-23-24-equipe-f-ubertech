@@ -1,6 +1,7 @@
 package sophiatech;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 public class System {
@@ -40,6 +41,16 @@ public class System {
 
     public void addRestaurant(Restaurant r){
         this.listRestaurant.add(r);
+    }
+
+    public void deleteRestaurant(Restaurant r) {
+        Iterator<Restaurant> iterator = listRestaurant.iterator();
+        while (iterator.hasNext()) {
+            Restaurant restaurant = iterator.next();
+            if (restaurant.equals(r)) {
+                iterator.remove();
+            }
+        }
     }
 
     public void addDeliveryPerson(DeliveryPerson dp){
