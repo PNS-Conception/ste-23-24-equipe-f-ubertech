@@ -17,7 +17,7 @@ public class notifyRestaurantForNewOrder {
     private int sizeActiveOrder;
     private Product product;
     private RestaurantEmployee restaurantEmployee;
-    private ArrayList<Order> activeOrdersList;
+    private ArrayList<GroupOrder> activeOrdersList;
 
     @Given("a Customer ordering")
     public void that_i_am_a_customer() {
@@ -52,11 +52,11 @@ public class notifyRestaurantForNewOrder {
     }
     @Then("they can see the customer's order")
     public void they_can_see_the_customer_s_order() {
-        assertEquals(activeOrdersList.get(0).getProductList().get(0), product);
+        assertEquals(activeOrdersList.get(0).orders.get(0).getProductList().get(0), product);
     }
     @Then("they will confirm the receipt of the order")
     public void they_will_confirm_the_receipt_of_the_order() {
-        assertEquals(activeOrdersList.get(0).getStatus(), Status.IN_PREPARATION);
+        assertEquals(activeOrdersList.get(0).orders.get(0).getStatus(), Status.IN_PREPARATION);
     }
 
 }
