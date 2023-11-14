@@ -8,7 +8,7 @@ import sophiatech.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReportaLateUser {
     private DeliveryPerson deliveryPerson;
@@ -23,19 +23,49 @@ public class ReportaLateUser {
         products = new ArrayList<>();
         products.add(new Product("Tajine", 30));
         order = new Order(customer,"55 Avenue de Cannes", new Date(),products);
-        // Assign the order to the delivery person
         deliveryPerson.assignOrder(order);
-        // Simulate a delay observed by the delivery person
+        customer.decrementerDelayCounter();
+        customer.decrementerDelayCounter();
+        deliveryPerson.observeUserDelay();
+
+    }
+    @When("the delivery person reports the delay in the system and the delay counter of the customer has reached 0pts")
+    public void the_delivery_person_reports_the_delay_in_the_system_and_the_delay_counter_of_the_customer_has_reached_0pts() {
+        deliveryPerson.reportUserDelay(order,customer);
+
+    }
+
+    @Then("customer get banned.")
+    public void customer_get_banned() {
+        assertFalse(customer.isActive());
+    }
+
+
+    @Given("aaa delivery person observes a delay by a user for an order")
+    public void aaa_delivery_person_observes_a_delay_by_a_user_for_an_order() {
+        deliveryPerson = new DeliveryPerson("Ivan","Ridier");
+        customer = new Customer("Sara", "Dahman");
+        products = new ArrayList<>();
+        products.add(new Product("Tajine", 30));
+        order = new Order(customer,"55 Avenue de Cannes", new Date(),products);
+        deliveryPerson.assignOrder(order);
+        customer.decrementerDelayCounter();
         deliveryPerson.observeUserDelay();
     }
-    @When("the delivery person reports the delay in the system")
-    public void the_delivery_person_reports_the_delay_in_the_system() {
-        // Write code here that turns the phrase above into concrete actions
-        deliveryPerson.reportUserDelay(order);
+
+
+    @When("the delivery person reports the delay in the system, and the delay counter of the customer has not reached 0pts yet")
+    public void the_delivery_person_reports_the_delay_in_the_system_and_the_delay_counter_of_the_customer_has_not_reached_0pts_yet() {
+        deliveryPerson.reportUserDelay(order,customer);
     }
-    @Then("the delay is recorded and associated with the relevant order.")
-    public void the_delay_is_recorded_and_associated_with_the_relevant_order() {
-        // Write code here that turns the phrase above into concrete actions
-        assertTrue(order.isDelayRecorded());
+
+    @Then("the the delay counter is decremented by one point.")
+    public void the_the_delay_counter_is_decremented_by_one_point() {
+        assertTrue(customer.isActive());
+        assertEquals(customer.getDelayCounter(),1);
     }
+
+
+
+
 }

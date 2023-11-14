@@ -71,10 +71,7 @@ public class DeliveryPerson {
         }
     }
 
-    public void reportUserDelay(Order order) {
-        if (order != null) {
-            order.setDelayRecorded(true);
-            java.lang.System.out.println("User delay reported and associated with the order.");
-        }
+    public void reportUserDelay(Order order,Customer cs) {
+        cs.decrementerDelayCounter();
     }
 }

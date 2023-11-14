@@ -14,6 +14,8 @@ public class Customer {
     private ArrayList<GroupOrder> orderHistory;
     private ArrayList<Product> pendingOrder;
     private GroupOrder activeOrder;
+    private int delayCounter;
+    private boolean isBanned;
 
 
     public Customer(String fn, String ln, System sys){
@@ -24,6 +26,8 @@ public class Customer {
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
+        this.delayCounter=3;
+        this.isBanned=false;
     }
 
     public Customer(String fn, String ln){
@@ -34,6 +38,8 @@ public class Customer {
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
+        this.delayCounter=3;
+        this.isBanned=false;
     }
 
     public String getFavouriteLocation() {
@@ -149,4 +155,23 @@ public class Customer {
         }
         activeOrder = new GroupOrder();
     }
+
+    public int getDelayCounter(){
+        return delayCounter;
+    }
+
+    public void decrementerDelayCounter(){
+        this.delayCounter--;
+        if(this.delayCounter<=0){
+            isBanned=true;
+            this.delayCounter=0;
+        }
+
+    }
+
+    public boolean isActive() {
+        return !isBanned;
+    }
+
+
 }
