@@ -1,7 +1,7 @@
 package sophiatech;
-import org.mockito.internal.matchers.Or;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class System {
     private static System instance; //stocks the only instance of the system
@@ -11,8 +11,12 @@ public class System {
     private ArrayList<Restaurant> listRestaurant;
     private ArrayList<DeliveryPerson> listDeliveryPerson;
 
-    private ArrayList<Order> ordersPendingDeliveryPersons;
+    private ArrayList<GroupOrder> ordersPendingDeliveryPersons;
+    private ArrayList<GroupOrder> groupOrders;
 
+    public ArrayList<GroupOrder> getOrdersPendingDeliveryPersons() {
+        return ordersPendingDeliveryPersons;
+    }
 
     public System(){
         this.listCustomer = new ArrayList<>();
@@ -20,6 +24,7 @@ public class System {
         this.listDeliveryPerson = new ArrayList<>();
         this.paymentService = new PaymentService();
         this.ordersPendingDeliveryPersons = new ArrayList<>();
+        this.groupOrders = new ArrayList<>();
     }
 
     public static System getInstance() {
@@ -52,7 +57,7 @@ public class System {
     public ArrayList<DeliveryPerson> getListDeliveryPerson() {
         return listDeliveryPerson;
     }
-
+  
     public PaymentService getPaymentService() {
         return this.paymentService;
     }
@@ -74,7 +79,35 @@ public class System {
         return availableDeliveryPerson;
     }
 
-    public void addOrderWithoutDeliveryPerson (Order o) {
-        ordersPendingDeliveryPersons.add(o);
+    public void addOrderWithoutDeliveryPerson (GroupOrder groupOrder) {
+        ordersPendingDeliveryPersons.add(groupOrder);
     }
+
+    public GroupOrder getGroupOrder(int id) {
+        for (GroupOrder groupOrder : groupOrders) {
+            if (groupOrder.getId() == id) {
+                return groupOrder;
+            }
+        }
+        return null;
+    }
+
+    public void addGroupOrder(GroupOrder groupOrder) {
+        this.groupOrders.add(groupOrder);
+    }
+
+    public ArrayList<GroupOrder> getListGroupOrders() {
+        ArrayList<GroupOrder> openGroupOrders = new ArrayList<>();
+        for (GroupOrder groupOrder : groupOrders) {
+            if (groupOrder.isOpen())
+                openGroupOrders.add(groupOrder);
+        }
+        return openGroupOrders;
+    }
+
+    public String generateOrderId() {
+        return UUID.randomUUID().toString();
+    }
+
+    public void removeDeliveryPerson(DeliveryPerson dp){ listDeliveryPerson.remove(dp);}
 }
