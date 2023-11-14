@@ -2,6 +2,7 @@ package sophiatech;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Restaurant {
@@ -13,6 +14,7 @@ public class Restaurant {
     private ArrayList<GroupOrder> activeOrders;
     private ArrayList<GroupOrder> orderHistory;
     private Hours hours;
+    private Menu menu;
 
     public Restaurant(String name, String location, Hours hours) {
         this.name = name;
@@ -25,6 +27,7 @@ public class Restaurant {
 
         this.activeOrders = new ArrayList<>();
         this.orderHistory = new ArrayList<>();
+        this.menu = new Menu();
     }
 
     public Hours getHours() {
@@ -86,6 +89,29 @@ public class Restaurant {
         }
         return false;
     }
+
+    public void addProductToMenu(Product newProduct) {
+        menu.addProduct(newProduct);
+        java.lang.System.out.println("New product was added to the menu");
+    }
+
+    public void removeProductFromMenu(Product oldProduct) {
+        menu.removeProduct(oldProduct);
+        java.lang.System.out.println("This product has been successfully deleted from the menu");
+    }
+
+    public void editProductInMenu(Product editedProduct) {
+       return;
+    }
+
+    public List<Product> getMenu() {
+        return menu.getProducts();
+    }
+
+    public void displayMenu() {
+        menu.showMenu();
+    }
+
 
     public void setName(String name){
         this.name = name;
