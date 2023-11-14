@@ -1,5 +1,7 @@
 package sophiatech;
 
+import java.util.Objects;
+
 public class Product {
     private Restaurant restaurant;
     private String name;
@@ -27,5 +29,30 @@ public class Product {
 
     public Restaurant getRestaurant() {
         return restaurant;
+    }
+
+    @Override
+    public String toString() {
+        return "Product \"" + this.name + "\" served by restaurant : \"" + this.restaurant + "\" for " + this.price + "€";
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Product product = (Product) obj;
+        return price == product.price &&
+                Objects.equals(restaurant, product.restaurant) &&
+                Objects.equals(name, product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(restaurant, name, price);
     }
 }
