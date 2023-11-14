@@ -18,6 +18,8 @@ public class Customer {
 
     private ArrayList<Product> pendingOrder;
     private GroupOrder activeOrder;
+    private int delayCounter;
+    private boolean isBanned;
 
     public Customer(String fn, String ln, System sys, UserType userType){
         this.firstName = fn;
@@ -27,6 +29,8 @@ public class Customer {
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
+        this.delayCounter=3;
+        this.isBanned=false;
     }
 
     public Customer(String fn, String ln, UserType userType){
@@ -37,6 +41,8 @@ public class Customer {
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
+        this.delayCounter=3;
+        this.isBanned=false;
     }
 
     public String getFavouriteLocation() {
@@ -83,7 +89,7 @@ public class Customer {
         }
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
-            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, this);
+            Order order = new Order(this,this.favouriteLocation, new Date(), pendingOrder);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
             order.setTotalPrice(total);
@@ -172,7 +178,26 @@ public class Customer {
         activeOrder = new GroupOrder();
     }
 
+
     public UserType getUserType() {
         return userType;
     }
+
+    public int getDelayCounter(){
+        return delayCounter;
+    }
+
+    public void decrementerDelayCounter(){
+        this.delayCounter--;
+        if(this.delayCounter<=0){
+            isBanned=true;
+            this.delayCounter=0;
+        }
+
+    }
+
+    public boolean isActive() {
+        return !isBanned;
+    }
+
 }

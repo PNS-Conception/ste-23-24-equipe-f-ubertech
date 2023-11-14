@@ -7,12 +7,14 @@ public class Product {
     private String name;
     private double price;
 
-    public Product(Restaurant restaurant, String name, int price) {
+    public Product(Restaurant restaurant, String name, double price) {
         this.restaurant = restaurant;
         this.name = name;
         this.price = price;
 
-        restaurant.addProduct(this);
+        if (restaurant != null) {
+            restaurant.addProduct(this);
+        }
     }
 
     public Product(String name, int price) {

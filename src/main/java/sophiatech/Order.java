@@ -9,23 +9,34 @@ public class Order {
 
     private String location;
     private Date date;
+    private Customer customer;
     private ArrayList<Product> productList;
     private Status status;
     private boolean validationByDeliveryPerson;
     private boolean validationByCustomer;
     private double totalPrice;
 
-    private Customer customer;
+    private boolean delayRecorded;
+    private long expectedDeliveryTime;
+
+
 
     private String id;
 
-    public Order(String location, Date date, ArrayList<Product> productList, Customer customer){
+    public Order(String location, Date date, ArrayList<Product> productList){
         this.location = location;
         this.date = date;
         this.productList = productList;
         this.status = Status.PENDING_PREPARATION;
         this.validationByDeliveryPerson = false;
         this.validationByCustomer = false;
+
+        this.delayRecorded=false;
+    }
+
+    public Order(Customer customer, String location, Date date, ArrayList<Product> productList){
+        this(location, date, productList);
+        this.customer = customer;
         this.id = generateUniqueId();
         this.customer = customer;
         for(Product p: productList){
@@ -121,6 +132,11 @@ public class Order {
     public Date getDate(){
         return this.date;
     }
+    public Customer getUser(){ return this.customer;}
+    public boolean isDelayRecorded(){return delayRecorded;}
+    public void setDelayRecorded(boolean delayRecorded) {
+        this.delayRecorded = delayRecorded;
+    }
 
     public ArrayList<Product> getProductList(){
         return this.productList;
@@ -132,4 +148,11 @@ public class Order {
     public double getTotalPrice() {
         return this.totalPrice;
     }
+    public long getExpectedDeliveryTime() {
+        return expectedDeliveryTime;
+    }
+    public void setExpectedDeliveryTime(long expectedDeliveryTime) {
+        this.expectedDeliveryTime = expectedDeliveryTime;
+    }
+
 }
