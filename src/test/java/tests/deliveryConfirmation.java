@@ -24,7 +24,7 @@ public class deliveryConfirmation {
         Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
 
-        order = new Order(location, date, productList, customer);
+        order = new Order(customer,location, date, productList);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
         deliveryPerson.addOrder(groupOrder);

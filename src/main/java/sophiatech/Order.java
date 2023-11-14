@@ -18,11 +18,9 @@ public class Order {
     private long expectedDeliveryTime;
 
 
-    private Customer customer;
-
     private String id;
 
-    public Order(String location, Date date, ArrayList<Product> productList, Customer customer){
+    public Order(String location, Date date, ArrayList<Product> productList){
         this.location = location;
         this.date = date;
         this.productList = productList;
