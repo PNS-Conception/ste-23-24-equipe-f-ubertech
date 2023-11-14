@@ -37,7 +37,7 @@ public class RestaurantConfirmation {
 
         product = new Product(restaurant, "sushi", 14);
 
-        customer = new Customer("Sushi Enjoyer", "customer");
+        customer = new Customer("Sushi Enjoyer", "customer",UserType.EXTERNAL);
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("sushi enjoyer", "delivery person"); //adds delivery person to the system in the constructor
@@ -75,7 +75,7 @@ public class RestaurantConfirmation {
 
         product = new Product(restaurant, "ramen", 14);
 
-        customer = new Customer("Ramen Enjoyer", "customer");
+        customer = new Customer("Ramen Enjoyer", "customer",UserType.FACULTY);
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("ramen enjoyer", "delivery person"); //adds delivery person to the system in the constructor

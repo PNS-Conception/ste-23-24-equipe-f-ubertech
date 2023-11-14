@@ -19,7 +19,7 @@ public class ReportaLateUser {
     @Given("a delivery person observes a delay by a user for an order")
     public void a_delivery_person_observes_a_delay_by_a_user_for_an_order() {
         deliveryPerson = new DeliveryPerson("Ivan","Ridier");
-        customer = new Customer("Sara", "Dahman");
+        customer = new Customer("Sara", "Dahman",UserType.STUDENT);
         products = new ArrayList<>();
         products.add(new Product("Tajine", 30));
         order = new Order(customer,"55 Avenue de Cannes", new Date(),products);
@@ -44,7 +44,7 @@ public class ReportaLateUser {
     @Given("aaa delivery person observes a delay by a user for an order")
     public void aaa_delivery_person_observes_a_delay_by_a_user_for_an_order() {
         deliveryPerson = new DeliveryPerson("Ivan","Ridier");
-        customer = new Customer("Sara", "Dahman");
+        customer = new Customer("Sara", "Dahman",UserType.STUDENT);
         products = new ArrayList<>();
         products.add(new Product("Tajine", 30));
         order = new Order(customer,"55 Avenue de Cannes", new Date(),products);

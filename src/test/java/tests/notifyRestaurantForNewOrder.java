@@ -21,7 +21,7 @@ public class notifyRestaurantForNewOrder {
 
     @Given("a Customer ordering")
     public void that_i_am_a_customer() {
-        customer =new Customer("Aziki", "Tarik");
+        customer =new Customer("Aziki", "Tarik",UserType.STAFF);
     }
     @When("they validate an order")
     public void i_validate_an_order() {
@@ -39,7 +39,7 @@ public class notifyRestaurantForNewOrder {
 
     @Given("a restaurant employee")
     public void a_restaurant_employee() {
-        customer =new Customer("Aziki", "Tarik");
+        customer =new Customer("Aziki", "Tarik",UserType.FACULTY);
         restaurantEmployee = new RestaurantEmployee("Quentin", "Maurua", false, restaurant);
     }
     @When("they access a restaurant's to-do list")

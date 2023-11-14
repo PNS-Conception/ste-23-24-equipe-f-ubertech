@@ -20,7 +20,7 @@ public class customerConfirmation {
 
     @Given("a customer waiting his order")
     public void a_customer_waiting_his_order() {
-        customer = new Customer("Froment", "Lorenzo");
+        customer = new Customer("Froment", "Lorenzo",UserType.FACULTY);
         deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
         String location = "polytech Nice Sophia, ... Biot";
         Date date = new Date();

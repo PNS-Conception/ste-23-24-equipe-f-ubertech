@@ -14,8 +14,11 @@ public class Order {
     private Status status;
     private boolean validationByDeliveryPerson;
     private boolean validationByCustomer;
+    private double totalPrice;
+
     private boolean delayRecorded;
     private long expectedDeliveryTime;
+
 
 
     private String id;
@@ -36,6 +39,9 @@ public class Order {
         this.customer = customer;
         this.id = generateUniqueId();
         this.customer = customer;
+        for(Product p: productList){
+            this.totalPrice += p.getPrice();
+        }
     }
 
     private String generateUniqueId() {
@@ -136,13 +142,17 @@ public class Order {
         return this.productList;
     }
 
+    public void setTotalPrice(double total) {
+        this.totalPrice = total;
+    }
+    public double getTotalPrice() {
+        return this.totalPrice;
+    }
     public long getExpectedDeliveryTime() {
         return expectedDeliveryTime;
     }
     public void setExpectedDeliveryTime(long expectedDeliveryTime) {
         this.expectedDeliveryTime = expectedDeliveryTime;
     }
-
-
 
 }

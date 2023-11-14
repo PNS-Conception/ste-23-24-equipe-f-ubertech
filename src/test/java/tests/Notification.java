@@ -34,7 +34,7 @@ public class Notification {
         system.getOrdersPendingDeliveryPersons().clear();
 
         deliveryPerson = new DeliveryPerson("Lorenzo", "Froment");
-        customer = new Customer("patate", "brocoli");
+        customer = new Customer("patate", "brocoli",UserType.STUDENT);
         restaurant = new Restaurant("au bon sushi", "3 rue du temple", null);
         product = new Product(restaurant, "carottes rappées", 5);
     }
@@ -77,7 +77,7 @@ public class Notification {
         Restaurant restaurant = new Restaurant("test restaurant", "restaurant location", null);
         product = new Product(restaurant, "test burger", 7);
 
-        customer = new Customer("test", "customer");
+        customer = new Customer("test", "customer",UserType.EXTERNAL);
         customer.addProductToPendingOrder(product);
         restaurantEmployee = new RestaurantEmployee("Beurel", "Simon", false, null);
         customer.payForOrder();

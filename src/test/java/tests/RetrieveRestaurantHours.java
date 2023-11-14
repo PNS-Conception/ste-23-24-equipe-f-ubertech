@@ -3,10 +3,7 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.Customer;
-import sophiatech.Hours;
-import sophiatech.Product;
-import sophiatech.Restaurant;
+import sophiatech.*;
 import sophiatech.System;
 
 import java.time.LocalTime;
@@ -23,7 +20,7 @@ public class RetrieveRestaurantHours {
 
     @Given("a Customer") //TO CHANGE WITH CONTAINER
     public void a_customer() {
-        customer = new Customer("Beurel","Simon");
+        customer = new Customer("Beurel","Simon", UserType.FACULTY);
     }
     @When("I want to check the operating hours of a restaurant")
     public void check_hours_restaurant() {
