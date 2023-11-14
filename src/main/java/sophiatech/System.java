@@ -108,4 +108,6 @@ public class System {
     public String generateOrderId() {
         return UUID.randomUUID().toString();
     }
+
+    public void removeDeliveryPerson(DeliveryPerson dp){ listDeliveryPerson.remove(dp);}
 }

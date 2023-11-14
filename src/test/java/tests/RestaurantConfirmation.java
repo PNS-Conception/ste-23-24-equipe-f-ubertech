@@ -6,6 +6,8 @@ import io.cucumber.java.en.Then;
 import sophiatech.*;
 import sophiatech.System;
 import static org.junit.Assert.*;
+
+import java.time.LocalTime;
 import java.util.Date;
 
 public class RestaurantConfirmation {
@@ -27,7 +29,7 @@ public class RestaurantConfirmation {
         system.getListRestaurant().clear();
         system.getOrdersPendingDeliveryPersons().clear();
 
-        Hours h = new Hours(new Date(2021, 1, 1, 8, 0), new Date(2021, 1, 1, 20, 0));
+        Hours h = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
         restaurant = new Restaurant("restaurant acceptation", "3 rue du campus", h);
 
         campusAdministrator = new CampusAdministrator();
@@ -65,7 +67,7 @@ public class RestaurantConfirmation {
         system.getListRestaurant().clear();
         system.getOrdersPendingDeliveryPersons().clear();
 
-        Hours h = new Hours(new Date(2021, 1, 1, 8, 0), new Date(2021, 1, 1, 20, 0));
+        Hours h = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
         restaurant = new Restaurant("restaurant not acceptation", "7 rue du campus", h);
 
         campusAdministrator = new CampusAdministrator();
