@@ -5,10 +5,15 @@ import java.util.Objects;
 public class DeliveryPerson {
 
     private System system;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
     private String firstName;
     private String lastName;
-    private ArrayList<Order> activeOrders;
-    private ArrayList<Order> orderHistory;
+    private GroupOrder activeOrder;
+    private ArrayList<GroupOrder> orderHistory;
     private boolean isAvailable;
 
     @Override
@@ -23,7 +28,7 @@ public class DeliveryPerson {
     public DeliveryPerson(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.activeOrders = new ArrayList<>();
+        this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
         this.isAvailable = true;
 
@@ -31,9 +36,9 @@ public class DeliveryPerson {
         this.system.addDeliveryPerson(this);
     }
 
-    public void addOrder(Order o){
+    public void addOrder(GroupOrder o){
         this.orderHistory.add(o);
-        this.activeOrders.add(o);
+        this.activeOrder = o;
         this.isAvailable = false;
     }
 
@@ -41,16 +46,18 @@ public class DeliveryPerson {
         return isAvailable;
     }
 
-    public ArrayList<Order> getActiveOrders() {
-        return this.activeOrders;
+    public GroupOrder getActiveOrder() {
+        return this.activeOrder;
     }
 
 
-    public void validDelivery(Order order) {
-        order.validateDelivery(Status.DELIVERED);
-        order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+    public void validDelivery(GroupOrder groupOrderorder) {
+        for (Order order : groupOrderorder.orders) {
+            order.validateDelivery(Status.DELIVERED);
+            order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        }
         this.isAvailable = true;
-        activeOrders.remove(order);
+        activeOrder = new GroupOrder();
 
     }
 }

@@ -3,14 +3,14 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import sophiatech.*;
 import sophiatech.System;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static org.junit.Assert.*;
 
 public class PayForAnOrder {
     System system;
@@ -24,28 +24,33 @@ public class PayForAnOrder {
 
     @Given("a customer with a completed product list")
     public void a_customer_with_a_completed_product_list() {
-        system = new System();
+        system = System.getInstance();
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
+        system.getOrdersPendingDeliveryPersons().clear();
+
 
         Hours hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
         restaurant = new Restaurant("test restaurant", "restaurant location", hours);
 
-        campusAdministrator = new CampusAdministrator(system);
+        campusAdministrator = new CampusAdministrator();
         campusAdministrator.addRestaurant(restaurant);
 
         product = new Product(restaurant, "test burger", 7);    //adds product to the corresponding restaurant in the constructor
 
-        customer = new Customer("test", "customer",system);    //adds customer to the system in the constructor
+        customer = new Customer("test", "customer");    //adds customer to the system in the constructor
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("test", "delivery person"); //adds delivery person to the system in the constructor
-        system.addDeliveryPerson(deliveryPerson);
 
         paymentService = system.getPaymentService();
     }
 
     @When("they want to pay")
     public void they_want_to_pay() {
-        assertTrue(customer.payForOrder() != null);
+        assertNotNull(customer.payForOrder());
     }
 
     @Then("the corresponding order is successfully created")
@@ -55,28 +60,24 @@ public class PayForAnOrder {
 
     @Then("the created order is assigned to the customer")
     public void the_created_order_is_assigned_to_the_customer() {
-        ArrayList<Order> validationOrders = customer.getActiveOrders();
+        GroupOrder validationOrder = customer.getActiveOrder();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 
     @Then("the created order is assigned to the restaurant")
     public void the_created_order_is_assigned_to_the_restaurant() {
-        ArrayList<Order> validationOrders = restaurant.getActiveOrders();
+        ArrayList<GroupOrder> validationOrders = restaurant.getActiveOrders();
         ArrayList<Product> products = new ArrayList<>();
         products.add(product);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        assertTrue(validationOrders.get(0).orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 
     @Then("the created order is assigned to the delivery person")
     public void the_created_order_is_assigned_to_the_delivery_person() {
-        ArrayList<Order> validationOrders = deliveryPerson.getActiveOrders();
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(product);
-        java.lang.System.out.println(system.getListDeliveryPerson().get(0).getIsAvailable());
-        java.lang.System.out.println(validationOrders);
-        assertTrue(validationOrders.contains(new Order(customer.getFavouriteLocation(), new Date(), products)));    //needs Order.equals() to be modified
+        GroupOrder validationOrder = deliveryPerson.getActiveOrder();
         assertFalse(deliveryPerson.getIsAvailable());
+        assertTrue(validationOrder.orders.contains(this.customer.getActiveOrder().orders.get(0)));
     }
 }
