@@ -13,6 +13,7 @@ public class Order {
     private Status status;
     private boolean validationByDeliveryPerson;
     private boolean validationByCustomer;
+    private double totalPrice;
 
     private Customer customer;
 
@@ -27,6 +28,9 @@ public class Order {
         this.validationByCustomer = false;
         this.id = generateUniqueId();
         this.customer = customer;
+        for(Product p: productList){
+            this.totalPrice += p.getPrice();
+        }
     }
 
     private String generateUniqueId() {
@@ -120,5 +124,12 @@ public class Order {
 
     public ArrayList<Product> getProductList(){
         return this.productList;
+    }
+
+    public void setTotalPrice(double total) {
+        this.totalPrice = total;
+    }
+    public double getTotalPrice() {
+        return this.totalPrice;
     }
 }

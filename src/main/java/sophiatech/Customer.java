@@ -10,6 +10,7 @@ public class Customer {
 
     private String firstName;
     private String lastName;
+    private UserType userType;
 
     private String favouriteLocation;
 
@@ -18,20 +19,20 @@ public class Customer {
     private ArrayList<Product> pendingOrder;
     private GroupOrder activeOrder;
 
-    public Customer(String fn, String ln, System sys){
+    public Customer(String fn, String ln, System sys, UserType userType){
         this.firstName = fn;
         this.lastName = ln;
-
+        this.userType = userType;
         this.system = sys;
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
     }
 
-    public Customer(String fn, String ln){
+    public Customer(String fn, String ln, UserType userType){
         this.firstName = fn;
         this.lastName = ln;
-
+        this.userType = userType;
         this.system = System.getInstance();
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
@@ -65,19 +66,30 @@ public class Customer {
     }
 
     public Order payForOrder() {
-        int total = 0;
+        double total = 0;
         for (Product p : pendingOrder) {
             total += p.getPrice();
+        }
+        switch (this.userType) {
+            case STUDENT:
+                total =total - total* 0.05;
+                break;
+            case FACULTY:
+                total =total - total* 0.03;
+                break;
+            case STAFF:
+                total = total - total* 0.04;
+                break;
         }
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
             Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, this);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
+            order.setTotalPrice(total);
 
 
             this.addOrder(groupOrder);
-
             this.pendingOrder.get(0).getRestaurant().addOrder(groupOrder);
 
             system.addGroupOrder(groupOrder);
@@ -158,5 +170,9 @@ public class Customer {
             order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
         }
         activeOrder = new GroupOrder();
+    }
+
+    public UserType getUserType() {
+        return userType;
     }
 }

@@ -45,11 +45,11 @@ public class GroupOrderTests {
 
         this.deliveryPerson = new DeliveryPerson("delivery name", "delivery person");
 
-        this.customer1 = new Customer("test first name", "test last name");
+        this.customer1 = new Customer("test first name", "test last name",UserType.EXTERNAL);
         this.customer1.addProductToPendingOrder(product1);
         this.customer1.payForOrder();
 
-        this.customer2 = new Customer("customer 2", "customer 2 name");
+        this.customer2 = new Customer("customer 2", "customer 2 name",UserType.EXTERNAL);
         this.customer2.addProductToPendingOrder(this.product2);
         this.customer2.payForOrder();
     }

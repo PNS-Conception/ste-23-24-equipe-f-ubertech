@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Product {
     private Restaurant restaurant;
     private String name;
-    private int price;
+    private double price;
 
     public Product(Restaurant restaurant, String name, int price) {
         this.restaurant = restaurant;
@@ -19,7 +19,7 @@ public class Product {
         this(null, name, price);
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return this.price;
     }
 

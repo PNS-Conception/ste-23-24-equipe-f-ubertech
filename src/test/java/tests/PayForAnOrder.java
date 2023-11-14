@@ -40,7 +40,7 @@ public class PayForAnOrder {
 
         product = new Product(restaurant, "test burger", 7);    //adds product to the corresponding restaurant in the constructor
 
-        customer = new Customer("test", "customer");    //adds customer to the system in the constructor
+        customer = new Customer("test", "customer",UserType.STAFF);    //adds customer to the system in the constructor
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("test", "delivery person"); //adds delivery person to the system in the constructor

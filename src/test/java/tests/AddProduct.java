@@ -2,9 +2,7 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.Customer;
-import sophiatech.Product;
-import sophiatech.Restaurant;
+import sophiatech.*;
 import sophiatech.System;
 
 import java.nio.file.ReadOnlyFileSystemException;
@@ -21,7 +19,7 @@ public class AddProduct {
 
     @Given("a customer")
     public void a_customer() {
-        customer = new Customer("Beurel","Simon");
+        customer = new Customer("Beurel","Simon", UserType.STUDENT);
         restaurant = new Restaurant("test restaurant", "test address", null);
         product = new Product(restaurant, "test burger", 7);
     }
