@@ -7,6 +7,7 @@ import sophiatech.Hours;
 import sophiatech.Product;
 import sophiatech.Restaurant;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,7 +19,7 @@ public class AddProductTomenu {
 
     @Given("the restaurant manager is logged into the system")
     public void the_restaurant_manager_is_logged_into_the_system() {
-        restaurant = new Restaurant("Calade Rooftop", "Nice", new Hours(new Date(),new Date()));
+        restaurant = new Restaurant("Calade Rooftop", "Nice", new Hours(LocalTime.of(9, 0),LocalTime.of(17, 0)));
     }
     @When("I add a new product with required details")
     public void i_add_a_new_product_with_required_details() {
