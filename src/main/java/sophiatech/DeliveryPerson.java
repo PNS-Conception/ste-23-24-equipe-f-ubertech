@@ -1,15 +1,30 @@
 package sophiatech;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DeliveryPerson {
 
     private System system;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
     private String firstName;
     private String lastName;
     private GroupOrder activeOrder;
     private ArrayList<GroupOrder> orderHistory;
     private boolean isAvailable;
     private Order currentOrder;
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof DeliveryPerson){
+            DeliveryPerson dp = (DeliveryPerson) obj;
+            return dp.firstName.equals(firstName) && dp.lastName.equals(lastName);
+        }
+        return false;
+    }
 
     public DeliveryPerson(String firstName, String lastName){
         this.firstName = firstName;

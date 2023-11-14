@@ -7,6 +7,7 @@ import org.mockito.internal.matchers.Or;
 import sophiatech.*;
 import sophiatech.System;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,7 +36,7 @@ public class GroupOrderTests {
 
 
         this.campusAdministrator = new CampusAdministrator();
-        this.hours = new Hours(new Date(), new Date());
+        this.hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
         this.restaurant = new Restaurant("test restaurant", "test location", hours);
         this.campusAdministrator.addRestaurant(restaurant);
 
