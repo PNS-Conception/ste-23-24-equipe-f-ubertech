@@ -2,8 +2,9 @@ package sophiatech;
 
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class Restaurant {
     System system;
@@ -14,9 +15,9 @@ public class Restaurant {
     private ArrayList<GroupOrder> activeOrders;
     private ArrayList<GroupOrder> orderHistory;
     private Hours hours;
-    private Menu menu;
+    private int discountDuration;
 
-    public Restaurant(String name, String location, Hours hours) {
+    public Restaurant(String name, String location, Hours hours, int discountDuration) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -27,7 +28,7 @@ public class Restaurant {
 
         this.activeOrders = new ArrayList<>();
         this.orderHistory = new ArrayList<>();
-        this.menu = new Menu();
+        this.discountDuration = discountDuration;
     }
 
     public Hours getHours() {
@@ -90,29 +91,6 @@ public class Restaurant {
         return false;
     }
 
-    public void addProductToMenu(Product newProduct) {
-        menu.addProduct(newProduct);
-        java.lang.System.out.println("New product was added to the menu");
-    }
-
-    public void removeProductFromMenu(Product oldProduct) {
-        menu.removeProduct(oldProduct);
-        java.lang.System.out.println("This product has been successfully deleted from the menu");
-    }
-
-    public void editProductInMenu(Product editedProduct) {
-       return;
-    }
-
-    public List<Product> getMenu() {
-        return menu.getProducts();
-    }
-
-    public void displayMenu() {
-        menu.showMenu();
-    }
-
-
     public void setName(String name){
         this.name = name;
     }
@@ -127,5 +105,9 @@ public class Restaurant {
 
     public void setHours(Hours hours) {
         this.hours = hours;
+    }
+
+    public long getDiscountDuration() {
+        return discountDuration;
     }
 }

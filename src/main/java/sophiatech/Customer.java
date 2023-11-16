@@ -10,39 +10,33 @@ public class Customer {
 
     private String firstName;
     private String lastName;
-    private UserType userType;
 
     private String favouriteLocation;
 
     private ArrayList<GroupOrder> orderHistory;
 
     private ArrayList<Product> pendingOrder;
+    private ArrayList<Discount> discounts;
     private GroupOrder activeOrder;
-    private int delayCounter;
-    private boolean isBanned;
 
-    public Customer(String fn, String ln, System sys, UserType userType){
+    public Customer(String fn, String ln, System sys){
         this.firstName = fn;
         this.lastName = ln;
-        this.userType = userType;
+
         this.system = sys;
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
-        this.delayCounter=3;
-        this.isBanned=false;
     }
 
-    public Customer(String fn, String ln, UserType userType){
+    public Customer(String fn, String ln){
         this.firstName = fn;
         this.lastName = ln;
-        this.userType = userType;
+
         this.system = System.getInstance();
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
-        this.delayCounter=3;
-        this.isBanned=false;
     }
 
     public String getFavouriteLocation() {
@@ -72,30 +66,19 @@ public class Customer {
     }
 
     public Order payForOrder() {
-        double total = 0;
+        int total = 0;
         for (Product p : pendingOrder) {
             total += p.getPrice();
         }
-        switch (this.userType) {
-            case STUDENT:
-                total =total - total* 0.05;
-                break;
-            case FACULTY:
-                total =total - total* 0.03;
-                break;
-            case STAFF:
-                total = total - total* 0.04;
-                break;
-        }
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
-            Order order = new Order(this,this.favouriteLocation, new Date(), pendingOrder);
+            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, this);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
-            order.setTotalPrice(total);
 
 
             this.addOrder(groupOrder);
+
             this.pendingOrder.get(0).getRestaurant().addOrder(groupOrder);
 
             system.addGroupOrder(groupOrder);
@@ -178,26 +161,14 @@ public class Customer {
         activeOrder = new GroupOrder();
     }
 
+    public void addDiscount(Restaurant restaurant) {
+        long discountDuration = restaurant.getDiscountDuration();
+        var ladate=new Date();
+        Date expirationDate = new Date( ladate.getDate()+ discountDuration);
+        java.lang.System.out.println("date expiration"+expirationDate);
+        java.lang.System.out.println("ajd date "+ladate);
+        java.lang.System.out.println("discount date"+discountDuration);
 
-    public UserType getUserType() {
-        return userType;
+        //discounts.add(new Discount(restaurant, restaurant.getDiscount(), new Date());
     }
-
-    public int getDelayCounter(){
-        return delayCounter;
-    }
-
-    public void decrementerDelayCounter(){
-        this.delayCounter--;
-        if(this.delayCounter<=0){
-            isBanned=true;
-            this.delayCounter=0;
-        }
-
-    }
-
-    public boolean isActive() {
-        return !isBanned;
-    }
-
 }
