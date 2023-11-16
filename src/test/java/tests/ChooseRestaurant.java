@@ -25,8 +25,8 @@ public class ChooseRestaurant {
 
     @When("I search for a specific restaurant named McDonalds")
     public void search_macdonalds(){
-        macdonalds1 = new Restaurant("Macdonalds","Loudéac",null);
-        macdonalds2 = new Restaurant("Macdonalds", "Biot", null);
+        macdonalds1 = new Restaurant("Macdonalds","Loudéac",null,3,5);
+        macdonalds2 = new Restaurant("Macdonalds", "Biot", null, 3,5);
         system.addRestaurant(macdonalds1);
         system.addRestaurant(macdonalds2);
         target = customer.searchRestaurant("Macdonalds","Biot");

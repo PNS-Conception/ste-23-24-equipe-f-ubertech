@@ -29,7 +29,7 @@ public class AddRestaurant {
     }
     @When("I add a new restaurant to the System")
     public void I_add_a_new_restaurant_to_the_System() {
-        restaurant = new Restaurant("Le petit repas", "8 rue de la République", null);
+        restaurant = new Restaurant("Le petit repas", "8 rue de la République", null, 3,5);
         campusAdministrator.addRestaurant(restaurant);
     }
     @Then("There is a new restaurant in the System's restaurant list")

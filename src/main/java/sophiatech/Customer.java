@@ -1,6 +1,7 @@
 package sophiatech;
 
 import javax.swing.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,33 +11,42 @@ public class Customer {
 
     private String firstName;
     private String lastName;
+    private UserType userType;
 
     private String favouriteLocation;
+    private ArrayList<Discount> discounts;
 
     private ArrayList<GroupOrder> orderHistory;
 
     private ArrayList<Product> pendingOrder;
-    private ArrayList<Discount> discounts;
     private GroupOrder activeOrder;
+    private int delayCounter;
+    private boolean isBanned;
 
-    public Customer(String fn, String ln, System sys){
+    public Customer(String fn, String ln, System sys, UserType userType){
         this.firstName = fn;
         this.lastName = ln;
-
+        this.userType = userType;
         this.system = sys;
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
+        this.delayCounter=3;
+        this.isBanned=false;
+        discounts = new ArrayList<>();
     }
 
-    public Customer(String fn, String ln){
+    public Customer(String fn, String ln, UserType userType){
         this.firstName = fn;
         this.lastName = ln;
-
+        this.userType = userType;
         this.system = System.getInstance();
         this.pendingOrder = new ArrayList<>();
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
+        this.delayCounter=3;
+        this.isBanned=false;
+        discounts = new ArrayList<>();
     }
 
     public String getFavouriteLocation() {
@@ -66,19 +76,36 @@ public class Customer {
     }
 
     public Order payForOrder() {
-        int total = 0;
+        double total = 0;
         for (Product p : pendingOrder) {
             total += p.getPrice();
         }
-
+        switch (this.userType) {
+            case STUDENT:
+                total =total - total* 0.05;
+                break;
+            case FACULTY:
+                total =total - total* 0.03;
+                break;
+            case STAFF:
+                total = total - total* 0.04;
+                break;
+        }
+        for (Discount discount : discounts) {
+            if (discount.getRestaurant() == pendingOrder.get(0).getRestaurant()) {
+                java.lang.System.out.println("Discount applied: "+total);
+                total = total - total * discount.getPercentage() / 100;
+                java.lang.System.out.println("Discount applied: "+total);
+            }
+        }
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
-            Order order = new Order(this.favouriteLocation, new Date(), pendingOrder, this);
+            Order order = new Order(this,this.favouriteLocation, new Date(), pendingOrder);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
+            order.setTotalPrice(total);
 
 
             this.addOrder(groupOrder);
-
             this.pendingOrder.get(0).getRestaurant().addOrder(groupOrder);
 
             system.addGroupOrder(groupOrder);
@@ -161,14 +188,35 @@ public class Customer {
         activeOrder = new GroupOrder();
     }
 
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public int getDelayCounter(){
+        return delayCounter;
+    }
+
+    public void decrementerDelayCounter(){
+        this.delayCounter--;
+        if(this.delayCounter<=0){
+            isBanned=true;
+            this.delayCounter=0;
+        }
+
+    }
+
+    public boolean isActive() {
+        return !isBanned;
+    }
     public void addDiscount(Restaurant restaurant) {
         long discountDuration = restaurant.getDiscountDuration();
-        var ladate=new Date();
-        Date expirationDate = new Date( ladate.getDate()+ discountDuration);
-        java.lang.System.out.println("date expiration"+expirationDate);
-        java.lang.System.out.println("ajd date "+ladate);
-        java.lang.System.out.println("discount date"+discountDuration);
+        LocalDate currentDate = LocalDate.now();
+        LocalDate expirationDate = currentDate.plusDays(discountDuration);
 
-        //discounts.add(new Discount(restaurant, restaurant.getDiscount(), new Date());
+        // Ajout du nouveau discount à la liste
+        discounts.add(new Discount(restaurant, restaurant.getDiscount(), expirationDate));
     }
+
+
 }
