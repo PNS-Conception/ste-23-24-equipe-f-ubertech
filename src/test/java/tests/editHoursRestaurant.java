@@ -17,7 +17,7 @@ public class editHoursRestaurant {
     @Given("a restaurant called {string}")
     public void aRestaurantCalled(String arg0) {
         hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("Au bon manger", "Paris", hours, 3,5);
+        restaurant = new Restaurant("Au bon manger", "Paris", hours, 3,5,5);
     }
 
     @When("I want to change my hours")

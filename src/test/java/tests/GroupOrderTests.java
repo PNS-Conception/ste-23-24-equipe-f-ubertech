@@ -37,7 +37,7 @@ public class GroupOrderTests {
 
         this.campusAdministrator = new CampusAdministrator();
         this.hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        this.restaurant = new Restaurant("test restaurant", "test location", hours, 3,5);
+        this.restaurant = new Restaurant("test restaurant", "test location", hours, 3,5,5);
         this.campusAdministrator.addRestaurant(restaurant);
 
         this.product1 = new Product(restaurant, "test product", 10);

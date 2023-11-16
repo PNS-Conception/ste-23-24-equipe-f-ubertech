@@ -19,6 +19,7 @@ public class Order {
     private boolean delayRecorded;
     private long expectedDeliveryTime;
 
+    private boolean isAlreadyUsedForDiscount;
 
 
     private String id;
@@ -30,7 +31,7 @@ public class Order {
         this.status = Status.PENDING_PREPARATION;
         this.validationByDeliveryPerson = false;
         this.validationByCustomer = false;
-
+        this.isAlreadyUsedForDiscount = false;
         this.delayRecorded=false;
     }
 
@@ -39,6 +40,7 @@ public class Order {
         this.customer = customer;
         this.id = generateUniqueId();
         this.customer = customer;
+        this.isAlreadyUsedForDiscount = false;
         for(Product p: productList){
             this.totalPrice += p.getPrice();
         }
@@ -70,6 +72,7 @@ public class Order {
 
 
     //TODO Ne pas oublier de faire une machine a états traitant les cas légaux de changement d'état d'une order.
+
     @Override
     public boolean equals(Object obj) { //equals if everything is equals except for date. If date changes by an hour then it is considered the same order
         if (this == obj) {
@@ -93,7 +96,6 @@ public class Order {
 
         return locationEquals && productListEquals && statusEquals && dateEquals;
     }
-
     public String getId() {
         return id;
     }
@@ -113,6 +115,7 @@ public class Order {
         description.append(status);
         return description.toString();
     }
+
     public void validateDelivery(Status status) {
         this.status = status;
         this.validationByDeliveryPerson = true;
@@ -120,7 +123,6 @@ public class Order {
     public void validateOrder() {
         this.validationByCustomer = true;
     }
-
     public Status getStatus() {
         return this.status;
     }
@@ -132,12 +134,12 @@ public class Order {
     public Date getDate(){
         return this.date;
     }
+
     public Customer getUser(){ return this.customer;}
     public boolean isDelayRecorded(){return delayRecorded;}
     public void setDelayRecorded(boolean delayRecorded) {
         this.delayRecorded = delayRecorded;
     }
-
     public ArrayList<Product> getProductList(){
         return this.productList;
     }
@@ -145,6 +147,7 @@ public class Order {
     public void setTotalPrice(double total) {
         this.totalPrice = total;
     }
+
     public double getTotalPrice() {
         return this.totalPrice;
     }
@@ -154,5 +157,15 @@ public class Order {
     public void setExpectedDeliveryTime(long expectedDeliveryTime) {
         this.expectedDeliveryTime = expectedDeliveryTime;
     }
+    public Restaurant getRestaurant() {
+        return this.productList.get(0).getRestaurant();
+    }
 
+    public boolean isAlreadyUsedForDiscount() {
+        return isAlreadyUsedForDiscount;
+    }
+
+    public void setAlreadyUsedForDiscount(boolean alreadyUsedForDiscount) {
+        isAlreadyUsedForDiscount = alreadyUsedForDiscount;
+    }
 }

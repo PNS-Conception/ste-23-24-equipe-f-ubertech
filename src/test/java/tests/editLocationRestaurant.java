@@ -12,7 +12,7 @@ public class editLocationRestaurant {
 
     @Given("a Restaurant called {string} based in {string}")
     public void aRestaurantBasedIn(String arg0, String arg1) {
-        restaurant = new Restaurant(arg0, arg1, null, 3,5);
+        restaurant = new Restaurant(arg0, arg1, null, 3,5,5);
     }
 
     @When("I want to change my location for {string}")
