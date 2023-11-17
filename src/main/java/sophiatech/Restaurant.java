@@ -15,8 +15,12 @@ public class Restaurant {
     private ArrayList<GroupOrder> orderHistory;
     private Hours hours;
     private Menu menu;
+    private int discountDuration;
 
-    public Restaurant(String name, String location, Hours hours) {
+    private int discount;
+
+    private int streakForDiscount;
+    public Restaurant(String name, String location, Hours hours, int discountDuration, int discount, int streakForDiscount) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -28,6 +32,9 @@ public class Restaurant {
         this.activeOrders = new ArrayList<>();
         this.orderHistory = new ArrayList<>();
         this.menu = new Menu();
+        this.discountDuration = discountDuration;
+        this.discount = discount;
+        this.streakForDiscount = streakForDiscount;
     }
 
     public Hours getHours() {
@@ -77,6 +84,7 @@ public class Restaurant {
             order.changeStatus(Status.PREPARED);
         }
     }
+
     public String getLocation(){
         return this.location;
     }
@@ -89,7 +97,6 @@ public class Restaurant {
         }
         return false;
     }
-
     public void addProductToMenu(Product newProduct) {
         menu.addProduct(newProduct);
         java.lang.System.out.println("New product was added to the menu");
@@ -101,7 +108,7 @@ public class Restaurant {
     }
 
     public void editProductInMenu(Product editedProduct) {
-       return;
+        return;
     }
 
     public List<Product> getMenu() {
@@ -127,5 +134,27 @@ public class Restaurant {
 
     public void setHours(Hours hours) {
         this.hours = hours;
+    }
+
+    public long getDiscountDuration() {
+        return discountDuration;
+    }
+
+    public int getDiscount() {
+        return  discount;
+    }
+    public void setDiscountDuration(int discountDuration) {
+        this.discountDuration = discountDuration;
+    }
+
+    public int getStreakForDiscount() {
+        return streakForDiscount;
+    }
+    public void setStreakForDiscount(int streakForDiscount) {
+        this.streakForDiscount = streakForDiscount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 }

@@ -33,7 +33,7 @@ public class PayForAnOrder {
 
 
         Hours hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("test restaurant", "restaurant location", hours);
+        restaurant = new Restaurant("test restaurant", "restaurant location", hours, 3,5,5);
 
         campusAdministrator = new CampusAdministrator();
         campusAdministrator.addRestaurant(restaurant);

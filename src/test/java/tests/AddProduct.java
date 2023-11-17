@@ -20,7 +20,7 @@ public class AddProduct {
     @Given("a customer")
     public void a_customer() {
         customer = new Customer("Beurel","Simon", UserType.STUDENT);
-        restaurant = new Restaurant("test restaurant", "test address", null);
+        restaurant = new Restaurant("test restaurant", "test address", null,3,5,5);
         product = new Product(restaurant, "test burger", 7);
     }
     @When("they add a product to their pendingOrder")

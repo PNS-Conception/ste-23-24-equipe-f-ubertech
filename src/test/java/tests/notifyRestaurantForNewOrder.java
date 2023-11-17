@@ -13,7 +13,7 @@ import java.util.Date;
 public class notifyRestaurantForNewOrder {
 
     private Customer customer;
-    private Restaurant restaurant = new Restaurant("McDonalds", "Nice", null);
+    private Restaurant restaurant = new Restaurant("McDonalds", "Nice", null,3,5,5);
     private int sizeActiveOrder;
     private Product product;
     private RestaurantEmployee restaurantEmployee;
