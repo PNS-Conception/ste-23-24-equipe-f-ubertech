@@ -26,10 +26,9 @@ public class DeleteProdFromMenu {
     public void they_select_the_deletion_option_for_that_product() {
         restaurant.removeProductFromMenu(productToRemove);
     }
-    @Then("the product is removed from the menu visible to customers")
-    public void the_product_is_removed_from_the_menu_visible_to_customers() {
+    @Then("the product is removed from the menu")
+    public void the_product_is_removed_from_the_menu() {
         assertFalse(restaurant.getMenu().contains(productToRemove));
-
     }
 
 }

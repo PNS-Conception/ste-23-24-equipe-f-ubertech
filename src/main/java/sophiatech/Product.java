@@ -57,4 +57,9 @@ public class Product {
     public int hashCode() {
         return Objects.hash(restaurant, name, price);
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
