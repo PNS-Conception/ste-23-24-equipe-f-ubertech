@@ -8,8 +8,6 @@ import io.cucumber.java.en.When;
 import sophiatech.*;
 import sophiatech.System;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 
 public class NotificationRestaurant {
