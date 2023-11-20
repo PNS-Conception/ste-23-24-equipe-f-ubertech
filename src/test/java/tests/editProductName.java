@@ -15,7 +15,7 @@ public class editProductName {
 
     @Given("the restaurant owner has a product called {string}")
     public void the_restaurant_owner_has_a_product_called(String productName) {
-        restaurant = new Restaurant("Le Bistro", "Nice", null, 0, 0, 0);
+        restaurant = new Restaurant("Le Bistro", "Nice", null, 0, 0, 0,20);
         existingProduct = new Product(restaurant, productName, 30);
         restaurant.addProductToMenu(existingProduct);
     }

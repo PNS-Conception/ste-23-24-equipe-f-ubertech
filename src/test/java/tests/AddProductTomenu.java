@@ -19,7 +19,7 @@ public class AddProductTomenu {
 
     @Given("the restaurant manager is logged into the system")
     public void the_restaurant_manager_is_logged_into_the_system() {
-        restaurant = new Restaurant("Calade Rooftop", "Nice", new Hours(LocalTime.of(9, 0),LocalTime.of(17, 0)), 3,5,5);
+        restaurant = new Restaurant("Calade Rooftop", "Nice", new Hours(LocalTime.of(9, 0),LocalTime.of(17, 0)), 3,5,5, 20);
     }
     @When("I add a new product with required details")
     public void i_add_a_new_product_with_required_details() {

@@ -1,6 +1,7 @@
 package sophiatech;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -112,7 +113,7 @@ public class Customer {
         total = total - total * discountV1;
 
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
-            Order order = new Order(this, location, new Date(), pendingOrder);
+            Order order = new Order(this, location, LocalTime.now(), pendingOrder);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
             order.setTotalPrice(total);

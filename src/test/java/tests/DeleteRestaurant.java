@@ -19,7 +19,7 @@ public class DeleteRestaurant {
     public void that_i_am_an_campus_administrator_viewing_the_list_of_restaurants() {
         system = new System();
         campusAdministrator = new CampusAdministrator();
-        restaurant = new Restaurant("Test Restaurant", "123 Test Street", null, 3,5,5);
+        restaurant = new Restaurant("Test Restaurant", "123 Test Street", null, 3,5,5,20);
         campusAdministrator.addRestaurant(restaurant);
     }
     @When("I choose to delete a specific restaurant")

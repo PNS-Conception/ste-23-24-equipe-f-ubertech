@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import sophiatech.*;
 import sophiatech.System;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,10 +29,10 @@ public class CheckHistory {
     @When("I view my order history for food orders")
     public void view_history_food_orders() {
 
-        order = new Order(customer,"Lausanne", new Date(), new ArrayList<Product>());
+        order = new Order(customer,"Lausanne", LocalTime.now(), new ArrayList<Product>());
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
-        order2= new Order(customer,"Le petit manger", new Date(), new ArrayList<Product>());
+        order2= new Order(customer,"Le petit manger", LocalTime.now(), new ArrayList<Product>());
         groupOrder2 = new GroupOrder();
         groupOrder2.orders.add(order2);
         ArrayList<GroupOrder> orderHistory = new ArrayList<>();

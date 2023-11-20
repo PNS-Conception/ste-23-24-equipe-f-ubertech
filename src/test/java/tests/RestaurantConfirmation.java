@@ -30,7 +30,7 @@ public class RestaurantConfirmation {
         system.getOrdersPendingDeliveryPersons().clear();
 
         Hours h = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("restaurant acceptation", "3 rue du campus", h, 3,5,5);
+        restaurant = new Restaurant("restaurant acceptation", "3 rue du campus", h, 3,5,5,20);
 
         campusAdministrator = new CampusAdministrator();
         campusAdministrator.addRestaurant(restaurant);
@@ -68,7 +68,7 @@ public class RestaurantConfirmation {
         system.getOrdersPendingDeliveryPersons().clear();
 
         Hours h = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("restaurant not acceptation", "7 rue du campus", h, 3,5,5);
+        restaurant = new Restaurant("restaurant not acceptation", "7 rue du campus", h, 3,5,5,20);
 
         campusAdministrator = new CampusAdministrator();
         campusAdministrator.addRestaurant(restaurant);

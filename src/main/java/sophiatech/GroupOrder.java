@@ -1,5 +1,6 @@
 package sophiatech;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class GroupOrder {
@@ -8,15 +9,21 @@ public class GroupOrder {
     private int id;
     private boolean isOpen;
 
+    private LocalTime hour;
+
 
     public GroupOrder (ArrayList<Order> orders) {
         this.id = generateUniqueId();
         this.orders = orders;
         this.isOpen = false;
 
+        if(!orders.isEmpty()) this.hour = orders.get(0).getHour();
+        else this.hour = null;
+
     }
     public GroupOrder() {
         this(new ArrayList<>());
+        this.hour = LocalTime.now();
     }
 
     public int getId() {
@@ -34,4 +41,6 @@ public class GroupOrder {
     private synchronized int generateUniqueId() {
         return idCounter++;
     }
+
+    public LocalTime getHour(){ return hour;}
 }

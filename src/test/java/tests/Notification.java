@@ -35,7 +35,7 @@ public class Notification {
 
         deliveryPerson = new DeliveryPerson("Lorenzo", "Froment");
         customer = new Customer("patate", "brocoli",UserType.STUDENT);
-        restaurant = new Restaurant("au bon sushi", "3 rue du temple", null,3,5,5);
+        restaurant = new Restaurant("au bon sushi", "3 rue du temple", null,3,5,5,20);
         product = new Product(restaurant, "carottes rappées", 5);
     }
     @When("the order is marked as ready")
@@ -74,7 +74,7 @@ public class Notification {
 
     @Given("a restaurantEmployee finishing an order")
     public void a_restaurant_employee_finishing_an_order() {
-        Restaurant restaurant = new Restaurant("test restaurant", "restaurant location", null,3,5,5);
+        Restaurant restaurant = new Restaurant("test restaurant", "restaurant location", null,3,5,5,20);
         product = new Product(restaurant, "test burger", 7);
 
         customer = new Customer("test", "customer",UserType.EXTERNAL);

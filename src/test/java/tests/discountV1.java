@@ -27,7 +27,7 @@ public class discountV1 {
         system.getListRestaurant().clear();
         system.getOrdersPendingDeliveryPersons().clear();
 
-        restaurant = new Restaurant("test restaurant", "restaurant location", null, 3,5,5);
+        restaurant = new Restaurant("test restaurant", "restaurant location", null, 3,5,5,20);
         restaurant.setDiscountV1(0.10);     //10% of discount
         restaurant.setDiscountV1Requirement(0); //no order is needed to get the discount
 
@@ -51,7 +51,7 @@ public class discountV1 {
         system.getListRestaurant().clear();
         system.getOrdersPendingDeliveryPersons().clear();
 
-        restaurant = new Restaurant("test restaurant", "restaurant location", null, 3,5,5);
+        restaurant = new Restaurant("test restaurant", "restaurant location", null, 3,5,5,20);
         restaurant.setDiscountV1(0.10);     //10% of discount
         restaurant.setDiscountV1Requirement(10); //10 orders are needed to get the discount
 

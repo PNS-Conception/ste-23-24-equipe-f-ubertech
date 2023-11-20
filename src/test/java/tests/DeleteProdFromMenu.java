@@ -17,7 +17,7 @@ public class DeleteProdFromMenu {
 
     @Given("the restaurant owner wants to remove a product from the menu")
     public void the_restaurant_owner_wants_to_remove_a_product_from_the_menu() {
-        restaurant = new Restaurant("Calade Rooftop", "Nice", new Hours(LocalTime.of(9, 0),LocalTime.of(17, 0)), 0 ,0 ,0);
+        restaurant = new Restaurant("Calade Rooftop", "Nice", new Hours(LocalTime.of(9, 0),LocalTime.of(17, 0)), 0 ,0 ,0,20);
         productToRemove = new Product(restaurant, "Couscous", 10.99);
         restaurant.addProductToMenu(productToRemove);
 
