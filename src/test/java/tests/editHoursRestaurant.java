@@ -7,7 +7,6 @@ import sophiatech.Hours;
 import sophiatech.Restaurant;
 
 import java.time.LocalTime;
-import java.util.Date;
 
 import static org.junit.Assert.*;
 

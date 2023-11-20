@@ -3,13 +3,10 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.mockito.internal.matchers.Or;
 import sophiatech.*;
 import sophiatech.System;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

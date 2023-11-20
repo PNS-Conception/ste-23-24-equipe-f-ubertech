@@ -7,6 +7,7 @@ import sophiatech.Customer;
 import sophiatech.Product;
 import sophiatech.Restaurant;
 import sophiatech.UserType;
+
 import static org.junit.Assert.*;
 
 
