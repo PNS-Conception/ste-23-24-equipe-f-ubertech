@@ -1,6 +1,7 @@
 package sophiatech;
 
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,8 +17,10 @@ public class Restaurant {
     private Hours hours;
     private Menu menu;
     private int discountDuration;
-
     private int discount;
+
+    private double discountV1 = 0;     //discountV1 -> no time limit, works for all further orders
+    private int discountV1Requirement = -1;  //nb of orders by the customer required to get this discount
 
     private int streakForDiscount;
     public Restaurant(String name, String location, Hours hours, int discountDuration, int discount, int streakForDiscount) {
@@ -156,5 +159,32 @@ public class Restaurant {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public void setDiscountV1 (double d) {
+        this.discountV1 = d;
+    }
+
+    public void setDiscountV1Requirement (int requirement) {
+        this.discountV1Requirement = requirement;
+    }
+
+    public double getCustomerDiscountV1 (Customer customer) {     //returns the percentage of discount for the customer (either the discount amount or 0)
+        if (this.discountV1Requirement < 0) return 0;
+
+        ArrayList<Order> customerOrders = new ArrayList<>();    //will contain every orders the customer made in this restaurant. (not groupOrders)
+        for (GroupOrder groupOrder : orderHistory) {
+            for(Order order : groupOrder.orders) {
+                if (order.getCustomer().equals(customer)) {
+                    customerOrders.add(order);
+                }
+            }
+        }
+
+        if (customerOrders.size() >= discountV1Requirement) {
+            return this.discountV1;
+        }
+
+        return 0;
     }
 }
