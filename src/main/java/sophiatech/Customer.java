@@ -75,7 +75,12 @@ public class Customer {
     public int getSizePendingOrder(){
         return this.pendingOrder.size();
     }
+
     public Order payForOrder() {
+        return this.payForOrder(this.favouriteLocation);
+    }
+
+    public Order payForOrder(String location) {
         double total = 0;
         for (Product p : pendingOrder) {
             total += p.getPrice();
@@ -101,8 +106,13 @@ public class Customer {
                 java.lang.System.out.println("Discount applied: "+total);
             }
         }
+
+        double discountV1 = pendingOrder.get(0).getRestaurant().getCustomerDiscountV1(this);
+        java.lang.System.out.println("DiscountV1 = " + discountV1);
+        total = total - total * discountV1;
+
         if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
-            Order order = new Order(this,this.favouriteLocation, new Date(), pendingOrder);
+            Order order = new Order(this, location, new Date(), pendingOrder);
             GroupOrder groupOrder = new GroupOrder();
             groupOrder.orders.add(order);
             order.setTotalPrice(total);
