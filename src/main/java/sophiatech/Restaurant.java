@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.time.LocalTime;
 
 public class Restaurant {
     System system;
@@ -23,7 +24,10 @@ public class Restaurant {
     private int discountV1Requirement = -1;  //nb of orders by the customer required to get this discount
 
     private int streakForDiscount;
-    public Restaurant(String name, String location, Hours hours, int discountDuration, int discount, int streakForDiscount) {
+
+    private int slot_duration = 10;
+    private int capacity;
+    public Restaurant(String name, String location, Hours hours, int discountDuration, int discount, int streakForDiscount, int capacity) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -38,6 +42,7 @@ public class Restaurant {
         this.discountDuration = discountDuration;
         this.discount = discount;
         this.streakForDiscount = streakForDiscount;
+        this.capacity = capacity;
     }
 
     public Hours getHours() {
@@ -56,18 +61,45 @@ public class Restaurant {
     }
 
     public void addOrder(GroupOrder groupOrder) {
-        acceptOrder(groupOrder);
-        this.activeOrders.add(groupOrder);
-        this.orderHistory.add(groupOrder);
+
+        LocalTime borne_inf = groupOrder.getHour().withMinute((LocalTime.now().getMinute()/10)*10).withSecond(0).withNano(0);
+        LocalTime borne_sup;
+        if(borne_inf.getMinute()+10<=59){
+            borne_sup = groupOrder.getHour().withMinute(borne_inf.getMinute()+10).withSecond(0).withNano(0);
+        }else{
+            borne_sup = groupOrder.getHour().withHour(borne_inf.getHour()+1).withMinute(0).withSecond(0);
+        }
+
+        boolean check_if_slot_available = checkAvailableSlot(borne_inf, borne_sup);
+        java.lang.System.out.println("BOOLEAN EST DE : " + check_if_slot_available);
+        if (check_if_slot_available) {
+            acceptOrder(groupOrder);
+            this.activeOrders.add(groupOrder);
+            this.orderHistory.add(groupOrder);
+        }
     }
 
     public ArrayList<GroupOrder> getActiveOrders() {
         return this.activeOrders;
     }
 
+    public int getCapacity(){ return capacity;}
+
+    public boolean checkAvailableSlot(LocalTime borne_inf, LocalTime borne_sup){
+        int slot_capacity = getCapacity();
+        for(GroupOrder go : getActiveOrders()){
+            if(go.getHour().isAfter(borne_inf) && go.getHour().isBefore(borne_sup)){
+                slot_capacity--;
+            }
+        }
+        java.lang.System.out.print("LA CAPACITE EST DE : " +slot_capacity);
+        return slot_capacity > 0;
+    }
+
     public void acceptOrder(GroupOrder groupOrder) {
         for (Order order : groupOrder.orders) {
             order.changeStatus(Status.IN_PREPARATION);
+
         }
     }
 
@@ -186,5 +218,9 @@ public class Restaurant {
         }
 
         return 0;
+    }
+
+    public void editCapacity(int new_capacity){
+        this.capacity = new_capacity;
     }
 }

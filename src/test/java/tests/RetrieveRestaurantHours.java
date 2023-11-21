@@ -25,7 +25,7 @@ public class RetrieveRestaurantHours {
     @When("I want to check the operating hours of a restaurant")
     public void check_hours_restaurant() {
         Hours hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("McDonalds", "Paris", hours, 3,5,5);
+        restaurant = new Restaurant("McDonalds", "Paris", hours, 3,5,5,20);
         system.addRestaurant(restaurant);
     }
     @Then("I retrieve the restaurant's hours")

@@ -15,7 +15,7 @@ public class editProductPrice {
 
     @Given("the restaurant owner has a product called {string} with a price of {double} euros")
     public void the_restaurant_owner_has_a_product_called_with_a_price_of_euros(String productName, double initialPrice) {
-        restaurant = new Restaurant("The Bistro", "Nice", null);
+        restaurant = new Restaurant("The Bistro", "Nice", null,  0 , 0 ,0,20);
         productToEdit = new Product(restaurant, productName, initialPrice);
         restaurant.addProductToMenu(productToEdit);
     }

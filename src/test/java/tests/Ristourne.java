@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class Ristourne {
     private Customer customer;
-    private Restaurant restaurant=new Restaurant("test restaurant", "test address", null,3,5,5);
+    private Restaurant restaurant=new Restaurant("test restaurant", "test address", null,3,5,5,20);
     private Product product;
 
     @Given("a customer who has a discount in a restaurant")

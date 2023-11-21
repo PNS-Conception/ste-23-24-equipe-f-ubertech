@@ -12,7 +12,7 @@ public class addProductRestaurant {
     Product product;
     @Given("a new restaurant called {string} based in {string}")
     public void aNewRestaurantWhichOpened(String arg0, String arg1) {
-        restaurant = new Restaurant(arg0, arg1, null, 3,5,5);
+        restaurant = new Restaurant(arg0, arg1, null, 3,5,5, 20);
     }
 
     @When("I want to add a new product called {string} which cost 15 euros")

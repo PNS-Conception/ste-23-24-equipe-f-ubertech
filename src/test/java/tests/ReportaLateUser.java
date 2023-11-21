@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import sophiatech.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,7 +23,7 @@ public class ReportaLateUser {
         customer = new Customer("Sara", "Dahman",UserType.STUDENT);
         products = new ArrayList<>();
         products.add(new Product("Tajine", 30));
-        order = new Order(customer,"55 Avenue de Cannes", new Date(),products);
+        order = new Order(customer,"55 Avenue de Cannes", LocalTime.now(),products);
         deliveryPerson.assignOrder(order);
         customer.decrementerDelayCounter();
         customer.decrementerDelayCounter();
@@ -47,7 +48,7 @@ public class ReportaLateUser {
         customer = new Customer("Sara", "Dahman",UserType.STUDENT);
         products = new ArrayList<>();
         products.add(new Product("Tajine", 30));
-        order = new Order(customer,"55 Avenue de Cannes", new Date(),products);
+        order = new Order(customer,"55 Avenue de Cannes", LocalTime.now(),products);
         deliveryPerson.assignOrder(order);
         customer.decrementerDelayCounter();
         deliveryPerson.observeUserDelay();
