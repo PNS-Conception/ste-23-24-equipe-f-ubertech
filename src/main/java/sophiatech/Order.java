@@ -1,5 +1,6 @@
 package sophiatech;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -8,25 +9,42 @@ import java.util.UUID;
 public class Order {
 
     private String location;
-    private Date date;
+    private LocalTime hour_order;
+    private Customer customer;
     private ArrayList<Product> productList;
     private Status status;
     private boolean validationByDeliveryPerson;
     private boolean validationByCustomer;
+    private double totalPrice;
 
-    private Customer customer;
+    private boolean delayRecorded;
+    private long expectedDeliveryTime;
+
+    private boolean isAlreadyUsedForDiscount;
+
 
     private String id;
 
-    public Order(String location, Date date, ArrayList<Product> productList, Customer customer){
+    public Order(String location, LocalTime hour, ArrayList<Product> productList){
         this.location = location;
-        this.date = date;
+        this.hour_order = hour;
         this.productList = productList;
         this.status = Status.PENDING_PREPARATION;
         this.validationByDeliveryPerson = false;
         this.validationByCustomer = false;
+        this.isAlreadyUsedForDiscount = false;
+        this.delayRecorded=false;
+    }
+
+    public Order(Customer customer, String location, LocalTime hour, ArrayList<Product> productList){
+        this(location, hour, productList);
+        this.customer = customer;
         this.id = generateUniqueId();
         this.customer = customer;
+        this.isAlreadyUsedForDiscount = false;
+        for(Product p: productList){
+            this.totalPrice += p.getPrice();
+        }
     }
 
     private String generateUniqueId() {
@@ -55,6 +73,7 @@ public class Order {
 
 
     //TODO Ne pas oublier de faire une machine a états traitant les cas légaux de changement d'état d'une order.
+
     @Override
     public boolean equals(Object obj) { //equals if everything is equals except for date. If date changes by an hour then it is considered the same order
         if (this == obj) {
@@ -74,23 +93,22 @@ public class Order {
         boolean statusEquals = this.status == otherOrder.status;
 
         // Compare dates, considering an hour difference
-        boolean dateEquals = Math.abs(this.date.getTime() - otherOrder.date.getTime()) <= 60 * 60 * 1000; // 1 hour in milliseconds
+        boolean dateEquals = this.hour_order.equals(otherOrder.getHour());
 
         return locationEquals && productListEquals && statusEquals && dateEquals;
     }
-
     public String getId() {
         return id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(location, date, productList, status);
+        return Objects.hash(location, hour_order, productList, status);
     }
 
     @Override
     public String toString() {
-        StringBuilder description = new StringBuilder("Ordered on " + date + " to be delivered at " + location + ". contains : \n[\n");
+        StringBuilder description = new StringBuilder("Ordered on " + hour_order + " to be delivered at " + location + ". contains : \n[\n");
         for (Product product : productList) {
             description.append("\t").append(product).append("\n");
         }
@@ -98,6 +116,7 @@ public class Order {
         description.append(status);
         return description.toString();
     }
+
     public void validateDelivery(Status status) {
         this.status = status;
         this.validationByDeliveryPerson = true;
@@ -105,7 +124,6 @@ public class Order {
     public void validateOrder() {
         this.validationByCustomer = true;
     }
-
     public Status getStatus() {
         return this.status;
     }
@@ -114,11 +132,41 @@ public class Order {
         return this.location;
     }
 
-    public Date getDate(){
-        return this.date;
+    public LocalTime getHour(){
+        return this.hour_order;
     }
 
+    public Customer getUser(){ return this.customer;}
+    public boolean isDelayRecorded(){return delayRecorded;}
+    public void setDelayRecorded(boolean delayRecorded) {
+        this.delayRecorded = delayRecorded;
+    }
     public ArrayList<Product> getProductList(){
         return this.productList;
+    }
+
+    public void setTotalPrice(double total) {
+        this.totalPrice = total;
+    }
+
+    public double getTotalPrice() {
+        return this.totalPrice;
+    }
+    public long getExpectedDeliveryTime() {
+        return expectedDeliveryTime;
+    }
+    public void setExpectedDeliveryTime(long expectedDeliveryTime) {
+        this.expectedDeliveryTime = expectedDeliveryTime;
+    }
+    public Restaurant getRestaurant() {
+        return this.productList.get(0).getRestaurant();
+    }
+
+    public boolean isAlreadyUsedForDiscount() {
+        return isAlreadyUsedForDiscount;
+    }
+
+    public void setAlreadyUsedForDiscount(boolean alreadyUsedForDiscount) {
+        isAlreadyUsedForDiscount = alreadyUsedForDiscount;
     }
 }

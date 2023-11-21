@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import sophiatech.*;
 import sophiatech.System;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import java.util.Date;
@@ -21,10 +22,9 @@ public class deliveryConfirmation {
     public void a_delivery_person() {
         deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
         String location = "polytech Nice Sophia, ... Biot";
-        Date date = new Date();
         ArrayList<Product> productList = new ArrayList<Product>();
 
-        order = new Order(location, date, productList, customer);
+        order = new Order(customer,location, LocalTime.now(), productList);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
         deliveryPerson.addOrder(groupOrder);

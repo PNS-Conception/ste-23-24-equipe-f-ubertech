@@ -3,13 +3,10 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.mockito.internal.matchers.Or;
 import sophiatech.*;
 import sophiatech.System;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -37,7 +34,7 @@ public class GroupOrderTests {
 
         this.campusAdministrator = new CampusAdministrator();
         this.hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        this.restaurant = new Restaurant("test restaurant", "test location", hours);
+        this.restaurant = new Restaurant("test restaurant", "test location", hours, 3,5,5,20);
         this.campusAdministrator.addRestaurant(restaurant);
 
         this.product1 = new Product(restaurant, "test product", 10);
@@ -45,11 +42,11 @@ public class GroupOrderTests {
 
         this.deliveryPerson = new DeliveryPerson("delivery name", "delivery person");
 
-        this.customer1 = new Customer("test first name", "test last name");
+        this.customer1 = new Customer("test first name", "test last name",UserType.EXTERNAL);
         this.customer1.addProductToPendingOrder(product1);
         this.customer1.payForOrder();
 
-        this.customer2 = new Customer("customer 2", "customer 2 name");
+        this.customer2 = new Customer("customer 2", "customer 2 name",UserType.EXTERNAL);
         this.customer2.addProductToPendingOrder(this.product2);
         this.customer2.payForOrder();
     }

@@ -8,8 +8,6 @@ import io.cucumber.java.en.When;
 import sophiatech.*;
 import sophiatech.System;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 
 public class NotificationRestaurant {
@@ -18,8 +16,8 @@ public class NotificationRestaurant {
     private Customer customer;
     @Given("a restaurant named {string} and a customer")
     public void aRestaurantNamedAndACustomer(String arg0) {
-        restaurant = new Restaurant(arg0, "75 rue evariste galois", null);
-        customer = new Customer("Quentin", "Maurois", system);
+        restaurant = new Restaurant(arg0, "75 rue evariste galois", null, 3,5,5,20);
+        customer = new Customer("Quentin", "Maurois", system,UserType.STUDENT);
         system.addRestaurant(restaurant);
     }
 

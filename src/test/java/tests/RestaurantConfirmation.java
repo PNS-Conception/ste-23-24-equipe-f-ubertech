@@ -30,14 +30,14 @@ public class RestaurantConfirmation {
         system.getOrdersPendingDeliveryPersons().clear();
 
         Hours h = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("restaurant acceptation", "3 rue du campus", h);
+        restaurant = new Restaurant("restaurant acceptation", "3 rue du campus", h, 3,5,5,20);
 
         campusAdministrator = new CampusAdministrator();
         campusAdministrator.addRestaurant(restaurant);
 
         product = new Product(restaurant, "sushi", 14);
 
-        customer = new Customer("Sushi Enjoyer", "customer");
+        customer = new Customer("Sushi Enjoyer", "customer",UserType.EXTERNAL);
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("sushi enjoyer", "delivery person"); //adds delivery person to the system in the constructor
@@ -68,14 +68,14 @@ public class RestaurantConfirmation {
         system.getOrdersPendingDeliveryPersons().clear();
 
         Hours h = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("restaurant not acceptation", "7 rue du campus", h);
+        restaurant = new Restaurant("restaurant not acceptation", "7 rue du campus", h, 3,5,5,20);
 
         campusAdministrator = new CampusAdministrator();
         campusAdministrator.addRestaurant(restaurant);
 
         product = new Product(restaurant, "ramen", 14);
 
-        customer = new Customer("Ramen Enjoyer", "customer");
+        customer = new Customer("Ramen Enjoyer", "customer",UserType.FACULTY);
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("ramen enjoyer", "delivery person"); //adds delivery person to the system in the constructor

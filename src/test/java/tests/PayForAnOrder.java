@@ -33,14 +33,14 @@ public class PayForAnOrder {
 
 
         Hours hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("test restaurant", "restaurant location", hours);
+        restaurant = new Restaurant("test restaurant", "restaurant location", hours, 3,5,5, 20);
 
         campusAdministrator = new CampusAdministrator();
         campusAdministrator.addRestaurant(restaurant);
 
         product = new Product(restaurant, "test burger", 7);    //adds product to the corresponding restaurant in the constructor
 
-        customer = new Customer("test", "customer");    //adds customer to the system in the constructor
+        customer = new Customer("test", "customer",UserType.STAFF);    //adds customer to the system in the constructor
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("test", "delivery person"); //adds delivery person to the system in the constructor

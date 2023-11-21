@@ -7,7 +7,6 @@ import sophiatech.Hours;
 import sophiatech.Restaurant;
 
 import java.time.LocalTime;
-import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +16,7 @@ public class editHoursRestaurant {
     @Given("a restaurant called {string}")
     public void aRestaurantCalled(String arg0) {
         hours = new Hours(LocalTime.of(9,30), LocalTime.of(23,45));
-        restaurant = new Restaurant("Au bon manger", "Paris", hours);
+        restaurant = new Restaurant("Au bon manger", "Paris", hours, 3,5,5,20);
     }
 
     @When("I want to change my hours")

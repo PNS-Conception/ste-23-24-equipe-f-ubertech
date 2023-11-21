@@ -49,3 +49,6 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 dependency-reduced-pom.xml
+
+## From Simon BEUREL
+.attach_pid*
