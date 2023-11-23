@@ -51,16 +51,16 @@ public class Ristourne {
     @When("the discount end date is reached")
     public void the_discount_end_date_is_reached() {
         Discount d=customer.getDiscounts().get(0);
-        System.out.println("date expiration: "+d.getExpirationDate());
+        //System.out.println("date expiration: "+d.getExpirationDate());
         d.setExpirationDate(d.getExpirationDate().minusDays(d.getRestaurant().getDiscountDuration()+1));
-        System.out.println("date expiration: "+d.getExpirationDate());
+        //System.out.println("date expiration: "+d.getExpirationDate());
         product = new Product(restaurant, "test burger", 7);
         customer.addProductToPendingOrder(product);
         customer.payForOrder();
     }
     @Then("the customer does not get the discount in this restaurant")
     public void the_customer_does_not_get_the_discount_in_this_restaurant() {
-        System.out.println("taille discountList: "+customer.getDiscounts().size());
+        //System.out.println("taille discountList: "+customer.getDiscounts().size());
         assertTrue(customer.getDiscounts().size()==0);
         assertTrue(customer.getHistory().get(0).orders.get(0).getTotalPrice()==product.getPrice());
     }

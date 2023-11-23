@@ -19,6 +19,7 @@ public class Restaurant {
     private Menu menu;
     private int discountDuration;
     private int discount;
+    private RestaurantProxy proxy = new RestaurantProxy(new RestaurantRealSubject(this));
 
     private double discountV1 = 0;     //discountV1 -> no time limit, works for all further orders
     private int discountV1Requirement = -1;  //nb of orders by the customer required to get this discount
@@ -70,7 +71,7 @@ public class Restaurant {
             borne_sup = groupOrder.getHour().withHour(borne_inf.getHour()+1).withMinute(0).withSecond(0);
         }
 
-        boolean check_if_slot_available = checkAvailableSlot(borne_inf, borne_sup);
+        boolean check_if_slot_available = proxy.checkAvailableSlot(borne_inf, borne_sup);
         java.lang.System.out.println("BOOLEAN EST DE : " + check_if_slot_available);
         if (check_if_slot_available) {
             acceptOrder(groupOrder);
@@ -85,7 +86,7 @@ public class Restaurant {
 
     public int getCapacity(){ return capacity;}
 
-    public boolean checkAvailableSlot(LocalTime borne_inf, LocalTime borne_sup){
+   /* public boolean checkAvailableSlot(LocalTime borne_inf, LocalTime borne_sup){
         int slot_capacity = getCapacity();
         for(GroupOrder go : getActiveOrders()){
             if(go.getHour().isAfter(borne_inf) && go.getHour().isBefore(borne_sup)){
@@ -94,7 +95,7 @@ public class Restaurant {
         }
         java.lang.System.out.print("LA CAPACITE EST DE : " +slot_capacity);
         return slot_capacity > 0;
-    }
+    }*/
 
     public void acceptOrder(GroupOrder groupOrder) {
         for (Order order : groupOrder.orders) {

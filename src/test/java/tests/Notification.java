@@ -65,7 +65,7 @@ public class Notification {
     }
     @Then("they are able to read informations like : the venue, the customer's name, the order's id....")
     public void they_are_able_to_read_informations_like_the_venue_the_customer_s_name_the_order_s_id() {
-        java.lang.System.out.println(deliveryPerson.getActiveOrder().orders.get(0));
+        //java.lang.System.out.println(deliveryPerson.getActiveOrder().orders.get(0));
         assertEquals(deliveryPerson.getActiveOrder().getId(), customer.getActiveOrder().getId());
         assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getId(), customer.getActiveOrder().orders.get(0).getId());
         assertEquals(deliveryPerson.getActiveOrder().orders.get(0).getLocation(), customer.getActiveOrder().orders.get(0).getLocation());
