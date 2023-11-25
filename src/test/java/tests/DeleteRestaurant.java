@@ -17,7 +17,13 @@ public class DeleteRestaurant {
 
     @Given("that I am an Campus Administrator viewing the list of restaurants")
     public void that_i_am_an_campus_administrator_viewing_the_list_of_restaurants() {
-        system = new System();
+        system = System.getInstance();
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
+        system.getOrdersPendingDeliveryPersons().clear();
+
         campusAdministrator = new CampusAdministrator();
         restaurant = new Restaurant("Test Restaurant", "123 Test Street", null, 3,5,5,20);
         campusAdministrator.addRestaurant(restaurant);

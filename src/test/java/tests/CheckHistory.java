@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CheckHistory {
 
-    private System system = new System();
+    private System system;
     private Customer customer;
     private Order order;
     private GroupOrder groupOrder;
@@ -24,6 +24,13 @@ public class CheckHistory {
 
     @Given("A customer")
     public void a_customer() {
+        system = System.getInstance();
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
+        system.getOrdersPendingDeliveryPersons().clear();
+
         customer = new Customer("Simon", "Beurel", system,UserType.STUDENT);
     }
     @When("I view my order history for food orders")
