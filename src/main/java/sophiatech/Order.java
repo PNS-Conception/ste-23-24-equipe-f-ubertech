@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Order {
 
@@ -45,6 +47,19 @@ public class Order {
         for(Product p: productList){
             this.totalPrice += p.getPrice();
         }
+    }
+
+    public Order(Customer customer, String location, LocalTime hour){
+        this.location = location;
+        this.hour_order = hour;
+        this.customer = customer;
+        this.status = Status.PENDING_PREPARATION;
+        this.validationByDeliveryPerson = false;
+        this.validationByCustomer = false;
+        this.isAlreadyUsedForDiscount = false;
+        this.delayRecorded=false;
+        this.totalPrice = 0.0;
+        this.productList = new ArrayList<>();
     }
 
     private String generateUniqueId() {
@@ -169,4 +184,24 @@ public class Order {
     public void setAlreadyUsedForDiscount(boolean alreadyUsedForDiscount) {
         isAlreadyUsedForDiscount = alreadyUsedForDiscount;
     }
+
+    public void addProduct(Product product){
+        this.productList.add(product);
+        this.totalPrice+=product.getPrice();
+    }
+
+    public void addPrice(double priceToAdd){
+        this.totalPrice+=priceToAdd;
+        BigDecimal bd = new BigDecimal(this.totalPrice);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        this.totalPrice = bd.doubleValue();
+    }
+    public void setPrice(double price){
+        this.totalPrice=price;
+        BigDecimal bd = new BigDecimal(this.totalPrice);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        this.totalPrice = bd.doubleValue();
+    }
+
+
 }

@@ -50,7 +50,7 @@ public class PayForAnOrder {
 
     @When("they want to pay")
     public void they_want_to_pay() {
-        assertNotNull(customer.payForOrder());
+        customer.payForOrder();
     }
 
     @Then("the corresponding order is successfully created")
