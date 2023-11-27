@@ -24,7 +24,7 @@ public class NotificationRestaurant {
         system.getOrdersPendingDeliveryPersons().clear();
 
         restaurant = new Restaurant(arg0, "75 rue evariste galois", null, 3,5,5,20);
-        customer = new Customer("Quentin", "Maurois", system,UserType.STUDENT);
+        customer = new Customer("Quentin", "Maurois", UserType.STUDENT);
         system.addRestaurant(restaurant);
     }
 

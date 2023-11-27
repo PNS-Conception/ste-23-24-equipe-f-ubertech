@@ -31,7 +31,7 @@ public class CheckHistory {
         system.getListRestaurant().clear();
         system.getOrdersPendingDeliveryPersons().clear();
 
-        customer = new Customer("Simon", "Beurel", system,UserType.STUDENT);
+        customer = new Customer("Simon", "Beurel", UserType.STUDENT);
     }
     @When("I view my order history for food orders")
     public void view_history_food_orders() {

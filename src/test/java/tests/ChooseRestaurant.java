@@ -27,7 +27,7 @@ public class ChooseRestaurant {
         system.getListRestaurant().clear();
         system.getOrdersPendingDeliveryPersons().clear();
 
-        customer = new Customer("Simon","Beurel", system,UserType.STUDENT);
+        customer = new Customer("Simon","Beurel", UserType.STUDENT);
     }
 
     @When("I search for a specific restaurant named McDonalds")

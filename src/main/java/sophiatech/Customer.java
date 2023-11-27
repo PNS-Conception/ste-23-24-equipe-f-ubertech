@@ -20,22 +20,11 @@ public class Customer {
     private ArrayList<GroupOrder> orderHistory;
 
     private ArrayList<Product> pendingOrder;
+    private CustomerStatistics statistics = new CustomerStatistics(this);
 
     private GroupOrder activeOrder;
     private int delayCounter;
     private boolean isBanned;
-    public Customer(String fn, String ln, System sys, UserType userType){
-        this.firstName = fn;
-        this.lastName = ln;
-        this.userType = userType;
-        this.system = sys;
-        this.pendingOrder = new ArrayList<>();
-        this.activeOrder = new GroupOrder();
-        this.orderHistory = new ArrayList<>();
-        this.delayCounter=3;
-        this.isBanned=false;
-        discounts = new ArrayList<>();
-    }
 
     public Customer(String fn, String ln, UserType userType){
         this.firstName = fn;
@@ -160,9 +149,10 @@ public class Customer {
         }
     }
 
-    public void addOrder(GroupOrder order) {
-        this.activeOrder = order;
-        this.orderHistory.add(order);
+    public void addOrder(GroupOrder groupOrder) {
+        this.statistics.addGroupOrder(groupOrder);
+        this.activeOrder = groupOrder;
+        this.orderHistory.add(groupOrder);
     }
 
     public GroupOrder getActiveOrder() {
@@ -255,5 +245,9 @@ public class Customer {
 
     public ArrayList<Discount> getDiscounts() {
         return discounts;
+    }
+
+    public CustomerStatistics getStatistics() {
+        return this.statistics;
     }
 }
