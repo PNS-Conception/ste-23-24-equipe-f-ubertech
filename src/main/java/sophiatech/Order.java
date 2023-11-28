@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Order extends OrderComponent {
 
@@ -45,6 +47,23 @@ public class Order extends OrderComponent {
       //  return UUID.randomUUID().toString();
     }
 
+    public Order(Customer customer, String location, LocalTime hour){
+        this.location = location;
+        this.hour_order = hour;
+        this.customer = customer;
+        this.status = Status.PENDING_PREPARATION;
+        this.validationByDeliveryPerson = false;
+        this.validationByCustomer = false;
+        this.isAlreadyUsedForDiscount = false;
+        this.delayRecorded=false;
+        this.totalPrice = 0.0;
+        this.productList = new ArrayList<>();
+    }
+
+    /*private String generateUniqueId() {
+        return UUID.randomUUID().toString();
+    }*/
+  
     public double calculateTotalPrice(){
         double total = 0;
         for(Product p: productList){
@@ -162,4 +181,24 @@ public class Order extends OrderComponent {
     public void setAlreadyUsedForDiscount(boolean alreadyUsedForDiscount) {
         isAlreadyUsedForDiscount = alreadyUsedForDiscount;
     }
+
+    public void addProduct(Product product){
+        this.productList.add(product);
+        this.totalPrice+=product.getPrice();
+    }
+
+    public void addPrice(double priceToAdd){
+        this.totalPrice+=priceToAdd;
+        BigDecimal bd = new BigDecimal(this.totalPrice);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        this.totalPrice = bd.doubleValue();
+    }
+    public void setPrice(double price){
+        this.totalPrice=price;
+        BigDecimal bd = new BigDecimal(this.totalPrice);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        this.totalPrice = bd.doubleValue();
+    }
+
+
 }

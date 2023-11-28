@@ -26,7 +26,7 @@ public class DifferentPriceForDiffUser {
     }
     @Given("a customer faculty person")
     public void a_customer_faculty_person() {
-        customer = new Customer("Simon", "Beurel", UserType.FACULTY);
+        customer = new Customer("Quentin", "Maurois", UserType.FACULTY);
         restaurant = new Restaurant("test restaurant", "test address", null,3,5,5,20);
         product = new Product(restaurant, "test burger", 7);
         customer.addProductToPendingOrder(product);
@@ -35,7 +35,7 @@ public class DifferentPriceForDiffUser {
 
     @Given("a customer staff person")
     public void a_customer_staff_person() {
-        customer = new Customer("Simon", "Beurel", UserType.STAFF);
+        customer = new Customer("Lorenzo", "Froment", UserType.STAFF);
         restaurant = new Restaurant("test restaurant", "test address", null,3,5,5,20);
         product = new Product(restaurant, "test burger", 7);
         customer.addProductToPendingOrder(product);
