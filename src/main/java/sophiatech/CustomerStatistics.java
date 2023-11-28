@@ -1,17 +1,18 @@
 package sophiatech;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class CustomerStatistics {
     private Customer customer;
-    private Date creationDate;
+    private LocalTime creationDate;
     private int numberOrders;
     private double totalPriceSpent;
 
     public CustomerStatistics (Customer customer) {
         this.customer = customer;
-        this.creationDate = new Date();
+        this.creationDate = LocalTime.now();
         this.numberOrders = 0;
         this.totalPriceSpent = 0.0;
     }
@@ -30,7 +31,7 @@ public class CustomerStatistics {
         return this.numberOrders;
     }
 
-    public Date getCreationDate() {
+    public LocalTime getCreationDate() {
         return this.creationDate;
     }
 

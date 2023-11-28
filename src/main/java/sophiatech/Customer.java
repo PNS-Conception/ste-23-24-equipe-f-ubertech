@@ -59,6 +59,10 @@ public class Customer {
         }
     }
 
+    public ArrayList<Product> getPendingOrder() {
+        return this.pendingOrder;
+    }
+
     public String getCustomerName(){
         return this.firstName + " " + this.lastName;
     }

@@ -1,26 +1,32 @@
 package sophiatech;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RestaurantStatistics {
     private Restaurant restaurant;
-    private Date creationDate;
+    private LocalTime creationDate;
     private int numberProducts;
     private double totalPriceProducts;
     private int numberOrders;
     private double totalPriceOrders;
     private double totalPriceOffDiscount;   //total price that the restaurant "lost" due to discounts
+    private int[] ordersAtTime; //indexes the time at which the orders are placed
+    private Map<Product, Integer> numberProductOrdered;
 
 
     public RestaurantStatistics(Restaurant restaurant) {
         this.restaurant = restaurant;
-        this.creationDate = new Date();
+        this.creationDate = LocalTime.now();
         this.numberProducts = 0;
         this.totalPriceProducts = 0.0;
         this.numberOrders = 0;
         this.totalPriceOrders = 0.0;
         this.totalPriceOffDiscount = 0.0;
+        ordersAtTime = new int[24];
+        numberProductOrdered = new HashMap<>();
 
         this.updateStats();
     }
@@ -59,30 +65,45 @@ public class RestaurantStatistics {
         return this.totalPriceOffDiscount / this.numberOrders;
     }
 
+    public double[] getPercentageOrdersAtTime() {
+        double [] percents = new double[24];
 
+        for (int i = 0; i < 24; i++) {
+            percents[i] += ordersAtTime[i];
+            percents[i] = percents[i] / numberOrders;
+        }
+        return percents;
+    }
 
-
-
-
+    public Map<Product, Integer> getOrderedProductCount() { //returns the number of time a product was bought
+        return this.numberProductOrdered;
+    }
 
 
 
     public void addProduct(Product product) {
         this.numberProducts ++;
         this.totalPriceProducts += product.getPrice();
+        numberProductOrdered.put(product, 0);
     }
 
     public void addOrder(Order order) {
         this.numberOrders ++;
         this.totalPriceOrders += order.getTotalPrice();
 
-        java.lang.System.out.println("numberOrders " + numberOrders + "   " + "totalPriceOrders " + totalPriceOrders);
-
         double maxPrice = 0.0;  //price before discounts
         for (Product product : order.getProductList()) {
+            if (!numberProductOrdered.containsKey(product))
+                this.numberProductOrdered.put(product, 1);
+            else
+                this.numberProductOrdered.put(product, this.numberProductOrdered.get(product)+1);
             maxPrice += product.getPrice();
         }
         this.totalPriceOffDiscount += (maxPrice - order.getTotalPrice());
+
+        this.ordersAtTime[order.getHour().getHour()] ++;    //adds an order to the corresponding time thus the corresponding index
+
+
     }
 
     public void addGroupOrder(GroupOrder groupOrder) {
@@ -104,6 +125,8 @@ public class RestaurantStatistics {
         this.totalPriceProducts = 0.0;
         this.totalPriceOrders = 0.0;
         this.totalPriceOffDiscount = 0.0;
+        ordersAtTime = new int[24];
+        numberProductOrdered = new HashMap<>();
 
         for (Product product : restaurantProductList) {
             this.addProduct(product);
@@ -112,7 +135,5 @@ public class RestaurantStatistics {
         for (GroupOrder groupOrder : restaurantGroupOrderList) {
             this.addGroupOrder(groupOrder);
         }
-
-
     }
 }

@@ -26,8 +26,18 @@ Feature: restaurant statistics tests
     And the total price for orders is at 14.25
     And the average price for orders is at 14.25
     And the total discounted amount is at 0.75
-  Scenario:
+  Scenario: product count
     Given a restaurant with products at price of 12.5 5.0 7.0 and 15.35
     When they access their statistics
     Then the total of products is 4
     And the average price for products is at 9.9625
+  Scenario: get time at which orders are ordered
+    Given a restaurant which received three orders at 12 and one at 19
+    When they access their statistics
+    Then the percentage of orders ordered at 12 is 0.75
+    And the percentage of orders ordered at 19 is 0.25
+    And the percentage of orders ordered at any time but 12 and 19 is 0.0
+  Scenario: get favourite products
+    Given a restaurant which received orders containing different products
+    When they access their statistics
+    Then the favourite products are correct
