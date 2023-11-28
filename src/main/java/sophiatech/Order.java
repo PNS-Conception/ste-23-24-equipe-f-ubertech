@@ -34,17 +34,16 @@ public class Order {
         this.validationByCustomer = false;
         this.isAlreadyUsedForDiscount = false;
         this.delayRecorded=false;
+        for(Product p: productList){
+            this.totalPrice += p.getPrice();
+        }
     }
 
     public Order(Customer customer, String location, LocalTime hour, ArrayList<Product> productList){
         this(location, hour, productList);
         this.customer = customer;
         this.id = generateUniqueId();
-        this.customer = customer;
         this.isAlreadyUsedForDiscount = false;
-        for(Product p: productList){
-            this.totalPrice += p.getPrice();
-        }
     }
 
     private String generateUniqueId() {
