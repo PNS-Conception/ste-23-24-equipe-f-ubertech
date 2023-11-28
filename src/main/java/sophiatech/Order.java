@@ -12,9 +12,6 @@ public class Order extends OrderComponent {
     public String location;
     private Customer customer;
     private ArrayList<Product> productList;
-    private Status status;
-    private boolean validationByDeliveryPerson;
-    private boolean validationByCustomer;
     private boolean delayRecorded;
     private long expectedDeliveryTime;
 
@@ -39,6 +36,15 @@ public class Order extends OrderComponent {
         this.customer = customer;
         this.isAlreadyUsedForDiscount = false;
         calculateTotalPrice();
+
+
+
+
+
+
+
+
+
     }
     private int generateUniqueId() {
         String uuidString = UUID.randomUUID().toString();
@@ -73,20 +79,16 @@ public class Order extends OrderComponent {
         return totalPrice;
     }
 
+    @Override
+    public void validDelivery() {
+        validateDelivery(Status.DELIVERED);
+        changeStatusValidation(Status.DELIVERY_CONFIRMED);
+    }
+
     public boolean isValidationByCustomer() {
         return validationByCustomer;
     }
 
-    public void changeStatus(Status st){
-        this.status = st;
-    }
-
-    public void changeStatusValidation(Status st){
-        if(this.validationByCustomer && this.validationByDeliveryPerson){
-            this.status = st;
-        }
-
-    }
 
     public Customer getCustomer() {
         return customer;
@@ -138,6 +140,7 @@ public class Order extends OrderComponent {
     public void validateDelivery(Status status) {
         this.status = status;
         this.validationByDeliveryPerson = true;
+        customer.incrementOrderNotDelayed();
     }
     public void validateOrder() {
         this.validationByCustomer = true;

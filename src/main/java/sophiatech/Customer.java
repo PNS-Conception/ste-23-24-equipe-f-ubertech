@@ -24,6 +24,7 @@ public class Customer {
     private GroupOrder activeOrder;
     private int delayCounter;
     private boolean isBanned;
+    private int orderNotDelayed;
     public Customer(String fn, String ln, System sys, UserType userType){
         this.firstName = fn;
         this.lastName = ln;
@@ -33,6 +34,7 @@ public class Customer {
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
         this.delayCounter=3;
+        this.orderNotDelayed=0;
         this.isBanned=false;
         discounts = new ArrayList<>();
     }
@@ -46,8 +48,26 @@ public class Customer {
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
         this.delayCounter=3;
+        this.orderNotDelayed=0;
         this.isBanned=false;
         discounts = new ArrayList<>();
+    }
+
+    public void checkNotDelayedPoints(){
+        if(this.orderNotDelayed == 3){
+            this.orderNotDelayed = 0;
+            this.delayCounter++;
+        }
+    }
+
+    public void resetOrderNotDelayed(){
+        this.orderNotDelayed=0;
+    }
+
+    public void incrementOrderNotDelayed(){
+        if(this.orderNotDelayed<3){
+            this.orderNotDelayed++;
+        }
     }
 
     public String getFavouriteLocation() {
@@ -298,7 +318,6 @@ public class Customer {
             isBanned=true;
             this.delayCounter=0;
         }
-
     }
 
     public boolean isActive() {

@@ -50,14 +50,10 @@ public class DeliveryPerson {
     }
 
 
-    public void validDelivery(GroupOrder groupOrderorder) {
-        for (Order order : groupOrderorder.orders) {
-            order.validateDelivery(Status.DELIVERED);
-            order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
-        }
+    public void validDelivery(OrderComponent orderOrGroupOrder) {
+        orderOrGroupOrder.validDelivery();
         this.isAvailable = true;
         activeOrder = new GroupOrder();
-
     }
 
     public void assignOrder(Order order) {
@@ -88,5 +84,6 @@ public class DeliveryPerson {
 
     public void reportUserDelay(Order order,Customer cs) {
         cs.decrementerDelayCounter();
+        cs.resetOrderNotDelayed();
     }
 }
