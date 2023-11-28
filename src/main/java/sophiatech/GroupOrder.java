@@ -3,31 +3,26 @@ package sophiatech;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class GroupOrder {
-    public ArrayList<Order> orders = new ArrayList();
-    private static int idCounter = 1; // Static counter for generating unique IDs
-    private int id;
-    private boolean isOpen;
+public class GroupOrder extends OrderComponent{
 
-    private LocalTime hour;
+    public ArrayList<Order> orders = new ArrayList();
+
+    private static int idCounter = 1; // Static counter for generating unique IDs
+    private boolean isOpen;
 
 
     public GroupOrder (ArrayList<Order> orders) {
         this.id = generateUniqueId();
         this.orders = orders;
         this.isOpen = false;
+        calculateTotalPrice();
 
-        if(!orders.isEmpty()) this.hour = orders.get(0).getHour();
-        else this.hour = null;
-
+        if(!orders.isEmpty()) this.hour_order = orders.get(0).getHour();
+        else this.hour_order = null;
     }
     public GroupOrder() {
         this(new ArrayList<>());
-        this.hour = LocalTime.now();
-    }
-
-    public int getId() {
-        return id;
+        this.hour_order = LocalTime.now();
     }
 
     public boolean isOpen() {
@@ -42,5 +37,12 @@ public class GroupOrder {
         return idCounter++;
     }
 
-    public LocalTime getHour(){ return hour;}
+    public double calculateTotalPrice(){
+        double total = 0;
+        for(Order o: orders){
+            total += o.calculateTotalPrice();
+        }
+        return total;
+    }
+
 }
