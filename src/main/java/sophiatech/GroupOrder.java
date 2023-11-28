@@ -3,7 +3,7 @@ package sophiatech;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class GroupOrder extends OrderComponent{
+public class GroupOrder extends OrderComponent {
 
     public ArrayList<Order> orders = new ArrayList();
 
@@ -11,15 +11,16 @@ public class GroupOrder extends OrderComponent{
     private boolean isOpen;
 
 
-    public GroupOrder (ArrayList<Order> orders) {
+    public GroupOrder(ArrayList<Order> orders) {
         this.id = generateUniqueId();
         this.orders = orders;
         this.isOpen = false;
         calculateTotalPrice();
 
-        if(!orders.isEmpty()) this.hour_order = orders.get(0).getHour();
+        if (!orders.isEmpty()) this.hour_order = orders.get(0).getHour();
         else this.hour_order = null;
     }
+
     public GroupOrder() {
         this(new ArrayList<>());
         this.hour_order = LocalTime.now();
@@ -37,12 +38,20 @@ public class GroupOrder extends OrderComponent{
         return idCounter++;
     }
 
-    public double calculateTotalPrice(){
+    public double calculateTotalPrice() {
         double total = 0;
-        for(Order o: orders){
+        for (Order o : orders) {
             total += o.calculateTotalPrice();
         }
         return total;
     }
 
+    @Override
+    public void validDelivery() {
+        for (Order order : orders) {
+            order.validateDelivery(Status.DELIVERED);
+            order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
+        }
+
+    }
 }

@@ -23,7 +23,7 @@ public class deliveryConfirmation {
         deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
         String location = "polytech Nice Sophia, ... Biot";
         ArrayList<Product> productList = new ArrayList<Product>();
-
+        customer = new Customer("Sara", "Dahman", UserType.STUDENT);
         order = new Order(customer,location, LocalTime.now(), productList);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);
