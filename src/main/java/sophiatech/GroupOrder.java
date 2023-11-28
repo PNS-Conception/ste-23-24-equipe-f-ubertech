@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class GroupOrder extends OrderComponent{
 
     public ArrayList<Order> orders = new ArrayList();
+
     private static int idCounter = 1; // Static counter for generating unique IDs
     private boolean isOpen;
 

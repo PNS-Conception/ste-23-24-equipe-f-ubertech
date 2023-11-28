@@ -9,9 +9,7 @@ public abstract class OrderComponent {
     protected double totalPrice;
 
 
-    public int getId(){
-        return id;
-    }
+    public int getId(){return id;}
     public LocalTime getHour(){ return hour_order;}
     public abstract double calculateTotalPrice();
 

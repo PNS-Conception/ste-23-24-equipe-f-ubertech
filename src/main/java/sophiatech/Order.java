@@ -39,7 +39,10 @@ public class Order extends OrderComponent {
         calculateTotalPrice();
     }
     private int generateUniqueId() {
-        return Integer.parseInt(UUID.randomUUID().toString());
+        String uuidString = UUID.randomUUID().toString();
+        int hashCode = uuidString.hashCode();
+        return Math.abs(hashCode);
+      //  return UUID.randomUUID().toString();
     }
 
     public double calculateTotalPrice(){
