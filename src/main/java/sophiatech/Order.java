@@ -60,9 +60,9 @@ public class Order extends OrderComponent {
         this.productList = new ArrayList<>();
     }
 
-    private String generateUniqueId() {
+    /*private String generateUniqueId() {
         return UUID.randomUUID().toString();
-    }
+    }*/
   
     public double calculateTotalPrice(){
         double total = 0;
