@@ -4,6 +4,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import sophiatech.GroupOrder;
 import sophiatech.Order;
+import sophiatech.Product;
 import sophiatech.Restaurant;
 
 import java.time.LocalTime;
@@ -26,7 +27,9 @@ public class SlotsRestaurant {
 
     @Then("I cant accept more order than my production's capacity")
     public void i_cant_accept_more_order_than_my_production_s_capacity() {
-        Order o1 = new Order("Langast", LocalTime.now(),null);
+        ArrayList<Product> pdlist = new ArrayList<>();
+        pdlist.add(new Product("Pizza", 10));
+        Order o1 = new Order("Langast", LocalTime.now(),pdlist);
         ArrayList<Order> list = new ArrayList<>();
         list.add(o1);
         GroupOrder gp = new GroupOrder(list);

@@ -1,31 +1,25 @@
 package sophiatech;
 
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Order {
+public class Order extends OrderComponent {
 
-    private String location;
-    private LocalTime hour_order;
+    public String location;
     private Customer customer;
     private ArrayList<Product> productList;
     private Status status;
     private boolean validationByDeliveryPerson;
     private boolean validationByCustomer;
-    private double totalPrice;
-
     private boolean delayRecorded;
     private long expectedDeliveryTime;
 
     private boolean isAlreadyUsedForDiscount;
 
-
-    private String id;
 
     public Order(String location, LocalTime hour, ArrayList<Product> productList){
         this.location = location;
@@ -44,9 +38,13 @@ public class Order {
         this.id = generateUniqueId();
         this.customer = customer;
         this.isAlreadyUsedForDiscount = false;
-        for(Product p: productList){
-            this.totalPrice += p.getPrice();
-        }
+        calculateTotalPrice();
+    }
+    private int generateUniqueId() {
+        String uuidString = UUID.randomUUID().toString();
+        int hashCode = uuidString.hashCode();
+        return Math.abs(hashCode);
+      //  return UUID.randomUUID().toString();
     }
 
     public Order(Customer customer, String location, LocalTime hour){
@@ -65,6 +63,15 @@ public class Order {
     private String generateUniqueId() {
         return UUID.randomUUID().toString();
     }
+  
+    public double calculateTotalPrice(){
+        double total = 0;
+        for(Product p: productList){
+            total += p.getPrice();
+        }
+        totalPrice= total;
+        return totalPrice;
+    }
 
     public boolean isValidationByCustomer() {
         return validationByCustomer;
@@ -80,7 +87,6 @@ public class Order {
         }
 
     }
-
 
     public Customer getCustomer() {
         return customer;
@@ -111,9 +117,6 @@ public class Order {
         boolean dateEquals = this.hour_order.equals(otherOrder.getHour());
 
         return locationEquals && productListEquals && statusEquals && dateEquals;
-    }
-    public String getId() {
-        return id;
     }
 
     @Override
@@ -147,12 +150,6 @@ public class Order {
         return this.location;
     }
 
-    public LocalTime getHour(){
-        return this.hour_order;
-    }
-
-    public Customer getUser(){ return this.customer;}
-    public boolean isDelayRecorded(){return delayRecorded;}
     public void setDelayRecorded(boolean delayRecorded) {
         this.delayRecorded = delayRecorded;
     }
