@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 public class GroupOrder extends OrderComponent {
 
-    public ArrayList<Order> orders = new ArrayList();
+    public ArrayList<OrderComponent> orders = new ArrayList();
 
     private static int idCounter = 1; // Static counter for generating unique IDs
     private boolean isOpen;
 
 
-    public GroupOrder(ArrayList<Order> orders) {
+    public GroupOrder(ArrayList<OrderComponent> orders) {
         this.id = generateUniqueId();
         this.orders = orders;
         this.isOpen = false;
@@ -40,15 +40,29 @@ public class GroupOrder extends OrderComponent {
 
     public double calculateTotalPrice() {
         double total = 0;
-        for (Order o : orders) {
+        for (OrderComponent o : orders) {
             total += o.calculateTotalPrice();
         }
         return total;
     }
 
     @Override
+    public Restaurant getRestaurant() {
+    return orders.get(0).getRestaurant();
+    }
+
+    @Override
+    public ArrayList<Product> getProductList() {
+        ArrayList<Product> products = new ArrayList<>();
+        for (OrderComponent order : orders) {
+            products.addAll(order.getProductList());
+        }
+        return products;
+    }
+
+    @Override
     public void validDelivery() {
-        for (Order order : orders) {
+        for (OrderComponent order : orders) {
             order.validateDelivery(Status.DELIVERED);
             order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
         }

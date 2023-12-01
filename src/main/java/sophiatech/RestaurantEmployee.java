@@ -18,7 +18,7 @@ public class RestaurantEmployee {
         this.restaurant = r;
     }
 
-    public void finishOrder(Order order) {
+    public void finishOrder(OrderComponent order) {
         order.changeStatus(Status.PREPARED);
 
     }

@@ -297,7 +297,7 @@ public class Customer {
     }
 
     public void validDelivery(GroupOrder groupOrder){
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.validateOrder();
             order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
         }

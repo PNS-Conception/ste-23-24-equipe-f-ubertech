@@ -9,13 +9,9 @@ import java.math.RoundingMode;
 
 public class Order extends OrderComponent {
 
-    public String location;
-    private Customer customer;
     private ArrayList<Product> productList;
     private boolean delayRecorded;
     private long expectedDeliveryTime;
-
-    private boolean isAlreadyUsedForDiscount;
 
 
     public Order(String location, LocalTime hour, ArrayList<Product> productList){
@@ -36,11 +32,6 @@ public class Order extends OrderComponent {
         this.customer = customer;
         this.isAlreadyUsedForDiscount = false;
         calculateTotalPrice();
-
-
-
-
-
 
 
 
@@ -90,11 +81,6 @@ public class Order extends OrderComponent {
     }
 
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-
     //TODO Ne pas oublier de faire une machine a états traitant les cas légaux de changement d'état d'une order.
 
     @Override
@@ -137,25 +123,15 @@ public class Order extends OrderComponent {
         return description.toString();
     }
 
-    public void validateDelivery(Status status) {
+   /* public void validateDelivery(Status status) {
         this.status = status;
         this.validationByDeliveryPerson = true;
         customer.incrementOrderNotDelayed();
-    }
-    public void validateOrder() {
-        this.validationByCustomer = true;
-    }
-    public Status getStatus() {
-        return this.status;
-    }
-
-    public String getLocation(){
-        return this.location;
-    }
-
+    }*/
     public void setDelayRecorded(boolean delayRecorded) {
         this.delayRecorded = delayRecorded;
     }
+
     public ArrayList<Product> getProductList(){
         return this.productList;
     }
@@ -164,9 +140,6 @@ public class Order extends OrderComponent {
         this.totalPrice = total;
     }
 
-    public double getTotalPrice() {
-        return this.totalPrice;
-    }
     public long getExpectedDeliveryTime() {
         return expectedDeliveryTime;
     }
@@ -175,14 +148,6 @@ public class Order extends OrderComponent {
     }
     public Restaurant getRestaurant() {
         return this.productList.get(0).getRestaurant();
-    }
-
-    public boolean isAlreadyUsedForDiscount() {
-        return isAlreadyUsedForDiscount;
-    }
-
-    public void setAlreadyUsedForDiscount(boolean alreadyUsedForDiscount) {
-        isAlreadyUsedForDiscount = alreadyUsedForDiscount;
     }
 
     public void addProduct(Product product){
