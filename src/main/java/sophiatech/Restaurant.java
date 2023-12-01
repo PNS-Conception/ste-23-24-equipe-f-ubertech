@@ -98,7 +98,7 @@ public class Restaurant {
     }*/
 
     public void acceptOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.changeStatus(Status.IN_PREPARATION);
 
         }
@@ -110,13 +110,13 @@ public class Restaurant {
     }
 
     public void denyOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.changeStatus(Status.CANCELED);
         }
     }
 
     public void finishOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.changeStatus(Status.PREPARED);
         }
     }
@@ -205,9 +205,9 @@ public class Restaurant {
     public double getCustomerDiscountV1 (Customer customer) {     //returns the percentage of discount for the customer (either the discount amount or 0)
         if (this.discountV1Requirement < 0) return 0;
 
-        ArrayList<Order> customerOrders = new ArrayList<>();    //will contain every orders the customer made in this restaurant. (not groupOrders)
+        ArrayList<OrderComponent> customerOrders = new ArrayList<>();    //will contain every orders the customer made in this restaurant. (not groupOrders)
         for (GroupOrder groupOrder : orderHistory) {
-            for(Order order : groupOrder.orders) {
+            for(OrderComponent order : groupOrder.orders) {
                 if (order.getCustomer().equals(customer)) {
                     customerOrders.add(order);
                 }

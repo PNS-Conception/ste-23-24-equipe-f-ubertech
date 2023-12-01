@@ -77,7 +77,7 @@ public class GroupOrderTests {
         GroupOrder activeOrder = this.deliveryPerson.getActiveOrder();
 
         //java.lang.System.out.println(activeOrder.orders.size());
-        for (Order order : activeOrder.orders) {
+        for (OrderComponent order : activeOrder.orders) {
             //java.lang.System.out.println(order);
         }
         assertTrue(activeOrder.orders.contains(customer1.getActiveOrder().orders.get(0)));

@@ -2,10 +2,7 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.GroupOrder;
-import sophiatech.Order;
-import sophiatech.Product;
-import sophiatech.Restaurant;
+import sophiatech.*;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class SlotsRestaurant {
         ArrayList<Product> pdlist = new ArrayList<>();
         pdlist.add(new Product("Pizza", 10));
         Order o1 = new Order("Langast", LocalTime.now(),pdlist);
-        ArrayList<Order> list = new ArrayList<>();
+        ArrayList<OrderComponent> list = new ArrayList<>();
         list.add(o1);
         GroupOrder gp = new GroupOrder(list);
 
