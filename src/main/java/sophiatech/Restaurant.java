@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.time.LocalTime;
 
-public class Restaurant {
+public class Restaurant implements RestaurantSubject{
     System system;
     ArrayList<Product> products;
 
@@ -19,7 +19,7 @@ public class Restaurant {
     private Menu menu;
     private int discountDuration;
     private int discount;
-    private RestaurantProxy proxy = new RestaurantProxy(new RestaurantRealSubject(this));
+  //  private RestaurantProxy proxy = new RestaurantProxy(new RestaurantRealSubject(this));
 
     private double discountV1 = 0;     //discountV1 -> no time limit, works for all further orders
     private int discountV1Requirement = -1;  //nb of orders by the customer required to get this discount
@@ -61,7 +61,14 @@ public class Restaurant {
         this.products.add(product);
     }
 
+    @Override
     public void addOrder(GroupOrder groupOrder) {
+        acceptOrder(groupOrder);
+        this.activeOrders.add(groupOrder);
+        this.orderHistory.add(groupOrder);
+    }
+
+  /*  public void addOrder(GroupOrder groupOrder) {
 
         LocalTime borne_inf = groupOrder.getHour().withMinute((LocalTime.now().getMinute()/10)*10).withSecond(0).withNano(0);
         LocalTime borne_sup;
@@ -78,7 +85,7 @@ public class Restaurant {
             this.activeOrders.add(groupOrder);
             this.orderHistory.add(groupOrder);
         }
-    }
+    }*/
 
     public ArrayList<GroupOrder> getActiveOrders() {
         return this.activeOrders;
@@ -224,4 +231,6 @@ public class Restaurant {
     public void editCapacity(int new_capacity){
         this.capacity = new_capacity;
     }
+
+
 }
