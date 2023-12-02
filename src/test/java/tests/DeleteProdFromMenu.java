@@ -3,9 +3,9 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.Hours;
-import sophiatech.Product;
-import sophiatech.Restaurant;
+import sophiatech.Restaurant.Hours;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalTime;
 

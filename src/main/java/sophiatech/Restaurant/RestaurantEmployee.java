@@ -1,4 +1,7 @@
-package sophiatech;
+package sophiatech.Restaurant;
+
+import sophiatech.Order.OrderComponent;
+import sophiatech.Order.Status;
 
 public class RestaurantEmployee {
     private boolean isOwner;

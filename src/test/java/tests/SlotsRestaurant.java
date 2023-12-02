@@ -2,7 +2,12 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.OrderComponent;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Restaurant.RestaurantProxy;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

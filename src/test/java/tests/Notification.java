@@ -3,12 +3,16 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
-import sophiatech.System;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.Status;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Restaurant.RestaurantEmployee;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +38,7 @@ public class Notification {
         system.getOrdersPendingDeliveryPersons().clear();
 
         deliveryPerson = new DeliveryPerson("Lorenzo", "Froment");
-        customer = new Customer("patate", "brocoli",UserType.STUDENT);
+        customer = new Customer("patate", "brocoli", UserType.STUDENT);
         restaurant = new Restaurant("au bon sushi", "3 rue du temple", null,3,5,5,20);
         product = new Product(restaurant, "carottes rappées", 5);
     }

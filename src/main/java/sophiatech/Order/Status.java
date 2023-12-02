@@ -1,4 +1,4 @@
-package sophiatech;
+package sophiatech.Order;
 
 public enum Status {
     PREPARED,

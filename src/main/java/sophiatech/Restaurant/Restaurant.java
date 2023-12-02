@@ -1,11 +1,15 @@
-package sophiatech;
+package sophiatech.Restaurant;
 
 
-import javax.swing.*;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.OrderComponent;
+import sophiatech.Order.Status;
+import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.time.LocalTime;
 
 public class Restaurant implements RestaurantSubject{
     System system;

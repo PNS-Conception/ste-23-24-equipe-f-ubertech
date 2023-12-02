@@ -3,10 +3,10 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.Customer;
-import sophiatech.Product;
-import sophiatech.Restaurant;
-import sophiatech.UserType;
+import sophiatech.AppUsers.Customer;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.AppUsers.UserType;
 
 import static org.junit.Assert.*;
 

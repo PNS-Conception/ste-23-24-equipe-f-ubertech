@@ -3,7 +3,11 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.Order;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
+import sophiatech.Restaurant.Product;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
-package sophiatech;
+package sophiatech.Restaurant;
 
 import java.time.LocalTime;
-import java.util.Date;
 
 public class Hours {
 

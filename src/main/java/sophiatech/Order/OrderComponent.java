@@ -1,7 +1,10 @@
-package sophiatech;
+package sophiatech.Order;
+
+import sophiatech.AppUsers.Customer;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class OrderComponent {

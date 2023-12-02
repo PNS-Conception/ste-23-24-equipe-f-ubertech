@@ -1,9 +1,15 @@
-package sophiatech;
+package sophiatech.AppUsers;
+
+import sophiatech.Order.*;
+import sophiatech.Restaurant.Hours;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Services.Discount;
+import sophiatech.System;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class Customer {
