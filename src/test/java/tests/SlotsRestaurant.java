@@ -11,9 +11,11 @@ import static org.junit.Assert.*;
 
 public class SlotsRestaurant {
     private Restaurant restaurant;
+    private RestaurantProxy proxy;
     @Given("a Restaurant called {string}")
     public void a_restaurant_called(String arg0) {
         restaurant = new Restaurant(arg0, "Biot", null, 0, 0 , 0, 0);
+        proxy = new RestaurantProxy(restaurant);
     }
 
     @When("I specify my production's capacity")
@@ -32,10 +34,10 @@ public class SlotsRestaurant {
         GroupOrder gp = new GroupOrder(list);
 
         //We add a first order to our slot
-        restaurant.addOrder(gp);
+        proxy.addOrder(gp);
         assertEquals(1, restaurant.getActiveOrders().size()); //Success because the restaurant cas make one order every 10 minutes
 
-        restaurant.addOrder(gp);
+        proxy.addOrder(gp);
         assertNotEquals(2, restaurant.getActiveOrders().size()); //False because the restaurant's capacity is empty
 
     }
