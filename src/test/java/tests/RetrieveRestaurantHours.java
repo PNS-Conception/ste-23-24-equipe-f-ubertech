@@ -3,12 +3,13 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.Restaurant.Hours;
+import sophiatech.Restaurant.Restaurant;
 import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

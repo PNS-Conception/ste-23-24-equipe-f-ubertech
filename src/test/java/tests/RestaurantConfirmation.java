@@ -3,12 +3,20 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import sophiatech.*;
+import sophiatech.AppUsers.CampusAdministrator;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.Status;
+import sophiatech.Restaurant.Hours;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Services.PaymentService;
 import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
+
 import static org.junit.Assert.*;
 
 import java.time.LocalTime;
-import java.util.Date;
 
 public class RestaurantConfirmation {
     private System system;
@@ -75,7 +83,7 @@ public class RestaurantConfirmation {
 
         product = new Product(restaurant, "ramen", 14);
 
-        customer = new Customer("Ramen Enjoyer", "customer",UserType.FACULTY);
+        customer = new Customer("Ramen Enjoyer", "customer", UserType.FACULTY);
         customer.addProductToPendingOrder(product);
 
         deliveryPerson = new DeliveryPerson("ramen enjoyer", "delivery person"); //adds delivery person to the system in the constructor

@@ -1,4 +1,4 @@
-package sophiatech;
+package sophiatech.AppUsers;
 
 public enum UserType {
     STUDENT,

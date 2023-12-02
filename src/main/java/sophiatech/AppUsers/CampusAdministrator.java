@@ -1,4 +1,7 @@
-package sophiatech;
+package sophiatech.AppUsers;
+
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.System;
 
 public class CampusAdministrator {
 

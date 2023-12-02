@@ -1,4 +1,4 @@
-package sophiatech;
+package sophiatech.AppUsers;
 
 public class User {
     private int index=0;

@@ -1,6 +1,6 @@
-package sophiatech;
+package sophiatech.Restaurant;
 
-import java.time.LocalTime;
+import sophiatech.Order.GroupOrder;
 
 public interface RestaurantSubject {
     public void addOrder(GroupOrder groupOrder);

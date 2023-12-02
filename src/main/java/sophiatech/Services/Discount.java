@@ -1,7 +1,8 @@
-package sophiatech;
+package sophiatech.Services;
+
+import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Discount {
     private Restaurant restaurant;

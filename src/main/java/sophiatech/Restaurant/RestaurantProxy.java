@@ -1,4 +1,6 @@
-package sophiatech;
+package sophiatech.Restaurant;
+
+import sophiatech.Order.GroupOrder;
 
 import java.time.LocalTime;
 
