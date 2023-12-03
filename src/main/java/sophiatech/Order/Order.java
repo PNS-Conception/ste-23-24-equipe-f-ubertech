@@ -1,29 +1,22 @@
-package sophiatech;
+package sophiatech.Order;
+
+import sophiatech.AppUsers.Customer;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-public class Order {
+public class Order extends OrderComponent {
 
-    private String location;
-    private LocalTime hour_order;
-    private Customer customer;
     private ArrayList<Product> productList;
-    private Status status;
-    private boolean validationByDeliveryPerson;
-    private boolean validationByCustomer;
-    private double totalPrice;
-
     private boolean delayRecorded;
     private long expectedDeliveryTime;
 
-    private boolean isAlreadyUsedForDiscount;
-
-
-    private String id;
 
     public Order(String location, LocalTime hour, ArrayList<Product> productList){
         this.location = location;
@@ -42,33 +35,53 @@ public class Order {
         this.id = generateUniqueId();
         this.customer = customer;
         this.isAlreadyUsedForDiscount = false;
-        for(Product p: productList){
-            this.totalPrice += p.getPrice();
-        }
+        calculateTotalPrice();
+
+
+
+
+    }
+    private int generateUniqueId() {
+        String uuidString = UUID.randomUUID().toString();
+        int hashCode = uuidString.hashCode();
+        return Math.abs(hashCode);
+      //  return UUID.randomUUID().toString();
     }
 
-    private String generateUniqueId() {
+    public Order(Customer customer, String location, LocalTime hour){
+        this.location = location;
+        this.hour_order = hour;
+        this.customer = customer;
+        this.status = Status.PENDING_PREPARATION;
+        this.validationByDeliveryPerson = false;
+        this.validationByCustomer = false;
+        this.isAlreadyUsedForDiscount = false;
+        this.delayRecorded=false;
+        this.totalPrice = 0.0;
+        this.productList = new ArrayList<>();
+    }
+
+    /*private String generateUniqueId() {
         return UUID.randomUUID().toString();
+    }*/
+  
+    public double calculateTotalPrice(){
+        double total = 0;
+        for(Product p: productList){
+            total += p.getPrice();
+        }
+        totalPrice= total;
+        return totalPrice;
+    }
+
+    @Override
+    public void validDelivery() {
+        validateDelivery(Status.DELIVERED);
+        changeStatusValidation(Status.DELIVERY_CONFIRMED);
     }
 
     public boolean isValidationByCustomer() {
         return validationByCustomer;
-    }
-
-    public void changeStatus(Status st){
-        this.status = st;
-    }
-
-    public void changeStatusValidation(Status st){
-        if(this.validationByCustomer && this.validationByDeliveryPerson){
-            this.status = st;
-        }
-
-    }
-
-
-    public Customer getCustomer() {
-        return customer;
     }
 
 
@@ -97,9 +110,6 @@ public class Order {
 
         return locationEquals && productListEquals && statusEquals && dateEquals;
     }
-    public String getId() {
-        return id;
-    }
 
     @Override
     public int hashCode() {
@@ -117,30 +127,15 @@ public class Order {
         return description.toString();
     }
 
-    public void validateDelivery(Status status) {
+   /* public void validateDelivery(Status status) {
         this.status = status;
         this.validationByDeliveryPerson = true;
-    }
-    public void validateOrder() {
-        this.validationByCustomer = true;
-    }
-    public Status getStatus() {
-        return this.status;
-    }
-
-    public String getLocation(){
-        return this.location;
-    }
-
-    public LocalTime getHour(){
-        return this.hour_order;
-    }
-
-    public Customer getUser(){ return this.customer;}
-    public boolean isDelayRecorded(){return delayRecorded;}
+        customer.incrementOrderNotDelayed();
+    }*/
     public void setDelayRecorded(boolean delayRecorded) {
         this.delayRecorded = delayRecorded;
     }
+
     public ArrayList<Product> getProductList(){
         return this.productList;
     }
@@ -149,9 +144,6 @@ public class Order {
         this.totalPrice = total;
     }
 
-    public double getTotalPrice() {
-        return this.totalPrice;
-    }
     public long getExpectedDeliveryTime() {
         return expectedDeliveryTime;
     }
@@ -162,11 +154,23 @@ public class Order {
         return this.productList.get(0).getRestaurant();
     }
 
-    public boolean isAlreadyUsedForDiscount() {
-        return isAlreadyUsedForDiscount;
+    public void addProduct(Product product){
+        this.productList.add(product);
+        this.totalPrice+=product.getPrice();
     }
 
-    public void setAlreadyUsedForDiscount(boolean alreadyUsedForDiscount) {
-        isAlreadyUsedForDiscount = alreadyUsedForDiscount;
+    public void addPrice(double priceToAdd){
+        this.totalPrice+=priceToAdd;
+        BigDecimal bd = new BigDecimal(this.totalPrice);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        this.totalPrice = bd.doubleValue();
     }
+    public void setPrice(double price){
+        this.totalPrice=price;
+        BigDecimal bd = new BigDecimal(this.totalPrice);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        this.totalPrice = bd.doubleValue();
+    }
+
+
 }

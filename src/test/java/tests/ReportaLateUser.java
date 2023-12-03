@@ -3,11 +3,14 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.Order;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
+import sophiatech.Restaurant.Product;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +23,7 @@ public class ReportaLateUser {
     @Given("a delivery person observes a delay by a user for an order")
     public void a_delivery_person_observes_a_delay_by_a_user_for_an_order() {
         deliveryPerson = new DeliveryPerson("Ivan","Ridier");
-        customer = new Customer("Sara", "Dahman",UserType.STUDENT);
+        customer = new Customer("Sara", "Dahman", UserType.STUDENT);
         products = new ArrayList<>();
         products.add(new Product("Tajine", 30));
         order = new Order(customer,"55 Avenue de Cannes", LocalTime.now(),products);

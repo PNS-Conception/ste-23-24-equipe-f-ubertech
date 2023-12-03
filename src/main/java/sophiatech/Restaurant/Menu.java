@@ -1,4 +1,4 @@
-package sophiatech;
+package sophiatech.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;

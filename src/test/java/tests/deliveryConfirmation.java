@@ -3,13 +3,18 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.Status;
+import sophiatech.Restaurant.Product;
 import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
-import java.util.Date;
 
 public class deliveryConfirmation {
     private DeliveryPerson deliveryPerson;
@@ -23,7 +28,7 @@ public class deliveryConfirmation {
         deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
         String location = "polytech Nice Sophia, ... Biot";
         ArrayList<Product> productList = new ArrayList<Product>();
-
+        customer = new Customer("Sara", "Dahman", UserType.STUDENT);
         order = new Order(customer,location, LocalTime.now(), productList);
         groupOrder = new GroupOrder();
         groupOrder.orders.add(order);

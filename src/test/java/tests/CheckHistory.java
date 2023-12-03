@@ -3,12 +3,15 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Restaurant.Product;
 import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +27,7 @@ public class CheckHistory {
 
     @Given("A customer")
     public void a_customer() {
-        customer = new Customer("Simon", "Beurel", system,UserType.STUDENT);
+        customer = new Customer("Simon", "Beurel", system, UserType.STUDENT);
     }
     @When("I view my order history for food orders")
     public void view_history_food_orders() {

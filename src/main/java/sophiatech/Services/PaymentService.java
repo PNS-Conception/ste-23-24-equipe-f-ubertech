@@ -1,4 +1,4 @@
-package sophiatech;
+package sophiatech.Services;
 
 public class PaymentService {
     public boolean pay(double total) {
