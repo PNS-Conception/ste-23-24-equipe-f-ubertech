@@ -5,6 +5,7 @@ import java.util.Objects;
 public class DeliveryPerson {
 
     private System system;
+    private DeliveryPersonStatistics statistics;
 
     public String getFirstName() {
         return firstName;
@@ -34,11 +35,17 @@ public class DeliveryPerson {
         this.isAvailable = true;
         this.system = System.getInstance();
         this.system.addDeliveryPerson(this);
+        this.statistics = new DeliveryPersonStatistics(this);
     }
     public void addOrder(GroupOrder o){
         this.orderHistory.add(o);
         this.activeOrder = o;
         this.isAvailable = false;
+        this.statistics.addGroupOrder(o);
+    }
+
+    public DeliveryPersonStatistics getStatistics() {
+        return this.statistics;
     }
 
     public boolean getIsAvailable(){

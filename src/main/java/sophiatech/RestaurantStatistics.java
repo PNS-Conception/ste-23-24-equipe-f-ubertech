@@ -107,9 +107,7 @@ public class RestaurantStatistics {
     }
 
     public void addGroupOrder(GroupOrder groupOrder) {
-        java.lang.System.out.println("adding groupOrder : " + groupOrder + "contains :");
         for (Order order : groupOrder.orders) {
-            java.lang.System.out.println("\t" + order);
             if (order.getRestaurant().equals(this.restaurant)) {
                 this.addOrder(order);
             }
