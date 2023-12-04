@@ -1,13 +1,18 @@
-package sophiatech;
+package sophiatech.Restaurant;
 
 
-import javax.swing.*;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.OrderComponent;
+import sophiatech.Order.Status;
+import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.Statistics.RestaurantStatistics;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.time.LocalTime;
 
-public class Restaurant {
+public class Restaurant implements RestaurantSubject{
     System system;
     private RestaurantStatistics statistics;
     private ArrayList<Product> products;
@@ -20,7 +25,7 @@ public class Restaurant {
     private Menu menu;
     private int discountDuration;
     private int discount;
-    private RestaurantProxy proxy = new RestaurantProxy(new RestaurantRealSubject(this));
+  //  private RestaurantProxy proxy = new RestaurantProxy(new RestaurantRealSubject(this));
 
     private double discountV1 = 0;     //discountV1 -> no time limit, works for all further orders
     private int discountV1Requirement = -1;  //nb of orders by the customer required to get this discount
@@ -73,7 +78,15 @@ public class Restaurant {
         this.statistics.addProduct(product);
     }
 
+    @Override
     public void addOrder(GroupOrder groupOrder) {
+        acceptOrder(groupOrder);
+        this.activeOrders.add(groupOrder);
+        this.orderHistory.add(groupOrder);
+        this.statistics.addGroupOrder(groupOrder);
+    }
+
+  /*  public void addOrder(GroupOrder groupOrder) {
 
         LocalTime borne_inf = groupOrder.getHour().withMinute((LocalTime.now().getMinute()/10)*10).withSecond(0).withNano(0);
         LocalTime borne_sup;
@@ -91,7 +104,7 @@ public class Restaurant {
             this.orderHistory.add(groupOrder);
             this.statistics.addGroupOrder(groupOrder);
         }
-    }
+    }*/
 
     public ArrayList<GroupOrder> getActiveOrders() {
         return this.activeOrders;
@@ -111,7 +124,7 @@ public class Restaurant {
     }*/
 
     public void acceptOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.changeStatus(Status.IN_PREPARATION);
 
         }
@@ -123,13 +136,13 @@ public class Restaurant {
     }
 
     public void denyOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.changeStatus(Status.CANCELED);
         }
     }
 
     public void finishOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.changeStatus(Status.PREPARED);
         }
     }
@@ -218,9 +231,9 @@ public class Restaurant {
     public double getCustomerDiscountV1 (Customer customer) {     //returns the percentage of discount for the customer (either the discount amount or 0)
         if (this.discountV1Requirement < 0) return 0;
 
-        ArrayList<Order> customerOrders = new ArrayList<>();    //will contain every orders the customer made in this restaurant. (not groupOrders)
+        ArrayList<OrderComponent> customerOrders = new ArrayList<>();    //will contain every orders the customer made in this restaurant. (not groupOrders)
         for (GroupOrder groupOrder : orderHistory) {
-            for(Order order : groupOrder.orders) {
+            for(OrderComponent order : groupOrder.orders) {
                 if (order.getCustomer().equals(customer)) {
                     customerOrders.add(order);
                 }
@@ -237,4 +250,6 @@ public class Restaurant {
     public void editCapacity(int new_capacity){
         this.capacity = new_capacity;
     }
+
+
 }

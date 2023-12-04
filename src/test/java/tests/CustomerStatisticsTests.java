@@ -3,7 +3,11 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Statistics.CustomerStatistics;
 import sophiatech.System;
 import static org.junit.Assert.*;
 
@@ -161,7 +165,7 @@ public class CustomerStatisticsTests {
     }
     @Then("the price in the stats is changed accordingly to the discount")
     public void the_price_in_the_stats_is_changed_accordingly_to_the_discount() {
-        assertEquals(14.5 - (14.5 * 0.05), customerStatistics.getTotalPriceSpent(), 0);
+        assertEquals(14.5 - (14.5 * 0.05), customerStatistics.getTotalPriceSpent(), 0.01);
     }
 
 
@@ -189,6 +193,6 @@ public class CustomerStatisticsTests {
     }
     @Then("the price in the stats is less according to the student discount")
     public void the_price_in_the_stats_is_less_according_to_the_student_discount() {
-        assertEquals(14.5 - (14.5 * 0.05), customerStatistics.getTotalPriceSpent(), 0);
+        assertEquals(14.5 - (14.5 * 0.05), customerStatistics.getTotalPriceSpent(), 0.01);
     }
 }

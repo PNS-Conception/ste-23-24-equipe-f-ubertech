@@ -4,12 +4,17 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Statistics.RestaurantStatistics;
+
 import java.time.LocalTime;
 
 
-import java.lang.System;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -42,7 +47,8 @@ public class RestaurantStatisticsTests {
 
         ArrayList<Order> orderList = new ArrayList<>();
         orderList.add(new Order("batiment F", LocalTime.now(), productList));
-        GroupOrder go = new GroupOrder(orderList);
+        GroupOrder go = new GroupOrder();
+        go.orders.addAll(orderList);
 
         this.restaurant.addOrder(go);
     }
@@ -97,25 +103,29 @@ public class RestaurantStatisticsTests {
         //order1
         ArrayList<Order> orderList = new ArrayList<>();
         orderList.add(new Order(c, "batiment F", LocalTime.of(hour1, 0, 0), c.getPendingOrder()));
-        GroupOrder go = new GroupOrder(orderList);
+        GroupOrder go = new GroupOrder();
+        go.orders.addAll(orderList);
         restaurant.addOrder(go);
 
         //order2
         orderList = new ArrayList<>();
         orderList.add(new Order(c, "batiment F", LocalTime.of(hour1, 0, 0), c.getPendingOrder()));
-        go = new GroupOrder(orderList);
+        go = new GroupOrder();
+        go.orders.addAll(orderList);
         restaurant.addOrder(go);
 
         //order3
         orderList = new ArrayList<>();
         orderList.add(new Order(c, "batiment F", LocalTime.of(hour1, 0, 0), c.getPendingOrder()));
-        go = new GroupOrder(orderList);
+        go = new GroupOrder();
+        go.orders.addAll(orderList);
         restaurant.addOrder(go);
 
         //order4
         orderList = new ArrayList<>();
         orderList.add(new Order(c, "batiment F", LocalTime.of(hour2, 0, 0), c.getPendingOrder()));
-        go = new GroupOrder(orderList);
+        go = new GroupOrder();
+        go.orders.addAll(orderList);
         restaurant.addOrder(go);
 
     }

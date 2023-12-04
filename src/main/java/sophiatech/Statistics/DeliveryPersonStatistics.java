@@ -1,4 +1,9 @@
-package sophiatech;
+package sophiatech.Statistics;
+
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.OrderComponent;
 
 import java.time.LocalTime;
 
@@ -45,8 +50,8 @@ public class DeliveryPersonStatistics {
     }
 
     public void addGroupOrder (GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
-            this.addOrder(order);
+        for (OrderComponent order : groupOrder.orders) {
+            this.addOrder((Order) order);
         }
     }
 

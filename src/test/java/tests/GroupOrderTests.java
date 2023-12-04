@@ -3,8 +3,16 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.CampusAdministrator;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.OrderComponent;
+import sophiatech.Restaurant.Hours;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
 import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import java.time.LocalTime;
 
@@ -46,7 +54,7 @@ public class GroupOrderTests {
         this.customer1.addProductToPendingOrder(product1);
         this.customer1.payForOrder();
 
-        this.customer2 = new Customer("customer 2", "customer 2 name",UserType.EXTERNAL);
+        this.customer2 = new Customer("customer 2", "customer 2 name", UserType.EXTERNAL);
         this.customer2.addProductToPendingOrder(this.product2);
         this.customer2.payForOrder();
     }
@@ -77,7 +85,7 @@ public class GroupOrderTests {
         GroupOrder activeOrder = this.deliveryPerson.getActiveOrder();
 
         //java.lang.System.out.println(activeOrder.orders.size());
-        for (Order order : activeOrder.orders) {
+        for (OrderComponent order : activeOrder.orders) {
             //java.lang.System.out.println(order);
         }
         assertTrue(activeOrder.orders.contains(customer1.getActiveOrder().orders.get(0)));

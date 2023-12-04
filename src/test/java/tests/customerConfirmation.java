@@ -3,12 +3,18 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.Status;
+import sophiatech.Restaurant.Product;
 import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +27,7 @@ public class customerConfirmation {
 
     @Given("a customer waiting his order")
     public void a_customer_waiting_his_order() {
-        customer = new Customer("Froment", "Lorenzo",UserType.FACULTY);
+        customer = new Customer("Froment", "Lorenzo", UserType.FACULTY);
         deliveryPerson = new DeliveryPerson("Aziki", "Tarik");
         String location = "polytech Nice Sophia, ... Biot";
         //Date date = new Date();

@@ -3,7 +3,8 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.AppUsers.CampusAdministrator;
+import sophiatech.AppUsers.DeliveryPerson;
 import sophiatech.System;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import static org.junit.Assert.assertTrue;
 public class AddDeliveryPerson {
     private CampusAdministrator CA ;
     private System system ;
-    private DeliveryPerson deliveryPerson;
+    private System System ;
+    private sophiatech.AppUsers.DeliveryPerson deliveryPerson;
 
 
     @Given("that I am a Campus Administrator")

@@ -2,11 +2,10 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.Restaurant.Restaurant;
 import sophiatech.System;
-
-import java.util.ArrayList;
-import java.util.Date;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

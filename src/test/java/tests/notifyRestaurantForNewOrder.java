@@ -3,12 +3,17 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.*;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Status;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Restaurant.RestaurantEmployee;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class notifyRestaurantForNewOrder {
 
@@ -21,7 +26,7 @@ public class notifyRestaurantForNewOrder {
 
     @Given("a Customer ordering")
     public void that_i_am_a_customer() {
-        customer =new Customer("Aziki", "Tarik",UserType.STAFF);
+        customer =new Customer("Aziki", "Tarik", UserType.STAFF);
     }
     @When("they validate an order")
     public void i_validate_an_order() {

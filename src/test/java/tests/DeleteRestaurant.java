@@ -3,8 +3,8 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import sophiatech.CampusAdministrator;
-import sophiatech.Restaurant;
+import sophiatech.AppUsers.CampusAdministrator;
+import sophiatech.Restaurant.Restaurant;
 import sophiatech.System;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

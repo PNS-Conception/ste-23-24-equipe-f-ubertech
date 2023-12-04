@@ -1,4 +1,10 @@
-package sophiatech;
+package sophiatech.Statistics;
+
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.OrderComponent;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -107,9 +113,9 @@ public class RestaurantStatistics {
     }
 
     public void addGroupOrder(GroupOrder groupOrder) {
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             if (order.getRestaurant().equals(this.restaurant)) {
-                this.addOrder(order);
+                this.addOrder((Order) order);
             }
         }
     }

@@ -1,4 +1,9 @@
-package sophiatech;
+package sophiatech.Statistics;
+
+import sophiatech.AppUsers.Customer;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.OrderComponent;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -46,8 +51,8 @@ public class CustomerStatistics {
 
     public boolean addGroupOrder(GroupOrder groupOrder) {   //returns true if at least one order corresponded to the customer, false otherwise
         Boolean anOrderWasAdded = false;
-        for (Order order : groupOrder.orders) {
-            boolean currentVal = this.addOrder(order);
+        for (OrderComponent order : groupOrder.orders) {
+            boolean currentVal = this.addOrder((Order) order);
             if (currentVal) anOrderWasAdded = true;
         }
         return anOrderWasAdded;

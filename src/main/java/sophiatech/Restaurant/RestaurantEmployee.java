@@ -1,4 +1,7 @@
-package sophiatech;
+package sophiatech.Restaurant;
+
+import sophiatech.Order.OrderComponent;
+import sophiatech.Order.Status;
 
 public class RestaurantEmployee {
     private boolean isOwner;
@@ -18,7 +21,7 @@ public class RestaurantEmployee {
         this.restaurant = r;
     }
 
-    public void finishOrder(Order order) {
+    public void finishOrder(OrderComponent order) {
         order.changeStatus(Status.PREPARED);
 
     }

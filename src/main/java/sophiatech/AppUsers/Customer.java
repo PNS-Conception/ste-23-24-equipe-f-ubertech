@@ -1,9 +1,16 @@
-package sophiatech;
+package sophiatech.AppUsers;
+
+import sophiatech.Order.*;
+import sophiatech.Restaurant.Hours;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
+import sophiatech.Services.Discount;
+import sophiatech.Statistics.CustomerStatistics;
+import sophiatech.System;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class Customer {
@@ -26,6 +33,8 @@ public class Customer {
     private int delayCounter;
     private boolean isBanned;
 
+    private int orderNotDelayed;
+
     public Customer(String fn, String ln, UserType userType){
         this.firstName = fn;
         this.lastName = ln;
@@ -35,8 +44,26 @@ public class Customer {
         this.activeOrder = new GroupOrder();
         this.orderHistory = new ArrayList<>();
         this.delayCounter=3;
+        this.orderNotDelayed=0;
         this.isBanned=false;
         discounts = new ArrayList<>();
+    }
+
+    public void checkNotDelayedPoints(){
+        if(this.orderNotDelayed == 3){
+            this.orderNotDelayed = 0;
+            this.delayCounter++;
+        }
+    }
+
+    public void resetOrderNotDelayed(){
+        this.orderNotDelayed=0;
+    }
+
+    public void incrementOrderNotDelayed(){
+        if(this.orderNotDelayed<3){
+            this.orderNotDelayed++;
+        }
     }
 
     public String getFavouriteLocation() {
@@ -75,7 +102,7 @@ public class Customer {
     }
 
     public Order payForOrder(String location) {
-        double total = 0;
+        /*double total = 0;
         for (Product p : pendingOrder) {
             total += p.getPrice();
         }
@@ -93,26 +120,60 @@ public class Customer {
         for (Discount d : discounts) {
             if (d.getExpirationDate().isBefore(LocalDate.now().plusDays(1))){
                 discounts.remove(d);
-                if(discounts.size()==0) break;
+                if(discounts.isEmpty()) break;
             } else if (d.getRestaurant() == pendingOrder.get(0).getRestaurant()) {
                 java.lang.System.out.println("Discount applied: "+total);
                 total = total - total * d.getPercentage() / 100;
                 java.lang.System.out.println("Discount applied: "+total);
             }
+        }*/
+        ArrayList<Order> generateListOrder = generateOrder(pendingOrder);
+        //RE AJUST THE PRICE OF THE ORDERS
+        for(Order indexOrder : generateListOrder){
+            switch (this.userType) {
+                case STUDENT:
+                    indexOrder.setPrice(indexOrder.getTotalPrice()*0.95);
+                    break;
+                case FACULTY:
+                    indexOrder.setPrice(indexOrder.getTotalPrice()*0.97);
+                    break;
+                case STAFF:
+                    indexOrder.setPrice(indexOrder.getTotalPrice()*0.96);
+                    break;
+            }
+
+            if(indexOrder.getRestaurant().getCustomerDiscountV1(this)!=0){
+                indexOrder.setPrice(indexOrder.getTotalPrice() - indexOrder.getTotalPrice()*indexOrder.getRestaurant().getCustomerDiscountV1(this));
+            }
+
+            for (Discount d : discounts) {
+                if (d.getExpirationDate().isBefore(LocalDate.now().plusDays(1))){
+                    discounts.remove(d);
+                    if(discounts.isEmpty()) break;
+                } else if (d.getRestaurant() == indexOrder.getRestaurant()) {
+                    //java.lang.System.out.println("Discount applied: "+total);
+                    indexOrder.setPrice(indexOrder.getTotalPrice() - indexOrder.getTotalPrice() * d.getPercentage() / 100);// = total - total * d.getPercentage() / 100;
+                    //java.lang.System.out.println("Discount applied: "+total);
+                }
+            }
         }
 
-        double discountV1 = pendingOrder.get(0).getRestaurant().getCustomerDiscountV1(this);
+        /*double discountV1 = pendingOrder.get(0).getRestaurant().getCustomerDiscountV1(this);
         java.lang.System.out.println("DiscountV1 = " + discountV1);
-        total = total - total * discountV1;
+        total = total - total * discountV1;*/
 
-        if ((this.system.getPaymentService().pay(total))) { //if payment is successfull
-            Order order = new Order(this, location, LocalTime.now(), pendingOrder);
+        if ((this.system.getPaymentService().pay(generateAllPrice(generateListOrder)))) { //if payment is successfull
+
+            //ArrayList<Order> generateListOrder = generateOrder(pendingOrder);
+
+            //Order order = new Order(this, location, LocalTime.now(), pendingOrder);
             GroupOrder groupOrder = new GroupOrder();
-            groupOrder.orders.add(order);
-            order.setTotalPrice(total);
+
+            groupOrder.orders.addAll(generateListOrder);
 
 
             this.addOrder(groupOrder);
+
             checkEligibleToDiscount(pendingOrder.get(0).getRestaurant());
             this.pendingOrder.get(0).getRestaurant().addOrder(groupOrder);
 
@@ -128,11 +189,39 @@ public class Customer {
             }
 
 
-
             this.pendingOrder = new ArrayList<>();  //flush the newly created order's products
-            return order;
+            //return order;
         }
         return null;
+    }
+
+    private double generateAllPrice(ArrayList<Order> list){
+        double ret = 0;
+        for(Order o : list){
+            ret+=o.getTotalPrice();
+        }
+        return ret;
+    }
+
+    private ArrayList<Order> generateOrder(ArrayList<Product> pendingOrder) {
+        ArrayList<Order> ret = new ArrayList<>();
+        int index = 0;
+        while(index < pendingOrder.size()){
+            Order newOrder = new Order(this, this.favouriteLocation, LocalTime.now());
+            newOrder.addProduct(pendingOrder.get(index));
+            int u = index+1;
+            while(u < pendingOrder.size()){
+                if(pendingOrder.get(u).getRestaurant().equals(pendingOrder.get(index).getRestaurant())){
+                    newOrder.addProduct(pendingOrder.get(u));
+                    pendingOrder.remove(pendingOrder.get(u));
+                }else{
+                    u++;
+                }
+            }
+            ret.add(newOrder);
+            index++;
+        }
+        return ret;
     }
 
     private void checkEligibleToDiscount(Restaurant restaurant) {
@@ -209,7 +298,7 @@ public class Customer {
     }
 
     public void validDelivery(GroupOrder groupOrder){
-        for (Order order : groupOrder.orders) {
+        for (OrderComponent order : groupOrder.orders) {
             order.validateOrder();
             order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
         }
@@ -230,7 +319,6 @@ public class Customer {
             isBanned=true;
             this.delayCounter=0;
         }
-
     }
 
     public boolean isActive() {

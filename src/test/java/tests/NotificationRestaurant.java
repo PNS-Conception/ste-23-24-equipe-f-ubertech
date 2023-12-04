@@ -5,8 +5,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 
-import sophiatech.*;
+import sophiatech.Restaurant.Product;
+import sophiatech.Restaurant.Restaurant;
 import sophiatech.System;
+import sophiatech.AppUsers.Customer;
+import sophiatech.AppUsers.UserType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,6 +28,7 @@ public class NotificationRestaurant {
 
         restaurant = new Restaurant(arg0, "75 rue evariste galois", null, 3,5,5,20);
         customer = new Customer("Quentin", "Maurois", UserType.STUDENT);
+
         system.addRestaurant(restaurant);
     }
 

@@ -1,6 +1,11 @@
-package sophiatech;
+package sophiatech.AppUsers;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Order.OrderComponent;
+import sophiatech.Statistics.DeliveryPersonStatistics;
+import sophiatech.System;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class DeliveryPerson {
 
@@ -57,14 +62,10 @@ public class DeliveryPerson {
     }
 
 
-    public void validDelivery(GroupOrder groupOrderorder) {
-        for (Order order : groupOrderorder.orders) {
-            order.validateDelivery(Status.DELIVERED);
-            order.changeStatusValidation(Status.DELIVERY_CONFIRMED);
-        }
+    public void validDelivery(OrderComponent orderOrGroupOrder) {
+        orderOrGroupOrder.validDelivery();
         this.isAvailable = true;
         activeOrder = new GroupOrder();
-
     }
 
     public void assignOrder(Order order) {
@@ -93,7 +94,8 @@ public class DeliveryPerson {
         }
     }
 
-    public void reportUserDelay(Order order,Customer cs) {
+    public void reportUserDelay(Order order, Customer cs) {
         cs.decrementerDelayCounter();
+        cs.resetOrderNotDelayed();
     }
 }

@@ -3,8 +3,11 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.mockito.internal.matchers.Or;
-import sophiatech.*;
+import sophiatech.AppUsers.DeliveryPerson;
+import sophiatech.Order.GroupOrder;
+import sophiatech.Order.Order;
+import sophiatech.Restaurant.Product;
+import sophiatech.Statistics.DeliveryPersonStatistics;
 import sophiatech.System;
 
 import java.time.LocalTime;
@@ -46,7 +49,8 @@ public class DeliveryPersonStatisticsTests {
 
         ArrayList<Order> orders = new ArrayList<>();
         orders.add(new Order(null, "", LocalTime.now(), products));
-        GroupOrder go = new GroupOrder(orders);
+        GroupOrder go = new GroupOrder();
+        go.orders.addAll(orders);
 
         deliveryPerson.addOrder(go);
     }
@@ -68,25 +72,29 @@ public class DeliveryPersonStatisticsTests {
         // order1
         ArrayList<Order> orders = new ArrayList<>();
         orders.add(new Order(null, "", LocalTime.of(hour1, 0, 0), products));
-        GroupOrder go = new GroupOrder(orders);
+        GroupOrder go = new GroupOrder();
+        go.orders.addAll(orders);
         deliveryPerson.addOrder(go);
 
         // order2
         orders = new ArrayList<>();
         orders.add(new Order(null, "", LocalTime.of(hour1, 0, 0), products));
-        go = new GroupOrder(orders);
+        go = new GroupOrder();
+        go.orders.addAll(orders);
         deliveryPerson.addOrder(go);
 
         // order3
         orders = new ArrayList<>();
         orders.add(new Order(null, "", LocalTime.of(hour1, 0, 0), products));
-        go = new GroupOrder(orders);
+        go = new GroupOrder();
+        go.orders.addAll(orders);
         deliveryPerson.addOrder(go);
 
         // order4
         orders = new ArrayList<>();
         orders.add(new Order(null, "", LocalTime.of(hour2, 0, 0), products));
-        go = new GroupOrder(orders);
+        go = new GroupOrder();
+        go.orders.addAll(orders);
         deliveryPerson.addOrder(go);
     }
 
