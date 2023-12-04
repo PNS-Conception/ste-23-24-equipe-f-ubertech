@@ -2,6 +2,7 @@ package tests;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
 import sophiatech.Order.GroupOrder;
 import sophiatech.Order.Order;
 import sophiatech.Order.OrderComponent;
@@ -9,6 +10,7 @@ import sophiatech.Restaurant.Product;
 import sophiatech.Restaurant.Restaurant;
 import sophiatech.Restaurant.RestaurantProxy;
 
+import java.lang.System;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -32,10 +34,11 @@ public class SlotsRestaurant {
     @Then("I cant accept more order than my production's capacity")
     public void i_cant_accept_more_order_than_my_production_s_capacity() {
         ArrayList<Product> pdlist = new ArrayList<>();
-        pdlist.add(new Product("Pizza", 10));
+        pdlist.add(new Product(restaurant, "Pizza", 10));
         Order o1 = new Order("Langast", LocalTime.now(),pdlist);
         ArrayList<OrderComponent> list = new ArrayList<>();
         list.add(o1);
+
         GroupOrder gp = new GroupOrder(list);
 
         //We add a first order to our slot

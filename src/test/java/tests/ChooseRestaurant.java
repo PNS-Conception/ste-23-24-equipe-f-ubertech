@@ -12,14 +12,21 @@ import static org.junit.Assert.assertTrue;
 public class ChooseRestaurant {
 
     private Customer customer;
-    private System system = new System();
+    private System system;
     private Restaurant target;
     private Restaurant macdonalds1;
     private Restaurant macdonalds2;
 
     @Given("I am a simple customer")
     public void a_simple_customer(){
-        customer = new Customer("Simon","Beurel", system, UserType.STUDENT);
+        system = System.getInstance();
+        system.getListDeliveryPerson().clear();
+        system.getListGroupOrders().clear();
+        system.getListCustomer().clear();
+        system.getListRestaurant().clear();
+        system.getOrdersPendingDeliveryPersons().clear();
+
+        customer = new Customer("Simon","Beurel", UserType.STUDENT);
     }
 
     @When("I search for a specific restaurant named McDonalds")

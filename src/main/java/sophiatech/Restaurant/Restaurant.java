@@ -6,6 +6,7 @@ import sophiatech.Order.OrderComponent;
 import sophiatech.Order.Status;
 import sophiatech.System;
 import sophiatech.AppUsers.Customer;
+import sophiatech.Statistics.RestaurantStatistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,8 @@ import java.util.Objects;
 
 public class Restaurant implements RestaurantSubject{
     System system;
-    ArrayList<Product> products;
+    private RestaurantStatistics statistics;
+    private ArrayList<Product> products;
 
     private String name;
     private String location;
@@ -48,10 +50,20 @@ public class Restaurant implements RestaurantSubject{
         this.discount = discount;
         this.streakForDiscount = streakForDiscount;
         this.capacity = capacity;
+
+        this.statistics = new RestaurantStatistics(this);
     }
 
     public Hours getHours() {
         return this.hours;
+    }
+
+    public ArrayList<GroupOrder> getOrderHistory() {
+        return this.orderHistory;
+    }
+
+    public RestaurantStatistics getStatistics() {
+        return this.statistics;
     }
 
     public String getName() {
@@ -63,6 +75,7 @@ public class Restaurant implements RestaurantSubject{
             throw new RuntimeException("the product that you sent is not linked to this restaurant");
         }
         this.products.add(product);
+        this.statistics.addProduct(product);
     }
 
     @Override
@@ -70,6 +83,7 @@ public class Restaurant implements RestaurantSubject{
         acceptOrder(groupOrder);
         this.activeOrders.add(groupOrder);
         this.orderHistory.add(groupOrder);
+        this.statistics.addGroupOrder(groupOrder);
     }
 
   /*  public void addOrder(GroupOrder groupOrder) {
@@ -88,6 +102,7 @@ public class Restaurant implements RestaurantSubject{
             acceptOrder(groupOrder);
             this.activeOrders.add(groupOrder);
             this.orderHistory.add(groupOrder);
+            this.statistics.addGroupOrder(groupOrder);
         }
     }*/
 
