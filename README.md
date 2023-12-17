@@ -73,13 +73,13 @@ Pour pouvoir lancer le projet, tout d'abord vous devez avoir en prérequis Maven
 - ```mvn clean package``` (pour build le projet)
 - ```mvn clean test``` (pour lancer les différents tests)
 ## Structuration du projet : 
-Notre projet se compose de plusieurs dossiers bien spécifiques où chacuns possèdent un but bien spécifique. Tout d'abord, à la racine du projet vous trouverez le dossier ```src``` qui correspond au dossier content tout le code réalisé durant ce projet. Vous pourrez également trouver à la racine du projet un dossier ```.github``` qui est très important car ce dossier contient notamment les différentes règles implémentées pour l'exécution de Github Action dans le fichier ```maven.yml``` présent dans le dossier ```.github/workflows```.
+Notre projet se compose de plusieurs dossiers bien spécifiques où chacuns possèdent un but bien spécifique. Tout d'abord, à la racine du projet vous trouverez le dossier ```src``` qui correspond au dossier contentenant tout le code réalisé durant ce projet. Vous pourrez également trouver à la racine du projet un dossier ```.github``` qui est très important car ce dossier contient notamment les différentes règles implémentées pour l'exécution de Github Action dans le fichier ```maven.yml``` présent dans le dossier ```.github/workflows```.
 
 A l'intérieur du dossier ```src```, vous trouverez deux dossiers très importants, le dossier ```test``` et le dossier ```main``` : 
 ### Dossier main : 
-Ce dossier va contenir les différents fichiers .java qui correspondents aux Classes/Interfaces implémentées pour la réalisation de ce projet. Tous ces fichiers intéressants pour comprendre le comportement de chaque Objet se trouvent dans le package ```sophiatech```. Vous trouverez ainsi dans ce dossier, différentes fichiers comme Customer.java, DeliveryPerson.java etc....
+Ce dossier va contenir les différents fichiers .java qui correspondents aux Classes/Interfaces implémentées pour la réalisation de ce projet. Tous ces fichiers sont intéressants pour comprendre le comportement de chaque Objet se trouvent dans le package ```sophiatech```. Vous trouverez ainsi dans ce dossier, différents fichiers comme Customer.java, DeliveryPerson.java etc....
 ### Dossier test : 
-Ce dossier va contenir une des partie les plus importantes de ce projet car c'est celui qui contiendra les différentes tests effectués pour vérifier le bon comportement de nos classes. Tout d'abord, à l'intérieur de ce dossier, on trouvera deux sous-dossiers ```java``` et ```ressources```. 
+Ce dossier va contenir une des partie les plus importantes de ce projet car c'est celui qui contiendra les différents tests effectués pour vérifier le bon comportement de nos classes. Tout d'abord, à l'intérieur de ce dossier, on trouvera deux sous-dossiers ```java``` et ```ressources```. 
 
 Le dossier ```ressources``` est le dossier qui va contenir les différents fichiers .feature. Ces fichiers correspondent aux différents tests Gherkin réalisés pour l'exécution de tests Cucumber. Ces fichiers, implémentés grâce au langage Gherkin suivent un format bien précis de tests avec un format "Given..... When..... Then....."
 
