@@ -43,7 +43,7 @@ public class DeliveryPersonStatistics {
         return percents;
     }
 
-    public void addOrder (Order order) {
+    public void addOrder (OrderComponent order) {
         this.numberOrders ++;
         this.totalPriceOrders += order.getTotalPrice();
         this.ordersAtTime[order.getHour().getHour()] ++;    //adds an order to the corresponding time thus the corresponding index

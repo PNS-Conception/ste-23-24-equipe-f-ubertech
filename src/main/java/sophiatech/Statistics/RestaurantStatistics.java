@@ -93,7 +93,7 @@ public class RestaurantStatistics {
         numberProductOrdered.put(product, 0);
     }
 
-    public void addOrder(Order order) {
+    public void addOrder(OrderComponent order) {
         this.numberOrders ++;
         this.totalPriceOrders += order.getTotalPrice();
 
@@ -114,8 +114,8 @@ public class RestaurantStatistics {
 
     public void addGroupOrder(GroupOrder groupOrder) {
         for (OrderComponent order : groupOrder.orders) {
-            if (order.getRestaurant().equals(this.restaurant)) {
-                this.addOrder((Order) order);
+            if (order.getRestaurants().contains(this.restaurant)) {
+                this.addOrder(order);
             }
         }
     }

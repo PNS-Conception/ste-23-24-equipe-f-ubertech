@@ -5,6 +5,8 @@ import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class GroupOrder extends OrderComponent {
 
@@ -52,6 +54,22 @@ public class GroupOrder extends OrderComponent {
     @Override
     public Restaurant getRestaurant() {
     return orders.get(0).getRestaurant();
+    }
+
+    @Override
+    public HashSet<Restaurant> getRestaurants() {
+        HashSet<Restaurant> restaurants = new HashSet<>();
+
+        // Get all the restaurants from all the orders
+        for (OrderComponent o : orders) {
+            for (Restaurant r : o.getRestaurants()) {
+                if (!restaurants.contains(r)) {
+                    restaurants.add(r);
+                }
+            }
+        }
+
+        return restaurants;
     }
 
     @Override

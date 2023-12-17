@@ -40,7 +40,7 @@ public class CustomerStatistics {
         return this.creationDate;
     }
 
-    public boolean addOrder(Order order) {  //returns true if the order corresponded to the customer, false otherwise
+    public boolean addOrder(OrderComponent order) {  //returns true if the order corresponded to the customer, false otherwise
         if (order.getCustomer() == this.customer) {
             this.numberOrders++;
             this.totalPriceSpent += order.getTotalPrice();
@@ -52,7 +52,7 @@ public class CustomerStatistics {
     public boolean addGroupOrder(GroupOrder groupOrder) {   //returns true if at least one order corresponded to the customer, false otherwise
         Boolean anOrderWasAdded = false;
         for (OrderComponent order : groupOrder.orders) {
-            boolean currentVal = this.addOrder((Order) order);
+            boolean currentVal = this.addOrder(order);
             if (currentVal) anOrderWasAdded = true;
         }
         return anOrderWasAdded;
