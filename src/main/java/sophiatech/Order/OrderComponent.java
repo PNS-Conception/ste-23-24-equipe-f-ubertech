@@ -5,6 +5,8 @@ import sophiatech.Restaurant.Product;
 import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public abstract class OrderComponent {
@@ -17,10 +19,12 @@ public abstract class OrderComponent {
     protected Customer customer;
     protected String location;
     protected boolean isAlreadyUsedForDiscount;
+    protected ArrayList<Product> productList;
 
 
     public abstract double calculateTotalPrice();
     public abstract Restaurant getRestaurant();
+    public abstract HashSet<Restaurant> getRestaurants();
     public abstract List<Product> getProductList();
     public abstract void validDelivery();
 
@@ -63,8 +67,9 @@ public abstract class OrderComponent {
     public double getTotalPrice() {
         return this.totalPrice;
     }
-
-
+    public void setPrice(double val) {
+        totalPrice = val;
+    }
 
     // Ces deux prochaines méthodes à revoir avec Lorenzo
     public boolean isAlreadyUsedForDiscount() {

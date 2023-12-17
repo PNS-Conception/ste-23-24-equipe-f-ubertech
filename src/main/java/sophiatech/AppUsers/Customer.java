@@ -11,6 +11,8 @@ import sophiatech.System;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
 
 
 public class Customer {
@@ -76,6 +78,7 @@ public class Customer {
 
 
     public void addProductToPendingOrder(Product p) {
+        /*
         if (pendingOrder.size() == 0) {
             this.pendingOrder.add(p);
             return;
@@ -83,7 +86,8 @@ public class Customer {
         //if all the orders are from the same restaurant
         if (pendingOrder.get(0).getRestaurant() == p.getRestaurant()) {
             this.pendingOrder.add(p);
-        }
+        }*/
+        this.pendingOrder.add(p);
     }
 
     public ArrayList<Product> getPendingOrder() {
@@ -127,9 +131,9 @@ public class Customer {
                 java.lang.System.out.println("Discount applied: "+total);
             }
         }*/
-        ArrayList<Order> generateListOrder = generateOrder(pendingOrder);
+        GroupOrder generateListOrder = generateOrder(pendingOrder, location);
         //RE AJUST THE PRICE OF THE ORDERS
-        for(Order indexOrder : generateListOrder){
+        for(OrderComponent indexOrder : generateListOrder.orders){
             switch (this.userType) {
                 case STUDENT:
                     indexOrder.setPrice(indexOrder.getTotalPrice()*0.95);
@@ -142,9 +146,25 @@ public class Customer {
                     break;
             }
 
-            if(indexOrder.getRestaurant().getCustomerDiscountV1(this)!=0){
-                indexOrder.setPrice(indexOrder.getTotalPrice() - indexOrder.getTotalPrice()*indexOrder.getRestaurant().getCustomerDiscountV1(this));
+            if (indexOrder.getRestaurants().size() == 1) {  // if is a simple order, do as before
+                if (indexOrder.getRestaurant().getCustomerDiscountV1(this) != 0) {
+                    indexOrder.setPrice(indexOrder.getTotalPrice() - indexOrder.getTotalPrice() * indexOrder.getRestaurant().getCustomerDiscountV1(this));
+                }
+            } else {    //else : get the total price for each restaurant and subtract it with the potential discount
+                MultipleOrder mo = (MultipleOrder) indexOrder;
+                Map<Restaurant, Double> priceForRestaurants = mo.getPriceForRestaurants();
+
+                for (Map.Entry<Restaurant, Double> entry : priceForRestaurants.entrySet()) {
+                    Restaurant r = entry.getKey();
+                    Double price = entry.getValue();
+
+                    if (r.getCustomerDiscountV1(this) != 0) {
+                        double discountV1 = r.getCustomerDiscountV1(this);
+                        priceForRestaurants.put(r, price - price * discountV1);
+                    }
+                }
             }
+
 
             for (Discount d : discounts) {
                 if (d.getExpirationDate().isBefore(LocalDate.now().plusDays(1))){
@@ -162,52 +182,63 @@ public class Customer {
         java.lang.System.out.println("DiscountV1 = " + discountV1);
         total = total - total * discountV1;*/
 
-        if ((this.system.getPaymentService().pay(generateAllPrice(generateListOrder)))) { //if payment is successfull
+        if ((this.system.getPaymentService().pay(generateAllPrice(generateListOrder.orders)))) { //if payment is successfull
 
             //ArrayList<Order> generateListOrder = generateOrder(pendingOrder);
 
             //Order order = new Order(this, location, LocalTime.now(), pendingOrder);
-            GroupOrder groupOrder = new GroupOrder();
-
-            groupOrder.orders.addAll(generateListOrder);
 
 
-            this.addOrder(groupOrder);
 
-            checkEligibleToDiscount(pendingOrder.get(0).getRestaurant());
-            this.pendingOrder.get(0).getRestaurant().addOrder(groupOrder);
+            this.addOrder(generateListOrder);
 
-            system.addGroupOrder(groupOrder);
+
+            HashSet<Restaurant> restaurants = new HashSet<>();
+            for (OrderComponent o : generateListOrder.orders) {
+                restaurants.addAll(o.getRestaurants());
+            }
+            for (Restaurant r : restaurants) {
+                checkEligibleToDiscount(r);
+                r.addOrder(generateListOrder);
+            }
+
+            system.addGroupOrder(generateListOrder);
 
 
             ArrayList<DeliveryPerson> availableDeliveryPersons = this.system.getAvailableDeliveryPerson();
             if (! availableDeliveryPersons.isEmpty())
-                availableDeliveryPersons.get(0).addOrder(groupOrder);    //gives the order to the first available delivery person.
+                availableDeliveryPersons.get(0).addOrder(generateListOrder);    //gives the order to the first available delivery person.
             else {
-                system.addOrderWithoutDeliveryPerson(groupOrder);
+                system.addOrderWithoutDeliveryPerson(generateListOrder);
 
             }
 
 
             this.pendingOrder = new ArrayList<>();  //flush the newly created order's products
             //return order;
+        } else {
+            generateListOrder.changeStatus(Status.CANCELED);
         }
         return null;
     }
 
-    private double generateAllPrice(ArrayList<Order> list){
+    private double generateAllPrice(ArrayList<OrderComponent> list){
         double ret = 0;
-        for(Order o : list){
+        for(OrderComponent o : list){
             ret+=o.getTotalPrice();
         }
         return ret;
     }
 
-    private ArrayList<Order> generateOrder(ArrayList<Product> pendingOrder) {
-        ArrayList<Order> ret = new ArrayList<>();
+    private GroupOrder generateOrder(ArrayList<Product> pendingOrder, String location) {
+        ArrayList<OrderComponent> ret = new ArrayList<>();
+        ret.add(OrderFactory.createOrder(this, location, LocalTime.now(), pendingOrder));
+        return OrderFactory.createGroupOrder(ret);
+
+        /*
         int index = 0;
         while(index < pendingOrder.size()){
-            Order newOrder = new Order(this, this.favouriteLocation, LocalTime.now());
+            Order newOrder = new Order(this, location, LocalTime.now());
             newOrder.addProduct(pendingOrder.get(index));
             int u = index+1;
             while(u < pendingOrder.size()){
@@ -221,7 +252,8 @@ public class Customer {
             ret.add(newOrder);
             index++;
         }
-        return ret;
+        return ret
+        */
     }
 
     private void checkEligibleToDiscount(Restaurant restaurant) {
