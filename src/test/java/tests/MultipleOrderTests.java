@@ -66,7 +66,7 @@ public class MultipleOrderTests {
     }
     @When("they pay for their new order")
     public void they_pay_for_their_new_order() {
-        c.payForOrder("polytech, batiment A");
+        c.payForOrder("polytech, batiment A",null);
         go = c.getHistory().get(0);
         o = go.orders.get(0);
     }
