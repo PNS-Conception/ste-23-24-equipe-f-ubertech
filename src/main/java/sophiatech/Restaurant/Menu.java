@@ -6,11 +6,13 @@ import java.util.List;
 public class Menu {
 
     private List<Product> products;
+    private List<Formule> formules;
 
 
 
     public Menu() {
         this.products = new ArrayList<>();
+        this.formules = new ArrayList<>();
     }
 
     public void addProduct(Product product) {
@@ -26,6 +28,9 @@ public class Menu {
     public void showMenu() {
         for (Product product : products) {
             java.lang.System.out.println("Name: " + product.getName() + " Price: " + product.getPrice());
+        }
+        for (Formule formule : formules) {
+            java.lang.System.out.println("Name: " + formule.getName() + " Price: " + formule.getPrice());
         }
     }
 

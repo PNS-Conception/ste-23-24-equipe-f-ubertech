@@ -6,6 +6,7 @@ import sophiatech.Restaurant.Restaurant;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 import java.math.BigDecimal;
@@ -13,7 +14,6 @@ import java.math.RoundingMode;
 
 public class Order extends OrderComponent {
 
-    private ArrayList<Product> productList;
     private boolean delayRecorded;
     private long expectedDeliveryTime;
 
@@ -27,19 +27,17 @@ public class Order extends OrderComponent {
         this.validationByCustomer = false;
         this.isAlreadyUsedForDiscount = false;
         this.delayRecorded=false;
+        for(Product p: productList){
+            this.totalPrice += p.getPrice();
+        }
     }
 
     public Order(Customer customer, String location, LocalTime hour, ArrayList<Product> productList){
         this(location, hour, productList);
         this.customer = customer;
         this.id = generateUniqueId();
-        this.customer = customer;
         this.isAlreadyUsedForDiscount = false;
         calculateTotalPrice();
-
-
-
-
     }
     private int generateUniqueId() {
         String uuidString = UUID.randomUUID().toString();
@@ -152,6 +150,11 @@ public class Order extends OrderComponent {
     }
     public Restaurant getRestaurant() {
         return this.productList.get(0).getRestaurant();
+    }
+    public HashSet<Restaurant> getRestaurants() {
+        HashSet<Restaurant> restaurants = new HashSet<>();
+        restaurants.add(this.getRestaurant());
+        return restaurants;
     }
 
     public void addProduct(Product product){

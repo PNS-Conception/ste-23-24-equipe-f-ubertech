@@ -25,7 +25,7 @@ public class System {
         return ordersPendingDeliveryPersons;
     }
 
-    public System(){
+    private System(){
         this.listCustomer = new ArrayList<>();
         this.listRestaurant = new ArrayList<>();
         this.listDeliveryPerson = new ArrayList<>();
