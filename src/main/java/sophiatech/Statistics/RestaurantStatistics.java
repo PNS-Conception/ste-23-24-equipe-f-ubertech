@@ -1,5 +1,6 @@
 package sophiatech.Statistics;
 
+import sophiatech.Order.AfterWorkOrder;
 import sophiatech.Order.GroupOrder;
 import sophiatech.Order.Order;
 import sophiatech.Order.OrderComponent;
@@ -97,13 +98,24 @@ public class RestaurantStatistics {
         this.numberOrders ++;
         this.totalPriceOrders += order.getTotalPrice();
 
+        int multiplier = 1;     //multiplies by the number of persons (for AfterWorkOrder)
         double maxPrice = 0.0;  //price before discounts
         for (Product product : order.getProductList()) {
-            if (!numberProductOrdered.containsKey(product))
-                this.numberProductOrdered.put(product, 1);
-            else
-                this.numberProductOrdered.put(product, this.numberProductOrdered.get(product)+1);
-            maxPrice += product.getPrice();
+            /*
+             * If the restaurant contains the product then count it toward the statistics
+             * Else : it is a product from another restaurant (ex from a MultipleOrder)
+             * */
+            if (order instanceof AfterWorkOrder) {
+                AfterWorkOrder ao = (AfterWorkOrder) order;
+                multiplier = ao.getNbGuests();
+            }
+            if (this.restaurant.getProducts().contains(product)) {
+                if (!numberProductOrdered.containsKey(product))
+                    this.numberProductOrdered.put(product, 1);
+                else
+                    this.numberProductOrdered.put(product, this.numberProductOrdered.get(product) + 1);
+                maxPrice += product.getPrice() * multiplier;
+            }
         }
         this.totalPriceOffDiscount += (maxPrice - order.getTotalPrice());
 
