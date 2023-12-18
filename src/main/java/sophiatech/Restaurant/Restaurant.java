@@ -1,6 +1,7 @@
 package sophiatech.Restaurant;
 
 
+import sophiatech.Order.BuffetOrder;
 import sophiatech.Order.GroupOrder;
 import sophiatech.Order.OrderComponent;
 import sophiatech.Order.Status;

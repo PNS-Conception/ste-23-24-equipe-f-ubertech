@@ -1,6 +1,7 @@
 package sophiatech.AppUsers;
 
 import sophiatech.Order.*;
+import sophiatech.Restaurant.Formule;
 import sophiatech.Restaurant.Hours;
 import sophiatech.Restaurant.Product;
 import sophiatech.Restaurant.Restaurant;
@@ -8,6 +9,7 @@ import sophiatech.Services.Discount;
 import sophiatech.Statistics.CustomerStatistics;
 import sophiatech.System;
 
+import java.awt.font.TextHitInfo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -90,6 +92,10 @@ public class Customer {
         this.pendingOrder.add(p);
     }
 
+    public void addFormuleToPendingOrder(Formule f) {
+        this.pendingOrder.addAll(f.getProducts());
+    }
+
     public ArrayList<Product> getPendingOrder() {
         return this.pendingOrder;
     }
@@ -101,11 +107,19 @@ public class Customer {
         return this.pendingOrder.size();
     }
 
-    public Order payForOrder() {
-        return this.payForOrder(this.favouriteLocation);
+
+    public void payForOrder() {
+        this.payForOrder(this.favouriteLocation,null);
     }
 
-    public Order payForOrder(String location) {
+    public void payForOrder(Customer recipientUser) {
+        this.payForOrder(this.favouriteLocation,recipientUser);
+    }
+
+    public void payForOrder(String location, Customer recipientUser) {
+        this.payForOrder(location, 1, recipientUser);
+    }
+    public Order payForOrder(String location, int nbpersons, Customer recipientUser) {
         /*double total = 0;
         for (Product p : pendingOrder) {
             total += p.getPrice();
@@ -131,7 +145,7 @@ public class Customer {
                 java.lang.System.out.println("Discount applied: "+total);
             }
         }*/
-        GroupOrder generateListOrder = generateOrder(pendingOrder, location);
+        GroupOrder generateListOrder = generateOrder(pendingOrder, location, nbpersons, recipientUser);
         //RE AJUST THE PRICE OF THE ORDERS
         for(OrderComponent indexOrder : generateListOrder.orders){
             switch (this.userType) {
@@ -230,30 +244,10 @@ public class Customer {
         return ret;
     }
 
-    private GroupOrder generateOrder(ArrayList<Product> pendingOrder, String location) {
+    private GroupOrder generateOrder(ArrayList<Product> pendingOrder, String location, int nbPersons, Customer recipientUser) {
         ArrayList<OrderComponent> ret = new ArrayList<>();
-        ret.add(OrderFactory.createOrder(this, location, LocalTime.now(), pendingOrder));
+        ret.add(OrderFactory.createOrder(this,recipientUser, location, LocalTime.now(), pendingOrder, nbPersons));
         return OrderFactory.createGroupOrder(ret);
-
-        /*
-        int index = 0;
-        while(index < pendingOrder.size()){
-            Order newOrder = new Order(this, location, LocalTime.now());
-            newOrder.addProduct(pendingOrder.get(index));
-            int u = index+1;
-            while(u < pendingOrder.size()){
-                if(pendingOrder.get(u).getRestaurant().equals(pendingOrder.get(index).getRestaurant())){
-                    newOrder.addProduct(pendingOrder.get(u));
-                    pendingOrder.remove(pendingOrder.get(u));
-                }else{
-                    u++;
-                }
-            }
-            ret.add(newOrder);
-            index++;
-        }
-        return ret
-        */
     }
 
     private void checkEligibleToDiscount(Restaurant restaurant) {
@@ -374,4 +368,7 @@ public class Customer {
     public CustomerStatistics getStatistics() {
         return this.statistics;
     }
+
+
+
 }
