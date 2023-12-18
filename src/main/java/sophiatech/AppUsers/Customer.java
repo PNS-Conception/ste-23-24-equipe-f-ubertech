@@ -122,6 +122,10 @@ public class Customer {
         this.payForOrder(location, 1, recipientUser);
     }
 
+    public void payForOrder(String location, int nbGuests) {
+        this.payForOrder(location, nbGuests, null);
+    }
+
     public void payForOrder(String location) {
         this.payForOrder(location, 1, null);
     }
@@ -129,7 +133,7 @@ public class Customer {
   /*
   * by default, for any other type of order than AfterWork, the number of persons is 1 (the customer)
   * */
-    public Order payForOrder(String location, int nbpersons, Customer recipientUser) {
+    public void payForOrder(String location, int nbpersons, Customer recipientUser) {
         /*double total = 0;
         for (Product p : pendingOrder) {
             total += p.getPrice();
