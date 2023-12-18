@@ -23,8 +23,10 @@ public class MultipleOrder extends OrderComponent {
         this.hour_order = hour;
         this.productList = productList;
 
+
         restaurants = getAllRestaurants();
         priceForRestaurants = calculatePriceForRestaurants();
+        calculateTotalPrice();
     }
 
     public Map<Restaurant, Double> getPriceForRestaurants() {
@@ -38,6 +40,7 @@ public class MultipleOrder extends OrderComponent {
                 total += priceForRestaurants.get(key);
         }
 
+        this.totalPrice = total;
         return total;
     }
 
