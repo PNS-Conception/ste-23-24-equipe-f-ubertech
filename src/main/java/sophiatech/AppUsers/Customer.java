@@ -109,17 +109,26 @@ public class Customer {
     }
 
 
+
     public void payForOrder() {
-        this.payForOrder(this.favouriteLocation,null);
+        this.payForOrder(this.favouriteLocation, 1, null);
     }
 
     public void payForOrder(Customer recipientUser) {
-        this.payForOrder(this.favouriteLocation,recipientUser);
+        this.payForOrder(this.favouriteLocation, 1, recipientUser);
     }
 
     public void payForOrder(String location, Customer recipientUser) {
         this.payForOrder(location, 1, recipientUser);
     }
+
+    public void payForOrder(String location) {
+        this.payForOrder(location, 1, null);
+    }
+
+  /*
+  * by default, for any other type of order than AfterWork, the number of persons is 1 (the customer)
+  * */
     public Order payForOrder(String location, int nbpersons, Customer recipientUser) {
         /*double total = 0;
         for (Product p : pendingOrder) {
@@ -146,6 +155,7 @@ public class Customer {
                 java.lang.System.out.println("Discount applied: "+total);
             }
         }*/
+
         GroupOrder generateListOrder = generateOrder(pendingOrder, location, nbpersons, recipientUser);
         //RE AJUST THE PRICE OF THE ORDERS
         for(OrderComponent indexOrder : generateListOrder.orders){
@@ -246,7 +256,6 @@ public class Customer {
         } else {
             generateListOrder.changeStatus(Status.CANCELED);
         }
-        return null;
     }
 
     private double generateAllPrice(ArrayList<OrderComponent> list){
