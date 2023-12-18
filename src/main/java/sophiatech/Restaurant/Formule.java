@@ -3,18 +3,31 @@ package sophiatech.Restaurant;
 import java.text.Normalizer;
 import java.util.List;
 
-public class Formule extends Product{
+public class Formule {
+    Restaurant restaurant;
+    String name;
+    double price;
     private List<Product> products;
     private int maxCapacity;
 
 
     public Formule(Restaurant restaurant, String name, double price, List<Product> products, int maxCapacity) {
-        super(restaurant, name, price);
+        this.name = name;
+        this.restaurant = restaurant;
+        this.price = price;
         this.products = products;
         this.maxCapacity = maxCapacity;
     }
     public Formule(List<Product> products) {
-        super(products.get(0).getRestaurant(), products.get(0).getName(), products.get(0).getPrice());
+        this.restaurant = products.get(0).getRestaurant();
+        this.name = "";
+        this.price = 0.0;
+
+        for (Product p : products) {
+            this.name = this.name + p.getName();
+            this.price = this.price + p.getPrice();
+        }
+
         this.products = products;
         this.maxCapacity = products.size();
     }
@@ -33,5 +46,13 @@ public class Formule extends Product{
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public String getName () {
+        return this.name;
+    }
+
+    public double getPrice () {
+        return this.price;
     }
 }

@@ -33,8 +33,9 @@ public class BuffetOrder extends OrderComponent {
         this.validationByCustomer = false;
         this.isAlreadyUsedForDiscount = false;
         this.productList = new ArrayList<>();
-        this.totalPrice = calculateTotalPrice();
         fillProductList();
+        this.totalPrice = calculateTotalPrice();
+        this.restaurant = productList.get(0).getRestaurant();
     }
 
 

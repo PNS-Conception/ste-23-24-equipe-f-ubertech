@@ -93,6 +93,7 @@ public class Customer {
     }
 
     public void addFormuleToPendingOrder(Formule f) {
+
         this.pendingOrder.addAll(f.getProducts());
     }
 
@@ -148,6 +149,7 @@ public class Customer {
         GroupOrder generateListOrder = generateOrder(pendingOrder, location, nbpersons, recipientUser);
         //RE AJUST THE PRICE OF THE ORDERS
         for(OrderComponent indexOrder : generateListOrder.orders){
+            java.lang.System.out.println(indexOrder);
             switch (this.userType) {
                 case STUDENT:
                     indexOrder.setPrice(indexOrder.getTotalPrice()*0.95);
@@ -160,11 +162,20 @@ public class Customer {
                     break;
             }
 
+            java.lang.System.out.println("0");
+
+            for (Restaurant r : indexOrder.getRestaurants()) {
+                java.lang.System.out.println(r);
+            }
+
             if (indexOrder.getRestaurants().size() == 1) {  // if is a simple order, do as before
+                java.lang.System.out.println("0.5");
                 if (indexOrder.getRestaurant().getCustomerDiscountV1(this) != 0) {
+                    java.lang.System.out.println("1");
                     indexOrder.setPrice(indexOrder.getTotalPrice() - indexOrder.getTotalPrice() * indexOrder.getRestaurant().getCustomerDiscountV1(this));
                 }
             } else {    //else : get the total price for each restaurant and subtract it with the potential discount
+                java.lang.System.out.println("2");
                 MultipleOrder mo = (MultipleOrder) indexOrder;
                 Map<Restaurant, Double> priceForRestaurants = mo.getPriceForRestaurants();
 
@@ -180,6 +191,7 @@ public class Customer {
             }
 
 
+            java.lang.System.out.println("4");
             for (Discount d : discounts) {
                 if (d.getExpirationDate().isBefore(LocalDate.now().plusDays(1))){
                     discounts.remove(d);
@@ -197,7 +209,7 @@ public class Customer {
         total = total - total * discountV1;*/
 
         if ((this.system.getPaymentService().pay(generateAllPrice(generateListOrder.orders)))) { //if payment is successfull
-
+            java.lang.System.out.println("5");
             //ArrayList<Order> generateListOrder = generateOrder(pendingOrder);
 
             //Order order = new Order(this, location, LocalTime.now(), pendingOrder);
@@ -212,6 +224,7 @@ public class Customer {
                 restaurants.addAll(o.getRestaurants());
             }
             for (Restaurant r : restaurants) {
+                java.lang.System.out.println("6");
                 checkEligibleToDiscount(r);
                 r.addOrder(generateListOrder);
             }

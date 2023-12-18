@@ -28,6 +28,7 @@ public class BuffetOrderTests {
     private Customer recipientUser;
     private int numberOfPeople;
     private BuffetOrder bo;
+    private GroupOrder go;
     private Restaurant restaurant;
     private Formule formule;
 
@@ -57,12 +58,10 @@ public class BuffetOrderTests {
         productList.add(new Product(restaurant, "p4", 18));
         productList.add(new Product(restaurant, "p5", 17));
         formule= new Formule(restaurant, "f1", 50, productList, 5);
-        bo = (BuffetOrder) OrderFactory.createOrder(universityStaff, recipientUser, "location", LocalTime.of(12, 30), productList, 5);
 
 
       //  bo = new BuffetOrder(universityStaff, recipientUser, 5, null, null, formule);
-        bo.getRestaurant();
-        bo.setRestaurant(restaurant);
+
 
         universityStaff.addFormuleToPendingOrder(formule);
 
@@ -70,10 +69,13 @@ public class BuffetOrderTests {
 
     @When("they pay for the new order")
     public void they_pay_for_the_new_order() {
-       universityStaff.payForOrder(recipientUser);
-      // universityStaff.addBuffetOrder(bo);
 
-       deliveryPerson = new DeliveryPerson("Jean", "Dujardin");
+        universityStaff.payForOrder("rue des patates", 2, recipientUser);
+        go = universityStaff.getActiveOrder();
+        bo = (BuffetOrder) universityStaff.getActiveOrder().orders.get(0);
+        // universityStaff.addBuffetOrder(bo);
+
+        deliveryPerson = new DeliveryPerson("Jean", "Dujardin");
     //   deliveryPerson.assignOrder(bo);
 
     }
@@ -85,8 +87,8 @@ public class BuffetOrderTests {
 
     @Then("the restaurants have received the order")
     public void the_restaurants_have_received_the_order() {
-        //assertTrue(restaurant.getActiveOrders().contains(bo));
-        assertTrue(restaurant.getOrderHistory().contains(bo));
+        assertTrue(restaurant.getActiveOrders().contains(go));
+        assertTrue(restaurant.getOrderHistory().contains(go));
     }
 
     @Then("The maximum number of attendees for the event is equal to the capacity of the formula")
