@@ -1,12 +1,10 @@
 package sophiatech.Order;
 
 import sophiatech.AppUsers.Customer;
-import sophiatech.AppUsers.User;
 import sophiatech.Restaurant.Formule;
 import sophiatech.Restaurant.Product;
 import sophiatech.Restaurant.Restaurant;
 
-import javax.swing.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
