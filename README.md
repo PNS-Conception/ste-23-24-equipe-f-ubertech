@@ -16,7 +16,7 @@ Ce rapport est le premier rendu du cours de Conception Logiciel dans lequel nous
 https://docs.google.com/document/d/1D0iN9_z_zfN1CFQoi0CdzapFW7r7f5JIiacwII47E-M/edit?usp=sharing
 
 ### Rapport final : 
-Ce rapport à été réalisé à la fin du projet de Conception Logiciel. Il contient différentes informations qui permettent de mieux comprendre le projet en profondeur, nos différents choix (Patterns etc....) ainsi que notre Auto-Evaluation : 
+Ce rapport à été réalisé à la fin du projet de Conception Logiciel. Il contient différentes informations qui permettent de mieux comprendre le projet en profondeur, nos différents choix (Patterns etc....) ainsi que notre Auto-Evaluation.
 
 
 
